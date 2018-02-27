@@ -26,3 +26,6 @@ Still have some manual steps to do:
 # Use of
 - jOOQ
 - Spring boot
+
+# Links
+[jHipster JDL](http://www.jhipster.tech/jdl/)
