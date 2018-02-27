@@ -8,10 +8,20 @@ Tool to translate SQL databases to JDL format of jHipster (Created due to existi
   - already working UML design with MySQL Workbench
 
 # How to use
-Propertie file contains:
+Set properties file:
 - Schema name to export
 - Tables names to be ignored
 - Path of export file
+
+# After JDL file is generated
+Still have some manual steps to do:
+- review relations:
+  - ManyToMany
+  - Owner side display field
+  - Inverse side field name and display field
+  - Bidirectional or not
+- add values to enums
+- review validations of entities
 
 # Use of
 - jOOQ
