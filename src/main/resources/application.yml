@@ -1,0 +1,24 @@
+spring:
+    datasource:
+            type: com.zaxxer.hikari.HikariDataSource
+            url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password:
+            hikari:
+                data-source-properties:
+                    cachePrepStmts: true
+                    prepStmtCacheSize: 250
+                    prepStmtCacheSqlLimit: 2048
+                    useServerPrepStmts: true
+    jooq:
+        sql-dialect: mysql
+
+
+application:
+    table-to-export: my_schema
+    ignored-table-names:
+        - databasechangelog
+        - databasechangeloglock
+    export:
+        path: ./my-project-jdl.jh
+        type: jdl
