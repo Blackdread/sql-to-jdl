@@ -27,5 +27,10 @@ Still have some manual steps to do:
 - jOOQ
 - Spring boot
 
+# Default specific rules
+Table is treated as enum if only 2 columns and both are: "id" AND ("code" OR "name")
+
+Table is treated as ManyToMany if only 2 columns and both are foreign keys
+
 # Links
 [jHipster JDL](http://www.jhipster.tech/jdl/)
