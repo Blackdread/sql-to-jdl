@@ -10,6 +10,8 @@ Tool to translate SQL databases to JDL format of jHipster (Created due to existi
   - already working UML design with MySQL Workbench
 
 # How to use
+Run "mvn compile" at least once to let jOOQ generate some required tables (see [Issue solved](https://github.com/Blackdread/sql-to-jdl/issues/2)).
+
 Set properties file:
 - Schema name to export
 - Tables names to be ignored
