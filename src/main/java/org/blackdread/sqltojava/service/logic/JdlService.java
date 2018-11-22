@@ -42,7 +42,8 @@ public class JdlService {
     }
 
     public List<JdlEntity> buildEntities() {
-        return SqlUtils.groupColumnsByTable(sqlService.buildColumns()).entrySet().stream()
+        final List<SqlColumn> sqlColumns = sqlService.buildColumns();
+        return SqlUtils.groupColumnsByTable(sqlColumns).entrySet().stream()
             .map(this::buildEntity)
             .sorted()
             .collect(Collectors.toList());

@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.BUILD-SNAPSHOT</version>
+        <version>2.1.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <guava.version>24.0-jre</guava.version>
+        <guava.version>27.0-jre</guava.version>
 
         <skip.jooq.generation>false</skip.jooq.generation>
         <database.url>jdbc:mysql://localhost:3306/</database.url>
@@ -69,6 +69,22 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen-maven</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
 
         <dependency>
@@ -157,15 +173,15 @@
                 </executions>
                 <configuration>
                     <jdbc>
-                        <driver>com.mysql.jdbc.Driver</driver>
+                        <driver>com.mysql.cj.jdbc.Driver</driver>
                         <url>${database.url}</url>
                         <user>root</user>
                         <password></password>
                     </jdbc>
                     <generator>
-                        <name>org.jooq.util.DefaultGenerator</name>
+                        <name>org.jooq.codegen.JavaGenerator</name>
                         <database>
-                            <name>org.jooq.util.mysql.MySQLDatabase</name>
+                            <name>org.jooq.meta.mysql.MySQLDatabase</name>
                             <includes>.*</includes>
                             <excludes></excludes>
                             <!--<inputSchema></inputSchema>--> <!-- This will generate all schema of db, better to only generate the one interested in -->
