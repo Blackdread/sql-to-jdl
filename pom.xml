@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <guava.version>27.0-jre</guava.version>
+        <guava.version>27.1-jre</guava.version>
 
         <skip.jooq.generation>false</skip.jooq.generation>
         <database.url>jdbc:mysql://localhost:3306/</database.url>
