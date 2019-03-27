@@ -15,7 +15,7 @@ spring:
 
 
 application:
-    table-to-export: my_schema
+    database-to-export: my_database_name
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
