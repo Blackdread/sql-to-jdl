@@ -25,7 +25,9 @@
         <guava.version>28.0-jre</guava.version>
 
         <skip.jooq.generation>false</skip.jooq.generation>
-        <database.url>jdbc:mysql://localhost:3306/</database.url>
+        <database.url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</database.url>
+        <database.user>root</database.user>
+        <database.password></database.password>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
@@ -159,8 +161,8 @@
                     <jdbc>
                         <driver>com.mysql.cj.jdbc.Driver</driver>
                         <url>${database.url}</url>
-                        <user>root</user>
-                        <password></password>
+                        <user>${database.user}</user>
+                        <password>${database.password}</password>
                     </jdbc>
                     <generator>
                         <name>org.jooq.codegen.JavaGenerator</name>

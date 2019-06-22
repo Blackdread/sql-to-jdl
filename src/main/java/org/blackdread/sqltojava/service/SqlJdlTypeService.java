@@ -39,7 +39,8 @@ public class SqlJdlTypeService {
             jdlLong().stream(),
             jdlZonedDateTime().stream(),
             jdlTextBlob().stream(),
-            jdlTime().stream()
+            jdlTime().stream(),
+            jdlGeometry().stream()
         ).collect(Collectors.toList());
 
         final HashSet<String> setTotal = new HashSet<>(total);
@@ -105,6 +106,10 @@ public class SqlJdlTypeService {
             return JdlFieldEnum.BIG_DECIMAL;
         }
 
+        if (isTypeContained(jdlGeometry(), type)) {
+            return JdlFieldEnum.GEOMETRY_AS_TEXT;
+        }
+
         throw new IllegalStateException("Unknown type: " + type);
     }
 
@@ -117,11 +122,11 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlString() {
-        return Lists.newArrayList("varchar", "char", "text");
+        return Lists.newArrayList("varchar", "char", "text", "tinytext");
     }
 
     protected List<String> jdlTextBlob() {
-        return Lists.newArrayList("longtext");
+        return Lists.newArrayList("longtext", "mediumtext");
     }
 
     protected List<String> jdlInteger() {
@@ -162,6 +167,17 @@ public class SqlJdlTypeService {
 
     protected List<String> jdlZonedDateTime() {
         return Collections.emptyList();
+    }
+
+    /**
+     * Not support by base jhipster but to export database which has this type.
+     * See:
+     * https://blog.ippon.fr/2017/12/04/la-technologie-spatiale-au-service-de-jhipster/
+     * https://github.com/chegola/jhipster-spatial
+     * https://stackoverflow.com/questions/50122390/integration-of-postgis-with-jhipster
+     **/
+    protected List<String> jdlGeometry() {
+        return Lists.newArrayList("geometry");
     }
 
 
