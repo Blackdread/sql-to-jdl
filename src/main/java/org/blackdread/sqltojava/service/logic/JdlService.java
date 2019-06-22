@@ -128,6 +128,11 @@ public class JdlService {
                 max = 8;
                 min = 8;
                 break;
+            case GEOMETRY_AS_TEXT:
+                jdlType = JdlFieldEnum.STRING;
+                max = null;
+                min = null;
+                break;
             default:
                 min = null;
                 max = null;

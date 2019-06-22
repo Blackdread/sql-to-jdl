@@ -1,7 +1,7 @@
 spring:
     datasource:
             type: com.zaxxer.hikari.HikariDataSource
-            url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false
+            url: jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
             username: root
             password:
             hikari:
@@ -19,6 +19,17 @@ application:
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
+        - QRTZ_BLOB_TRIGGERS
+        - QRTZ_CALENDARS
+        - QRTZ_CRON_TRIGGERS
+        - QRTZ_FIRED_TRIGGERS
+        - QRTZ_JOB_DETAILS
+        - QRTZ_LOCKS
+        - QRTZ_PAUSED_TRIGGER_GRPS
+        - QRTZ_SCHEDULER_STATE
+        - QRTZ_SIMPLE_TRIGGERS
+        - QRTZ_SIMPROP_TRIGGERS
+        - QRTZ_TRIGGERS
     export:
         path: ./my-project-jdl.jh
         type: jdl
