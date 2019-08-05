@@ -10,6 +10,11 @@ Tool to translate SQL databases to JDL format of jHipster (Created due to existi
   - already many databases in production to be exported in JDL (faster to generate the JDL from it)
   - already working UML design with MySQL Workbench
 
+# An alternative for REST filter and sort
+Different criterias, support for JPA and jOOQ dynamic filtering and sorting
+
+https://github.com/Blackdread/rest-filter
+
 # How to use
 Run "mvn compile" at least once to let jOOQ generate some required tables (see [Issue solved](https://github.com/Blackdread/sql-to-jdl/issues/2)).
 
