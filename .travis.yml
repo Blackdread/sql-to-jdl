@@ -3,7 +3,11 @@ language: java
 #jdk:
 #  - oraclejdk8
 
-services: 
+cache:
+    directories:
+        - $HOME/.m2
+
+services:
   - mysql
 
 before_install:
