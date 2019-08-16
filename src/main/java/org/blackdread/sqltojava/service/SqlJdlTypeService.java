@@ -74,6 +74,10 @@ public class SqlJdlTypeService {
             return JdlFieldEnum.STRING;
         }
 
+        if (isTypeContained(jdlBlob(), type)) {
+            return JdlFieldEnum.BLOB;
+        }
+
         if (isTypeContained(jdlTextBlob(), type)) {
             return JdlFieldEnum.TEXT_BLOB;
         }
@@ -127,6 +131,10 @@ public class SqlJdlTypeService {
 
     protected List<String> jdlTextBlob() {
         return Lists.newArrayList("longtext", "mediumtext");
+    }
+
+    protected List<String> jdlBlob() {
+        return Lists.newArrayList("tinyblob", "blob", "mediumblob", "longblob");
     }
 
     protected List<String> jdlInteger() {
