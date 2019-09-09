@@ -8,14 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
+      # See https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html    
       mysql:
         image: mysql:5.7
         ports:
           - 3306:3306
         env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
 #           MYSQL_USER: root
 #           MYSQL_PASSWORD: 
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
         
     steps:
     - uses: actions/checkout@v1
