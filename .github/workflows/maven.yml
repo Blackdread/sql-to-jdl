@@ -13,8 +13,8 @@ jobs:
         ports:
           - 3306/tcp
         env:
-          - MYSQL_USER: root
-          - MYSQL_PASSWORD: 
+          MYSQL_USER: root
+          MYSQL_PASSWORD: 
         
     steps:
     - uses: actions/checkout@v1
