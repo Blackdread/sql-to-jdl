@@ -16,6 +16,7 @@ jobs:
           - 3306/tcp
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: %
 #           MYSQL_USER: root
 #           MYSQL_PASSWORD: 
         
