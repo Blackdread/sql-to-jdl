@@ -18,9 +18,9 @@ jobs:
 #           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_HOST: '%'
-          MYSQL_ROOT_PASSWORD:
-#           MYSQL_USER: root
-#           MYSQL_PASSWORD: 
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root
         
     steps:
     - uses: actions/checkout@v1
