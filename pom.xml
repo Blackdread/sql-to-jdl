@@ -27,7 +27,7 @@
         <skip.jooq.generation>false</skip.jooq.generation>
         <database.url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</database.url>
         <database.user>root</database.user>
-        <database.password>root</database.password>
+        <database.password></database.password>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
