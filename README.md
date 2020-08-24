@@ -4,6 +4,12 @@
 # sql-to-jdl
 Tool to translate SQL databases to JDL format of jHipster (Created due to existing databases to be generated with jHipster and build angular-java web)
 
+
+# Compatibility
+This implementation works with mysql 5.7.
+
+Only few changes are required to make it work with mysql 8+, oracle db, POSTGRES, etc; Changes should be made on Repository used, probably remove jooq maven generation, use pure SQL with jdbc and have one repository implementation per database type supported then define the appropriate bean based on connection string or other.
+
 # Why not use tools like UML provided on jHipster?
 - JDL from web is ok for a few entities but not for more than 100 entities and relations
 - UML software and xml exporters could have worked (other tools on jHipster) but:
