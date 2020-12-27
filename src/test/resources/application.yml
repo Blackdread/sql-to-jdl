@@ -1,3 +1,7 @@
+logging:
+    level:
+        org.blackdread.sqltojava: DEBUG
+
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
@@ -14,13 +18,16 @@ spring:
                 useServerPrepStmts: true
     jooq:
         sql-dialect: mysql
+    flyway:
+        locations:
 
 
 application:
-    database-to-export: my_database_name
+    database-to-export: test #DB name is 'test' by default with test container
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
+        - flyway_schema_history
         - QRTZ_BLOB_TRIGGERS
         - QRTZ_CALENDARS
         - QRTZ_CRON_TRIGGERS
