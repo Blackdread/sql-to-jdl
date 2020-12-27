@@ -40,6 +40,7 @@ public class SqlJdlTypeService {
             jdlTextBlob().stream(),
             jdlBlob().stream(),
             jdlTime().stream(),
+            jdlJson().stream(),
             jdlGeometry().stream()
         ).collect(Collectors.toList());
 
@@ -114,11 +115,19 @@ public class SqlJdlTypeService {
             return JdlFieldEnum.GEOMETRY_AS_TEXT;
         }
 
+        if (isTypeContained(jdlJson(), type)) {
+            return JdlFieldEnum.JSON_AS_TEXT;
+        }
+
         throw new IllegalStateException("Unknown type: " + type);
     }
 
     private boolean isTypeContained(final List<String> list, final String type) {
         return list.stream().anyMatch(type::startsWith);
+    }
+
+    protected List<String> jdlJson() {
+        return Lists.newArrayList("json");
     }
 
     protected List<String> jdlTime() {

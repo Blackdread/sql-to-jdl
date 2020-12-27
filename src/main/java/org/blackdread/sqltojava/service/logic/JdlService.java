@@ -133,6 +133,11 @@ public class JdlService {
                 max = null;
                 min = null;
                 break;
+            case JSON_AS_TEXT:
+                jdlType = JdlFieldEnum.STRING;
+                max = null;
+                min = null;
+                break;
             default:
                 min = null;
                 max = null;

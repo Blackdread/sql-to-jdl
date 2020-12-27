@@ -30,7 +30,11 @@ public enum JdlFieldEnum {
     /**
      * Defined here to allow to have a pattern set for GEOMETRY type of SQL that jdl does not support by default
      */
-    GEOMETRY_AS_TEXT;
+    GEOMETRY_AS_TEXT,
+    /**
+     * Defined here to allow to have a string without max length set for json type of SQL that jdl does not support by default
+     */
+    JSON_AS_TEXT;
 
     public String toCamelUpper() {
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, this.name());
