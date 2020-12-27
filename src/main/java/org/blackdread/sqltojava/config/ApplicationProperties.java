@@ -1,7 +1,7 @@
 package org.blackdread.sqltojava.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -11,34 +11,31 @@ import java.util.List;
  *
  * @author Yoann CAPLAIN
  */
-@Configuration
+@ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 
     /**
      * Database name to export to JDL
      */
-    private String databaseToExport;
+    private final String databaseToExport;
 
-    private List<String> ignoredTableNames;
+    private final List<String> ignoredTableNames;
 
-    private final Export export = new Export();
+    private final Export export;
 
+    public ApplicationProperties(final String databaseToExport, final List<String> ignoredTableNames, final Export export) {
+        this.databaseToExport = databaseToExport;
+        this.ignoredTableNames = ignoredTableNames;
+        this.export = export;
+    }
 
     public String getDatabaseToExport() {
         return databaseToExport;
     }
 
-    public void setDatabaseToExport(final String databaseToExport) {
-        this.databaseToExport = databaseToExport;
-    }
-
     public List<String> getIgnoredTableNames() {
         return ignoredTableNames;
-    }
-
-    public void setIgnoredTableNames(final List<String> ignoredTableNames) {
-        this.ignoredTableNames = ignoredTableNames;
     }
 
     public Export getExport() {
@@ -47,25 +44,23 @@ public class ApplicationProperties {
 
     public static class Export {
 
-        private Path path;
+        private final Path path;
 
-        private String type;
+        private final String type;
 
+        public Export(final Path path, final String type) {
+            this.path = path;
+            this.type = type;
+        }
 
         public Path getPath() {
             return path;
-        }
-
-        public void setPath(final Path path) {
-            this.path = path;
         }
 
         public String getType() {
             return type;
         }
 
-        public void setType(final String type) {
-            this.type = type;
-        }
     }
+
 }

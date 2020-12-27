@@ -3,6 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>org.blackdread</groupId>
     <artifactId>sql-to-java</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -11,23 +18,19 @@
     <name>sql-to-java</name>
     <description>Sql to JDL project</description>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <guava.version>29.0-jre</guava.version>
 
         <skip.jooq.generation>false</skip.jooq.generation>
         <database.url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</database.url>
         <database.user>root</database.user>
         <database.password></database.password>
+
+        <guava.version>29.0-jre</guava.version>
+
+        <testcontainers.version>1.15.1</testcontainers.version>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
@@ -114,13 +117,25 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

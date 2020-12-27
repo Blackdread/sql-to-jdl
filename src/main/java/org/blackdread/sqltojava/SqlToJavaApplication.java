@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.util.List;
 
+@EnableConfigurationProperties(ApplicationProperties.class)
 @SpringBootApplication
 public class SqlToJavaApplication implements CommandLineRunner {
 
@@ -52,4 +54,5 @@ public class SqlToJavaApplication implements CommandLineRunner {
 
         exportService.export(entities);
     }
+
 }

@@ -2,6 +2,7 @@
 # Project Specific
 ######################
 classes/artifacts
+/my-project-jdl.jh
 
 ######################
 # Eclipse
