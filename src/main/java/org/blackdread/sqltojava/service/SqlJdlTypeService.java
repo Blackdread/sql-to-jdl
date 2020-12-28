@@ -186,7 +186,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlEnum() {
-        return Lists.newArrayList("enum");
+        return Lists.newArrayList("enum", "set");
     }
 
     protected List<String> jdlBoolean() {

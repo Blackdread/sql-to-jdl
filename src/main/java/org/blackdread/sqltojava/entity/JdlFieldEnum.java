@@ -15,6 +15,12 @@ public enum JdlFieldEnum {
     FLOAT,
     DOUBLE,
     ENUM,
+    /**
+     * Used for native enums from DBs, values are defined in the DB so can be extracted.
+     *
+     * @deprecated not sure yet, this should be checked via extra methods and not a type
+     */
+    ENUM_NATIVE,
     BOOLEAN,
     LOCAL_DATE,
     ZONED_DATE_TIME,
