@@ -128,6 +128,12 @@ public class JdlService {
                 max = 8;
                 min = 8;
                 break;
+            case YEAR_AS_TEXT:
+                pattern = "^-?(\\d+)$";
+                jdlType = JdlFieldEnum.STRING;
+                max = null;
+                min = null;
+                break;
             case GEOMETRY_AS_TEXT:
                 jdlType = JdlFieldEnum.STRING;
                 max = null;

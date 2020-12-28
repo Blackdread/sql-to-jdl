@@ -28,6 +28,10 @@ public enum JdlFieldEnum {
      */
     TIME_AS_TEXT,
     /**
+     * Defined here to allow to have a pattern set for YEAR type of SQL that jdl does not support by default
+     */
+    YEAR_AS_TEXT,
+    /**
      * Defined here to allow to have a pattern set for GEOMETRY type of SQL that jdl does not support by default
      */
     GEOMETRY_AS_TEXT,

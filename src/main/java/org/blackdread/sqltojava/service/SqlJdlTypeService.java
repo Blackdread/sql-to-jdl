@@ -40,6 +40,7 @@ public class SqlJdlTypeService {
             jdlTextBlob().stream(),
             jdlBlob().stream(),
             jdlTime().stream(),
+            jdlYear().stream(),
             jdlJson().stream(),
             jdlGeometry().stream()
         ).collect(Collectors.toList());
@@ -69,6 +70,10 @@ public class SqlJdlTypeService {
 
         if (isTypeContained(jdlTime(), type)) {
             return JdlFieldEnum.TIME_AS_TEXT;
+        }
+
+        if (isTypeContained(jdlYear(), type)) {
+            return JdlFieldEnum.YEAR_AS_TEXT;
         }
 
         if (isTypeContained(jdlString(), type)) {
@@ -126,12 +131,26 @@ public class SqlJdlTypeService {
         return list.stream().anyMatch(type::startsWith);
     }
 
+
+    /**
+     * Not support by base jhipster but to export database which has this type.
+     */
     protected List<String> jdlJson() {
         return Lists.newArrayList("json");
     }
 
+    /**
+     * Not support by base jhipster but to export database which has this type.
+     */
     protected List<String> jdlTime() {
         return Lists.newArrayList("time");
+    }
+
+    /**
+     * Not support by base jhipster but to export database which has this type.
+     */
+    protected List<String> jdlYear() {
+        return Lists.newArrayList("year");
     }
 
     protected List<String> jdlString() {
@@ -147,7 +166,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlInteger() {
-        return Lists.newArrayList("smallint", "int");
+        return Lists.newArrayList("smallint", "mediumint", "int");
     }
 
     protected List<String> jdlLong() {
