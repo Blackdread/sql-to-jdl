@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `all_type`
     `my_set`             set ('set_one','set_two','set_three')        NOT NULL,
     `my_bit`             bit(1)                                       NOT NULL,
     `my_bool`            tinyint(1)                                   NOT NULL,
-    `my_binary`          binary(200)                                  NOT NULL,
-    `my_varbinary`       varbinary(800)                               NOT NULL,
+#     `my_binary`          binary(200)                                  NOT NULL, TODO support later if needed
+#     `my_varbinary`       varbinary(800)                               NOT NULL, TODO support later if needed
     `my_json`            json                                         NOT NULL,
     `my_geometry`        geometry                                     NOT NULL,
     `my_tinyblob`        tinyblob                                     NOT NULL,
