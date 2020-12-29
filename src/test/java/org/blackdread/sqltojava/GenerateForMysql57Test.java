@@ -11,6 +11,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -38,8 +42,13 @@ public class GenerateForMysql57Test {
     }
 
     @Test
-    void containerRunning() {
+    void containerRunning() throws URISyntaxException, IOException {
         assertTrue(MY_SQL_CONTAINER.isRunning());
+
+        final List<String> allLines = FileUtil.readAllLines("/result/mysql57-expected.jdl");
+
+        log.info("lines: {}", allLines);
+
     }
 
 }
