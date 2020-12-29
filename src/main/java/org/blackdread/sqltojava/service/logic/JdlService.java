@@ -43,6 +43,7 @@ public class JdlService {
 
     public List<JdlEntity> buildEntities() {
         final List<SqlColumn> sqlColumns = sqlService.buildColumns();
+        // todo build entities for columns of native enums so we can later export to JDL the native enum and its values
         return SqlUtils.groupColumnsByTable(sqlColumns).entrySet().stream()
             .map(this::buildEntity)
             .sorted()
@@ -87,6 +88,7 @@ public class JdlService {
         JdlFieldEnum jdlType;
         final String enumEntityName;
         final String comment;
+        final boolean isNativeEnum = column.isNativeEnum();
         String pattern = null;
 
         if (sqlService.isEnumTable(column.getTable().getName()))
@@ -107,9 +109,16 @@ public class JdlService {
                 .map(comment1 -> tableOfForeignKey.getComment().map(c -> comment1 + ". " + c).orElse(comment1))
                 .orElse(tableOfForeignKey.getComment().orElse(null));
         } else {
-            jdlType = sqlJdlTypeService.sqlTypeToJdlType(column.getType());
-            name = SqlUtils.changeToCamelCase(column.getName());
-            enumEntityName = null;
+            if (isNativeEnum) {
+                jdlType = JdlFieldEnum.ENUM;
+                name = SqlUtils.changeToCamelCase(column.getName());
+                // todo name of enumEntityName is not great but never mind
+                enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName())));
+            } else {
+                jdlType = sqlJdlTypeService.sqlTypeToJdlType(column.getType());
+                name = SqlUtils.changeToCamelCase(column.getName());
+                enumEntityName = null;
+            }
             comment = column.getComment().orElse(null);
         }
 
@@ -159,7 +168,8 @@ public class JdlService {
             min,
             max,
             pattern,
-            enumEntityName
+            enumEntityName,
+            isNativeEnum
         ));
     }
 

@@ -15,12 +15,6 @@ public enum JdlFieldEnum {
     FLOAT,
     DOUBLE,
     ENUM,
-    /**
-     * Used for native enums from DBs, values are defined in the DB so can be extracted.
-     *
-     * @deprecated not sure yet, this should be checked via extra methods and not a type
-     */
-    ENUM_NATIVE,
     BOOLEAN,
     LOCAL_DATE,
     ZONED_DATE_TIME,
@@ -29,6 +23,14 @@ public enum JdlFieldEnum {
     ANY_BLOB,
     IMAGE_BLOB,
     TEXT_BLOB,
+
+    /**
+     * Used for native enums from DBs, values are defined in the DB so can be extracted.
+     *
+     * @deprecated not sure yet, this should be checked via extra methods and not a type
+     */
+    ENUM_NATIVE,
+
     /**
      * Defined here to allow to have a pattern set for TIME type of SQL that jdl does not support by default
      */

@@ -1,7 +1,5 @@
 package org.blackdread.sqltojava.entity.impl;
 
-import org.blackdread.sqltojava.entity.SqlColumn;
-import org.blackdread.sqltojava.entity.SqlTable;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.entity.SqlTable;
@@ -31,11 +29,24 @@ public class SqlColumnImpl implements SqlColumn {
 
     private final boolean isUnique;
 
+    private final boolean isNativeEnum;
+
     private final String defaultValue;
 
     private final String comment;
 
-    public SqlColumnImpl(final SqlTable table, final String name, final String type, final boolean isPrimaryKey, final boolean isForeignKey, final boolean isNullable, final boolean isUnique, @Nullable final String defaultValue, final String comment) {
+    public SqlColumnImpl(
+        final SqlTable table,
+        final String name,
+        final String type,
+        final boolean isPrimaryKey,
+        final boolean isForeignKey,
+        final boolean isNullable,
+        final boolean isUnique,
+        final boolean isNativeEnum,
+        @Nullable final String defaultValue,
+        final String comment
+    ) {
         this.table = table;
         this.name = name;
         this.type = type;
@@ -43,6 +54,7 @@ public class SqlColumnImpl implements SqlColumn {
         this.isForeignKey = isForeignKey;
         this.isNullable = isNullable;
         this.isUnique = isUnique;
+        this.isNativeEnum = isNativeEnum;
         this.defaultValue = (StringUtils.isBlank(defaultValue) || "null".equalsIgnoreCase(comment)) ? null : defaultValue;
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
     }
@@ -83,6 +95,11 @@ public class SqlColumnImpl implements SqlColumn {
     }
 
     @Override
+    public boolean isNativeEnum() {
+        return isNativeEnum;
+    }
+
+    @Override
     public Optional<String> getDefaultValue() {
         return Optional.ofNullable(defaultValue);
     }
@@ -117,6 +134,7 @@ public class SqlColumnImpl implements SqlColumn {
             ", isForeignKey=" + isForeignKey +
             ", isNullable=" + isNullable +
             ", isUnique=" + isUnique +
+            ", isNativeEnum=" + isNativeEnum +
             ", defaultValue='" + defaultValue + '\'' +
             ", comment='" + comment + '\'' +
             '}';

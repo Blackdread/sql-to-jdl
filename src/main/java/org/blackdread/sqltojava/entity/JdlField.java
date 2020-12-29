@@ -17,6 +17,14 @@ public interface JdlField {
      */
     Optional<String> getEnumEntityName();
 
+    /**
+     * Some DB support native enum (no use of extra table as an enum).
+     * If is true then {@link #getEnumEntityName()} is not empty.
+     *
+     * @return true if field was created from a native enum column
+     */
+    boolean isNativeEnum();
+
     boolean isRequired();
 
     Optional<String> getComment();

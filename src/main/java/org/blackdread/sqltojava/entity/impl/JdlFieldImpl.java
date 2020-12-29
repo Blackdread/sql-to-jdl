@@ -1,7 +1,5 @@
 package org.blackdread.sqltojava.entity.impl;
 
-import org.blackdread.sqltojava.entity.JdlField;
-import org.blackdread.sqltojava.entity.JdlFieldEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
@@ -28,28 +26,9 @@ public class JdlFieldImpl implements JdlField {
     private final Integer min;
     private final Integer max;
     private final String pattern;
+    private final boolean isNativeEnum;
 
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired) {
-        this(type, name, isRequired, null, null, null, null, null);
-    }
-
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment) {
-        this(type, name, isRequired, comment, null, null, null, null);
-    }
-
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min) {
-        this(type, name, isRequired, comment, min, null, null, null);
-    }
-
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max) {
-        this(type, name, isRequired, comment, min, max, null, null);
-    }
-
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern) {
-        this(type, name, isRequired, comment, min, max, pattern, null);
-    }
-
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern, @Nullable final String enumEntityName) {
+    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern, @Nullable final String enumEntityName, final boolean isNativeEnum) {
         this.type = type;
         this.name = name;
         this.isRequired = isRequired;
@@ -58,6 +37,7 @@ public class JdlFieldImpl implements JdlField {
         this.max = max;
         this.pattern = pattern;
         this.enumEntityName = enumEntityName;
+        this.isNativeEnum = isNativeEnum;
     }
 
     @Override
@@ -101,15 +81,22 @@ public class JdlFieldImpl implements JdlField {
     }
 
     @Override
+    public boolean isNativeEnum() {
+        return isNativeEnum;
+    }
+
+    @Override
     public String toString() {
         return "JdlFieldImpl{" +
             "type=" + type +
             ", name='" + name + '\'' +
+            ", enumEntityName='" + enumEntityName + '\'' +
             ", isRequired=" + isRequired +
             ", comment='" + comment + '\'' +
             ", min=" + min +
             ", max=" + max +
             ", pattern='" + pattern + '\'' +
+            ", isNativeEnum=" + isNativeEnum +
             '}';
     }
 }

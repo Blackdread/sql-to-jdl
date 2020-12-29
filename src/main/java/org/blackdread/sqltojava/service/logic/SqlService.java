@@ -61,18 +61,28 @@ public class SqlService {
         return buildTables().stream()
             .map(table -> Maps.immutableEntry(table, informationSchemaService.getFullColumnInformationOfTable(table.getName())))
             .map(entry -> entry.getValue().stream()
-                .map(columnInformation ->
-                    new SqlColumnImpl(entry.getKey(),
-                        columnInformation.getName(),
-                        columnInformation.getType(),
-                        columnInformation.isPrimary(),
-                        isForeignKey(entry.getKey().getName(), columnInformation.getName()),
-                        columnInformation.isNullable(),
-                        columnInformation.isUnique(),
-                        columnInformation.getDefaultValue().orElse(null),
-                        columnInformation.getComment())
+                .map(columnInformation -> {
+                        final String columnType = columnInformation.getType();
+
+                        // hard coded for now, we can later extract in some service, etc.
+                        final boolean isNativeEnum = columnType.startsWith("enum") || columnType.startsWith("set");
+
+                        return new SqlColumnImpl(
+                            entry.getKey(),
+                            columnInformation.getName(),
+                            columnType,
+                            columnInformation.isPrimary(),
+                            isForeignKey(entry.getKey().getName(), columnInformation.getName()),
+                            columnInformation.isNullable(),
+                            columnInformation.isUnique(),
+                            isNativeEnum,
+                            columnInformation.getDefaultValue().orElse(null),
+                            columnInformation.getComment()
+                        );
+                    }
                 )
-                .collect(Collectors.toList()))
+                .collect(Collectors.toList())
+            )
             .flatMap(Collection::stream)
             .collect(Collectors.toList());
     }

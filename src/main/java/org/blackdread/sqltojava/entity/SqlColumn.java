@@ -29,6 +29,13 @@ public interface SqlColumn {
 
     boolean isUnique();
 
+    /**
+     * Some DB support native enum (no use of extra table as an enum)
+     *
+     * @return true if column is a native enum
+     */
+    boolean isNativeEnum();
+
     Optional<String> getDefaultValue();
 
     Optional<String> getComment();
