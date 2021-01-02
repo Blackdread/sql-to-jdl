@@ -1,9 +1,6 @@
 package org.blackdread.sqltojava.repository;
 
-import org.blackdread.sqltojava.pojo.ColumnInformation;
-import org.blackdread.sqltojava.pojo.TableInformation;
-import org.blackdread.sqltojava.pojo.TableRelationInformation;
-import org.blackdread.sqltojava.jooq.InformationSchema;
+import org.blackdread.sqltojava.jooq.generated.InformationSchema;
 import org.blackdread.sqltojava.pojo.ColumnInformation;
 import org.blackdread.sqltojava.pojo.TableInformation;
 import org.blackdread.sqltojava.pojo.TableRelationInformation;
@@ -16,8 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static org.blackdread.sqltojava.jooq.InformationSchema.INFORMATION_SCHEMA;
-import static org.blackdread.sqltojava.jooq.tables.KeyColumnUsage.KEY_COLUMN_USAGE;
+import static org.blackdread.sqltojava.jooq.generated.tables.KeyColumnUsage.KEY_COLUMN_USAGE;
 
 /**
  * <p>Created on 2018/2/8.</p>
