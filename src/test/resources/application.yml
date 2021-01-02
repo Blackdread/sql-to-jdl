@@ -1,5 +1,6 @@
 logging:
     level:
+        org.jooq: DEBUG
         org.blackdread.sqltojava: DEBUG
 
 spring:
