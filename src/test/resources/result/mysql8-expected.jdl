@@ -1,0 +1,154 @@
+/** my table comment */
+entity AllType {
+	myId String required maxlength(25),
+	myInt Integer required,
+	myIntNull Integer,
+	myVarchar50 String required maxlength(50),
+	myVarchar50Null String maxlength(50),
+	/** super varchar 512 */
+	myVarchar512 String required maxlength(512),
+	myTinytext String required maxlength(255),
+	myMediumtext TextBlob required,
+	myLongtext TextBlob required,
+	myText String required maxlength(255),
+	myChar String required maxlength(5),
+	myDate LocalDate required,
+	myDatetime Instant required,
+	myTimestamp Instant required,
+	myTime String required minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	myYear String required pattern(/^-?(\d+)$/),
+	myBigint Long required,
+	myTinyint Boolean required,
+	/** small int comment */
+	mySmallint Integer required,
+	myMediumint Integer required,
+	myDecimal BigDecimal required,
+	myFloat Float required,
+	myDouble Double required,
+	myEnumSql MyEnumSql required,
+	mySet MySet required,
+	myBit Boolean required,
+	myBool Boolean required,
+	myJson String required,
+	myGeometry String required,
+	myTinyblob Blob required,
+	myMediumblob Blob required,
+	/** blob comment */
+	myBlob Blob required,
+	myLongblob Blob required,
+	myTinyint8 Boolean required
+}
+
+entity Child {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+entity City {
+	id String required maxlength(25),
+	name String maxlength(45),
+	/** native enum comment */
+	cityType CityType,
+	/** city_status comment */
+	cityStatus CityStatus required
+}
+
+/** city_status comment */
+enum CityStatus {
+}
+
+/** many_to_one_child comment */
+entity ManyToOneChild {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+/** many_to_one_main comment */
+entity ManyToOneMain {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+entity OneToOneChild {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+entity OneToOneChildMap {
+	name String required maxlength(45)
+}
+
+/** one_to_one_main comment */
+entity OneToOneMain {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+/** one_to_one_main_map comment */
+entity OneToOneMainMap {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+entity OrderDetails {
+	orderNumber String required maxlength(255),
+	productCode String required maxlength(50),
+	quantityOrdered Integer required,
+	priceEach BigDecimal required
+}
+
+entity Parent {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+/** VIEW */
+entity SalePerOrder {
+	orderNumber String required maxlength(255),
+	total BigDecimal
+}
+
+
+
+// Relations
+// many_to_one_main comment
+relationship ManyToOne {
+	ManyToOneMain{manyToOneChild required} to ManyToOneChild{manyToOneMain}
+}
+
+relationship ManyToOne {
+	OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
+}
+
+// one_to_one_main comment
+relationship OneToOne {
+	OneToOneMain{oneToOneChild required} to OneToOneChild{oneToOneMain}
+}
+
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
+relationship ManyToMany {
+	ParentHasChild{parent required} to Parent{parentHasChild}
+}
+
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
+relationship ManyToMany {
+	ParentHasChild{child required} to Child{parentHasChild}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

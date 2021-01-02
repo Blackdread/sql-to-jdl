@@ -11,6 +11,10 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -35,11 +39,19 @@ public class GenerateForMysql8Test {
         registry.add("spring.datasource.username", MY_SQL_CONTAINER::getUsername);
 
         registry.add("spring.flyway.locations", () -> "classpath:db/mysql8");
+
+        registry.add("application.export.path", () -> "./mysql8.jdl");
     }
 
     @Test
-    void containerRunning() {
+    void containerRunning() throws IOException, URISyntaxException {
         assertTrue(MY_SQL_CONTAINER.isRunning());
+
+        final List<String> expected = FileUtil.readAllLinesClasspath("/result/mysql8-expected.jdl");
+
+        final List<String> actual = FileUtil.readAllLines("./mysql8.jdl");
+
+        AssertUtil.assertFileSame(expected, actual);
     }
 
 }

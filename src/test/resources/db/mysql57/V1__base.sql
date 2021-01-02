@@ -21,20 +21,20 @@ CREATE TABLE IF NOT EXISTS `all_type`
     `my_smallint`        smallint(6)                                  NOT NULL COMMENT 'small int comment',
     `my_mediumint`       mediumint(9)                                 NOT NULL,
     `my_decimal`         decimal(19, 5)                               NOT NULL,
-    `my_float`      float                                        NOT NULL,
-    `my_double`     double                                       NOT NULL,
-    `my_enum_sql`   enum ('value_one','value_two','value_three') NOT NULL,
-    `my_set`        set ('set_one','set_two','set_three')        NOT NULL,
-    `my_bit`        bit(1)                                       NOT NULL,
-    `my_bool`       tinyint(1)                                   NOT NULL,
+    `my_float`           float                                        NOT NULL,
+    `my_double`          double                                       NOT NULL,
+    `my_enum_sql`        enum ('value_one','value_two','value_three') NOT NULL,
+    `my_set`             set ('set_one','set_two','set_three')        NOT NULL,
+    `my_bit`             bit(1)                                       NOT NULL,
+    `my_bool`            tinyint(1)                                   NOT NULL,
 #     `my_binary`          binary(200)                                  NOT NULL, TODO support later if needed
 #     `my_varbinary`       varbinary(800)                               NOT NULL, TODO support later if needed
-    `my_geometry`   geometry                                     NOT NULL,
-    `my_tinyblob`   tinyblob                                     NOT NULL,
-    `my_mediumblob` mediumblob                                   NOT NULL,
-    `my_blob`       blob                                         NOT NULL COMMENT 'blob comment',
-    `my_longblob`   longblob                                     NOT NULL,
-    `my_tinyint_8`  tinyint(8)                                   NOT NULL,
+    `my_geometry`        geometry                                     NOT NULL,
+    `my_tinyblob`        tinyblob                                     NOT NULL,
+    `my_mediumblob`      mediumblob                                   NOT NULL,
+    `my_blob`            blob                                         NOT NULL COMMENT 'blob comment',
+    `my_longblob`        longblob                                     NOT NULL,
+    `my_tinyint_8`       tinyint(8)                                   NOT NULL,
     PRIMARY KEY (`my_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='my table comment';
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `one_to_one_main`
             REFERENCES `one_to_one_child` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'one_to_one_main comment';
 
 
 # relation of one to one with map id
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `one_to_one_main_map`
     `name`  VARCHAR(45) NOT NULL,
     `other` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'one_to_one_main_map comment';
 
 CREATE TABLE IF NOT EXISTS `one_to_one_child_map`
 (
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `many_to_one_child`
     `name`  VARCHAR(45) NOT NULL,
     `other` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'many_to_one_child comment';
 
 CREATE TABLE IF NOT EXISTS `many_to_one_main`
 (
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `many_to_one_main`
             REFERENCES `many_to_one_child` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'many_to_one_main comment';
 
 
 # relation of many to many
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `parent_has_child`
             REFERENCES `child` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'parent_has_child comment';
 
 
 # relation to an enum table
@@ -163,13 +163,17 @@ CREATE TABLE IF NOT EXISTS `city_status`
     `name` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `na_UNIQUE` (`name` ASC)
-) ENGINE = InnoDB;
+) ENGINE = InnoDB COMMENT 'city_status comment';
+
+INSERT INTO `city_status` (`id`, `name`)
+VALUES ('1', 'MY_CITY_ONE'),
+       ('2', 'MY_city_two_lower');
 
 CREATE TABLE IF NOT EXISTS `city`
 (
     `id`             VARCHAR(25)                   NOT NULL,
     `name`           VARCHAR(45)                   NULL,
-    `city_type`      ENUM ('small', 'big', 'mega') NULL,
+    `city_type`      ENUM ('small', 'big', 'mega') NULL comment 'native enum comment',
     `city_status_id` VARCHAR(25)                   NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_city_city_status1_idx` (`city_status_id` ASC),

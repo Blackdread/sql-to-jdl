@@ -39,16 +39,19 @@ public class GenerateForMysql57Test {
         registry.add("spring.datasource.username", MY_SQL_CONTAINER::getUsername);
 
         registry.add("spring.flyway.locations", () -> "classpath:db/mysql57");
+
+        registry.add("application.export.path", () -> "./mysql57.jdl");
     }
 
     @Test
     void containerRunning() throws URISyntaxException, IOException {
         assertTrue(MY_SQL_CONTAINER.isRunning());
 
-        final List<String> allLines = FileUtil.readAllLines("/result/mysql57-expected.jdl");
+        final List<String> expected = FileUtil.readAllLinesClasspath("/result/mysql57-expected.jdl");
 
-        log.info("lines: {}", allLines);
+        final List<String> actual = FileUtil.readAllLines("./mysql57.jdl");
 
+        AssertUtil.assertFileSame(expected, actual);
     }
 
 }

@@ -47,19 +47,24 @@ entity Child {
 entity City {
 	id String required maxlength(25),
 	name String maxlength(45),
+	/** native enum comment */
 	cityType CityType,
+	/** city_status comment */
 	cityStatus CityStatus required
 }
 
+/** city_status comment */
 enum CityStatus {
 }
 
+/** many_to_one_child comment */
 entity ManyToOneChild {
 	id String required maxlength(25),
 	name String required maxlength(45),
 	other String required maxlength(45)
 }
 
+/** many_to_one_main comment */
 entity ManyToOneMain {
 	id String required maxlength(25),
 	name String required maxlength(45),
@@ -76,12 +81,14 @@ entity OneToOneChildMap {
 	name String required maxlength(45)
 }
 
+/** one_to_one_main comment */
 entity OneToOneMain {
 	id String required maxlength(25),
 	name String required maxlength(45),
 	other String required maxlength(45)
 }
 
+/** one_to_one_main_map comment */
 entity OneToOneMainMap {
 	id String required maxlength(25),
 	name String required maxlength(45),
@@ -110,6 +117,7 @@ entity SalePerOrder {
 
 
 // Relations
+// many_to_one_main comment
 relationship ManyToOne {
 	ManyToOneMain{manyToOneChild required} to ManyToOneChild{manyToOneMain}
 }
@@ -118,16 +126,19 @@ relationship ManyToOne {
 	OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
 }
 
+// one_to_one_main comment
 relationship OneToOne {
 	OneToOneMain{oneToOneChild required} to OneToOneChild{oneToOneMain}
 }
 
 // TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
 relationship ManyToMany {
 	ParentHasChild{parent required} to Parent{parentHasChild}
 }
 
 // TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
 relationship ManyToMany {
 	ParentHasChild{child required} to Child{parentHasChild}
 }

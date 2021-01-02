@@ -117,6 +117,31 @@ public class SqlService {
     }
 
     /**
+     * Used to get enums values for an enum materialized with a table
+     *
+     * @param tableName Table name
+     * @return enum values
+     * @deprecated not implemented yet
+     */
+    @Cacheable("SqlService.getEnumValuesForTable")
+    public List<String> getEnumValues(final String tableName) {
+        throw new IllegalStateException("todo");
+    }
+
+    /**
+     * Used to get enums values for a native enum
+     *
+     * @param tableName  Table name
+     * @param columnName column name
+     * @return enum values
+     * @deprecated not implemented yet
+     */
+    @Cacheable("SqlService.getEnumValuesForColumn")
+    public List<String> getEnumValues(final String tableName, final String columnName) {
+        throw new IllegalStateException("todo");
+    }
+
+    /**
      * Check if the column name passed from the table name specified is referencing an enum table
      *
      * @param tableName  Table containing the FK column
