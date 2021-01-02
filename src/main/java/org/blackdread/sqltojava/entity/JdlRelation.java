@@ -15,6 +15,8 @@ public interface JdlRelation {
 
     boolean isInverseSideRequired();
 
+//    boolean isMapsId();
+
     Optional<String> getOwnerComment();
 
     Optional<String> getInverseSideComment();
