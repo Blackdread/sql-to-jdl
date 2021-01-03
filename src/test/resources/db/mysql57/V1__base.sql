@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `all_type`
 (
     `my_id`              varchar(25)                                  NOT NULL,
-    `my_int`             int(11)                                      NOT NULL,
+    `my_int`             int(11)     default 55                       NOT NULL,
     `my_int_null`        int,
-    `my_varchar_50`      varchar(50)                                  NOT NULL,
+    `my_varchar_50`      varchar(50) default 'default of varchar 50'  NOT NULL,
     `my_varchar_50_null` varchar(50),
     `my_varchar_512`     varchar(512)                                 NOT NULL COMMENT 'super varchar 512',
     `my_tinytext`        tinytext                                     NOT NULL,

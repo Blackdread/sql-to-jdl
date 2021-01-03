@@ -2,37 +2,37 @@
 
 CREATE TABLE all_type
 (
-    my_id               nvarchar(25)      NOT NULL
+    my_id               nvarchar(25)                                NOT NULL
         constraint all_type_pk
             primary key nonclustered,
-    my_uniqueidentifier uniqueidentifier  NOT NULL,
-    my_int              int               NOT NULL,
+    my_uniqueidentifier uniqueidentifier                            NOT NULL,
+    my_int              int         default 55                      NOT NULL,
     my_int_null         int,
-    my_varchar_50       varchar(50)       NOT NULL,
+    my_varchar_50       varchar(50) default 'default of varchar 50' NOT NULL,
     my_varchar_50_null  nvarchar(50),
-    my_varchar_512      nvarchar(512)     NOT NULL,
+    my_varchar_512      nvarchar(512)                               NOT NULL,
 --     my_tinytext        tinytext         NOT NULL,
 --     my_mediumtext      mediumtext       NOT NULL,
 --     my_longtext        longtext         NOT NULL,
-    my_text             text              NOT NULL,
-    my_char             char(5)           NOT NULL,
-    my_date             date              NOT NULL,
-    my_datetime         datetime          NOT NULL,
-    my_datetimeoffset   datetimeoffset(6) NOT NULL,
-    my_timestamp        timestamp         NOT NULL,
-    my_time             time              NOT NULL,
+    my_text             text                                        NOT NULL,
+    my_char             char(5)                                     NOT NULL,
+    my_date             date                                        NOT NULL,
+    my_datetime         datetime                                    NOT NULL,
+    my_datetimeoffset   datetimeoffset(6)                           NOT NULL,
+    my_timestamp        timestamp                                   NOT NULL,
+    my_time             time                                        NOT NULL,
 --     my_year            year(4)          NOT NULL,
-    my_bigint           bigint            NOT NULL,
-    my_tinyint          tinyint           NOT NULL,
-    my_smallint         smallint          NOT NULL,
+    my_bigint           bigint                                      NOT NULL,
+    my_tinyint          tinyint                                     NOT NULL,
+    my_smallint         smallint                                    NOT NULL,
 --     my_mediumint       mediumint         NOT NULL,
-    my_decimal          decimal(19, 5)    NOT NULL,
-    my_float            float             NOT NULL,
+    my_decimal          decimal(19, 5)                              NOT NULL,
+    my_float            float                                       NOT NULL,
 --     my_double          double            NOT NULL,
 --     my_enum_sql        enum('value_one', 'value_two', 'value_three') NOT NULL,
 --     my_set             set ('set_one','set_two','set_three')        NOT NULL,
-    my_bit              bit               NOT NULL,
-    my_bool             tinyint           NOT NULL,
+    my_bit              bit                                         NOT NULL,
+    my_bool             tinyint                                     NOT NULL,
 --      my_binary          binary(200)                                  NOT NULL, TODO support later if needed
 --      my_varbinary       varbinary(800)                               NOT NULL, TODO support later if needed
 --     my_json            json              NOT NULL,
@@ -142,21 +142,21 @@ go
 
 create table parent
 (
-    id    nvarchar(25) not null
+    id    nvarchar(25)                           not null
         constraint parent_pk
             primary key nonclustered,
-    name  nvarchar(45) not null,
-    other nvarchar(45) not null
+    name  nvarchar(45) collate Chinese_PRC_CI_AS not null,
+    other nvarchar(45)                           not null
 )
 go
 
 create table child
 (
-    id    nvarchar(25) not null
+    id    nvarchar(25)                                                 not null
         constraint child_pk
             primary key nonclustered,
-    name  nvarchar(45) not null,
-    other nvarchar(45) not null
+    name  nvarchar(45) collate French_CI_AS default 'my default value' not null,
+    other nvarchar(45)                                                 not null
 )
 go
 
