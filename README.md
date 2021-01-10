@@ -22,7 +22,9 @@ Different criterias, support for JPA and jOOQ dynamic filtering and sorting
 https://github.com/Blackdread/rest-filter
 
 # How to use
-Run "mvn compile" at least once to let jOOQ generate some required tables (see [Issue solved](https://github.com/Blackdread/sql-to-jdl/issues/2)).
+<s>Run "mvn compile" at least once to let jOOQ generate some required tables (see [Issue solved](https://github.com/Blackdread/sql-to-jdl/issues/2)).</s> I have removed generated code, it is directly part of the codebase.
+
+Just execute the code from IDE or use "mvn" to run the code, it will connect to your DB (see application config yml) and it will generate the JDL.
 
 Set properties file:
 - Schema name to export
