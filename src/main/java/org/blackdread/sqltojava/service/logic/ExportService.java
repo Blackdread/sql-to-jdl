@@ -33,6 +33,10 @@ public class ExportService {
     }
 
     public void export(final List<JdlEntity> entities) {
+        if (entities.isEmpty()) {
+            log.error("No entities were found for which JDL is to be generated. Please review console logs");
+            return;
+        }
 
         // 1. Entities
         // 2. Relations

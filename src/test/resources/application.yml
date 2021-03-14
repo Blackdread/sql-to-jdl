@@ -24,6 +24,7 @@ spring:
 
 
 application:
+    reserved-keywords: classpath:reserved/keywords.json
     database-to-export: test #DB name is 'test' by default with test container
     ignored-table-names:
         - databasechangelog

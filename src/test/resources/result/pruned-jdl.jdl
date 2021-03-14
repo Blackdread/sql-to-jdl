@@ -1,0 +1,15 @@
+entity Demo {
+	id Long required
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

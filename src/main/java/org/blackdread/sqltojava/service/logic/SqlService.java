@@ -49,10 +49,25 @@ public class SqlService {
     public List<SqlTable> buildTables() {
         log.debug("buildTables called");
         final List<String> ignoredTableNames = applicationProperties.getIgnoredTableNames();
-        return informationSchemaService.getAllTableInformation().stream()
+        return informationSchemaService.getAllTableInformation()
+            .stream()
+            .filter(table -> !doesTableEndWithDetailKeyword(table))
             .filter(table -> !isTableIgnored(ignoredTableNames, table))
             .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null)))
             .collect(Collectors.toList());
+    }
+
+    private boolean doesTableEndWithDetailKeyword(TableInformation table) {
+        String tablename = table.getName();
+        boolean result = tablename.toLowerCase().endsWith("_detail");
+        if (result) {
+            String msg = String
+                .format("Skipped processing table [%s] which ends with the JDL keyword [Detail]. "
+                        + "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
+                    tablename);
+            log.error(msg);
+        }
+        return result;
     }
 
     @Cacheable("SqlService.buildColumns")
@@ -164,8 +179,7 @@ public class SqlService {
     public boolean isForeignKey(final String tableName, final String columnName) {
         return informationSchemaService.getAllTableRelationInformation().stream()
             .filter(e -> e.getTableName().equals(tableName))
-            .filter(e -> e.getColumnName().equals(columnName))
-            .findFirst().isPresent();
+            .anyMatch(e -> e.getColumnName().equals(columnName));
     }
 
     /**
