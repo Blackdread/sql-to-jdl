@@ -27,8 +27,9 @@ public class JdlFieldImpl implements JdlField {
     private final Integer max;
     private final String pattern;
     private final boolean isNativeEnum;
+    private final boolean isUnique;
 
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern, @Nullable final String enumEntityName, final boolean isNativeEnum) {
+    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern, @Nullable final String enumEntityName, final boolean isNativeEnum, final boolean isUnique) {
         this.type = type;
         this.name = name;
         this.isRequired = isRequired;
@@ -38,6 +39,7 @@ public class JdlFieldImpl implements JdlField {
         this.pattern = pattern;
         this.enumEntityName = enumEntityName;
         this.isNativeEnum = isNativeEnum;
+        this.isUnique = isUnique;
     }
 
     @Override
@@ -78,6 +80,11 @@ public class JdlFieldImpl implements JdlField {
     @Override
     public Optional<String> getPattern() {
         return Optional.ofNullable(pattern);
+    }
+
+    @Override
+    public boolean isUnique() {
+        return isUnique;
     }
 
     @Override
