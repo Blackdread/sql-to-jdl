@@ -1,0 +1,21 @@
+entity Invoices {
+	id Integer required,
+	name String required maxlength(100),
+	address String required maxlength(100)
+}
+
+
+
+// Relations
+relationship OneToOne {
+	Invoices{parent} to Invoices{invoices}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+
