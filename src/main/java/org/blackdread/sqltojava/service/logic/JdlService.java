@@ -187,7 +187,8 @@ public class JdlService {
             max,
             pattern,
             enumEntityName,
-            isNativeEnum
+            isNativeEnum,
+            column.isUnique()
         ));
     }
 

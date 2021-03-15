@@ -45,4 +45,9 @@ public interface JdlField {
 
     Optional<String> getPattern();
 
+    /**
+     * @return - <code>true</code> if the column is marked as a unique column
+     */
+    boolean isUnique();
+
 }

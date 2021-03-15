@@ -72,6 +72,11 @@ public final class JdlUtils {
     }
 
     @NotNull
+    public static String unique() {
+        return "unique";
+    }
+
+    @NotNull
     public static String writeEntity(final JdlEntity entity) {
         final StringBuilder builder = new StringBuilder(500);
 
@@ -122,6 +127,12 @@ public final class JdlUtils {
             builder.append(" ");
             builder.append(validationRequired());
         }
+
+        if (field.isUnique()) {
+            builder.append(" ");
+            builder.append(unique());
+        }
+
         if (field.getMin().isPresent()) {
             builder.append(" ");
             if (field.getType().equals(JdlFieldEnum.STRING))
