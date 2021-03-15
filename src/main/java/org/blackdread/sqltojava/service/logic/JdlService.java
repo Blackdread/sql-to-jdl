@@ -233,14 +233,25 @@ public class JdlService {
 
         // We put always bidirectional but we have no way to generate good inverse name so we put the owner side name
         final String inverseSideRelationName = SqlUtils.changeToCamelCase(tableName);
+        final String ownerEntityName = getEntityNameFormatted(tableName);
+        boolean required = ! isNullable;
+        if (required) {
+            if (ownerEntityName.equals(inverseSideEntityName)) {
+                String msg = "Detected a Self Reference in the table " + tableName +
+                    ". JHipster JDL currently does not support Reflexive relationships. " +
+                "Set [nullable] as [true] for column [" + columnName + "] to fix errors when using the JDL with JHipster";
+                log.warn(msg);
+                required = false;
+            }
+        }
 
         return Optional.of(new JdlRelationImpl(
             relationType,
             // We always make it bidirectional for auto-generated jdl (manually edit result after)
             true,
-            !isNullable,
+            required,
             false,
-            getEntityNameFormatted(tableName),
+            ownerEntityName,
             inverseSideEntityName,
             SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)),
             // Cannot know so has to be set manually after generation, default is ID by jHipster
