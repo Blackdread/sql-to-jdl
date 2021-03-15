@@ -1,6 +1,5 @@
 package org.blackdread.sqltojava.service.logic;
 
-import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.JdlEntity;
@@ -51,12 +50,13 @@ public class JdlService {
         // todo build entities for columns of native enums so we can later export to JDL the native enum and its values
         return SqlUtils.groupColumnsByTable(sqlColumns).entrySet().stream()
             .map(this::buildEntity)
-            .filter(Objects::nonNull)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .sorted()
             .collect(Collectors.toList());
     }
 
-    protected JdlEntity buildEntity(final Map.Entry<SqlTable, List<SqlColumn>> entry) {
+    protected Optional<JdlEntity> buildEntity(final Map.Entry<SqlTable, List<SqlColumn>> entry) {
 
         final List<JdlField> fields = entry.getValue().stream()
             .map(this::buildField)
@@ -80,16 +80,17 @@ public class JdlService {
                 + " the transformed entity name [" + entityName + "] matches with one of the keywords "
                 + reserved;
             log.error(msg);
-            return null;
+            return Optional.empty();
         }
 
-        return new JdlEntityImpl(
+        JdlEntity jdlEntity = new JdlEntityImpl(
             entityName,
             fields,
             entry.getKey().getComment().orElse(null),
             sqlService.isEnumTable(entry.getKey().getName()),
             sqlService.isPureManyToManyTable(entry.getKey().getName()),
             relations);
+        return Optional.of(jdlEntity);
     }
 
     private static String getEntityNameFormatted(final String name) {

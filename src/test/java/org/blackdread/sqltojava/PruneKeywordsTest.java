@@ -28,7 +28,7 @@ public class PruneKeywordsTest {
         registry.add("spring.datasource.password", MY_SQL_CONTAINER::getPassword);
         registry.add("spring.datasource.username", MY_SQL_CONTAINER::getUsername);
 
-        registry.add("spring.flyway.locations", () -> "classpath:db/mysql");
+        registry.add("spring.flyway.locations", () -> "classpath:db/prune-reserved");
         registry.add("application.export.path", () -> "./pruned.jdl");
     }
 
