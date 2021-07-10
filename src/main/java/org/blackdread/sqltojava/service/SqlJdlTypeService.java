@@ -154,7 +154,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlString() {
-        return Lists.newArrayList("varchar", "char", "text", "tinytext");
+        return Lists.newArrayList("varchar", "char", "text", "tinytext", "character varying");
     }
 
     protected List<String> jdlTextBlob() {
@@ -162,7 +162,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlBlob() {
-        return Lists.newArrayList("tinyblob", "blob", "mediumblob", "longblob");
+        return Lists.newArrayList("tinyblob", "blob", "bytea", "mediumblob", "longblob");
     }
 
     protected List<String> jdlInteger() {
@@ -174,7 +174,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlDouble() {
-        return Lists.newArrayList("double");
+        return Lists.newArrayList("double", "real");
     }
 
     protected List<String> jdlFloat() {

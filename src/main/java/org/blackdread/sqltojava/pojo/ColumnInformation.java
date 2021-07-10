@@ -36,6 +36,18 @@ public class ColumnInformation {
         this.comment = comment;
     }
 
+    public ColumnInformation(final String name, final String type, final boolean isNullable, final boolean isPrimary, final String defaultValue) {
+        this.name = name;
+        this.type = type;
+        this.isNullable = isNullable;
+        this.isPrimary = isPrimary;
+        this.isUnique = false;
+        this.defaultValue = defaultValue;
+        this.collation = null;
+        this.extra = "";
+        this.comment = "";
+    }
+
     public ColumnInformation(final String name, final String type, final String collation, final String nullValue, final String keyValue, final String defaultValue, final String extra, final String comment) {
         this(name, type, collation, "yes".equalsIgnoreCase(nullValue), "pri".equalsIgnoreCase(keyValue), "uni".equalsIgnoreCase(keyValue), defaultValue, extra, comment);
     }

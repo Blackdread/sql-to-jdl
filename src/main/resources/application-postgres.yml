@@ -1,0 +1,41 @@
+logging:
+    level:
+        jooq: trace
+        org.blackdread.sqltojava: DEBUG
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/my_db
+        username: my_user
+        password: my_password
+        driver-class-name: org.postgresql.Driver
+        hikari:
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+    jooq:
+        sql-dialect: postgres
+
+
+application:
+    reserved-keywords: classpath:reserved/keywords.json
+    database-to-export: my_schema
+    ignored-table-names:
+        - databasechangelog
+        - databasechangeloglock
+        - QRTZ_BLOB_TRIGGERS
+        - QRTZ_CALENDARS
+        - QRTZ_CRON_TRIGGERS
+        - QRTZ_FIRED_TRIGGERS
+        - QRTZ_JOB_DETAILS
+        - QRTZ_LOCKS
+        - QRTZ_PAUSED_TRIGGER_GRPS
+        - QRTZ_SCHEDULER_STATE
+        - QRTZ_SIMPLE_TRIGGERS
+        - QRTZ_SIMPROP_TRIGGERS
+        - QRTZ_TRIGGERS
+    export:
+        path: signapi-jdl.jh
+        type: jdl
