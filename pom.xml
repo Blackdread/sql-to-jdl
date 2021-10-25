@@ -30,7 +30,7 @@
 
         <guava.version>31.0.1-jre</guava.version>
 
-        <testcontainers.version>1.16.1</testcontainers.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
