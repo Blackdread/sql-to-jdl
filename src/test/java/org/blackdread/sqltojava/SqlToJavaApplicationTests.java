@@ -14,7 +14,7 @@ import org.testcontainers.utility.DockerImageName;
 public class SqlToJavaApplicationTests {
 
     @Container
-    private static final MySQLContainer MY_SQL_CONTAINER = new MySQLContainer(DockerImageName.parse("mysql").withTag("5.7.22"));
+    private static final MySQLContainer MY_SQL_CONTAINER = new MySQLContainer(DockerImageName.parse("mysql").withTag("8.0.22"));
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
