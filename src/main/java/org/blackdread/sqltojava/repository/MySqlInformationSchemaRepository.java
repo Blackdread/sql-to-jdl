@@ -9,6 +9,7 @@ import org.jooq.Record4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,14 +22,15 @@ import static org.blackdread.sqltojava.jooq.generated.tables.KeyColumnUsage.KEY_
  * @author Yoann CAPLAIN
  */
 @Repository
-public class InformationSchemaRepository {
+@Profile("mysql")
+public class MySqlInformationSchemaRepository implements InformationSchemaRepositoryInterface {
 
-    private static final Logger log = LoggerFactory.getLogger(InformationSchemaRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 
     private final DSLContext create;
 
     @Autowired
-    public InformationSchemaRepository(final DSLContext create) {
+    public MySqlInformationSchemaRepository(final DSLContext create) {
         this.create = create;
     }
 
