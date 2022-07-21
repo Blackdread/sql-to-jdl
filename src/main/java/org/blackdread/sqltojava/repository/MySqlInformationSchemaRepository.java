@@ -23,7 +23,7 @@ import static org.blackdread.sqltojava.jooq.generated.tables.KeyColumnUsage.KEY_
  */
 @Repository
 @Profile("mysql")
-public class MySqlInformationSchemaRepository implements InformationSchemaRepositoryInterface {
+public class MySqlInformationSchemaRepository implements InformationSchemaRepository {
 
     private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 

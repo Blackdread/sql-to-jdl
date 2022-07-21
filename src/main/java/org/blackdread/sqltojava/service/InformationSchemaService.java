@@ -4,8 +4,7 @@ import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.pojo.ColumnInformation;
 import org.blackdread.sqltojava.pojo.TableInformation;
 import org.blackdread.sqltojava.pojo.TableRelationInformation;
-import org.blackdread.sqltojava.repository.InformationSchemaRepositoryInterface;
-import org.blackdread.sqltojava.repository.MySqlInformationSchemaRepository;
+import org.blackdread.sqltojava.repository.InformationSchemaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,10 +26,10 @@ public class InformationSchemaService {
 
     private final ApplicationProperties applicationProperties;
 
-    private final InformationSchemaRepositoryInterface informationSchemaRepository;
+    private final InformationSchemaRepository informationSchemaRepository;
 
     public InformationSchemaService(final ApplicationProperties applicationProperties,
-                                    final InformationSchemaRepositoryInterface informationSchemaRepository) {
+                                    final InformationSchemaRepository informationSchemaRepository) {
         this.applicationProperties = applicationProperties;
         this.informationSchemaRepository = informationSchemaRepository;
     }

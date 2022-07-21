@@ -6,7 +6,7 @@ import org.blackdread.sqltojava.pojo.TableRelationInformation;
 
 import java.util.List;
 
-public interface InformationSchemaRepositoryInterface {
+public interface InformationSchemaRepository {
 
     List<TableRelationInformation> getAllTableRelationInformation(final String dbName);
     List<ColumnInformation> getFullColumnInformationOfTable(final String dbName, final String tableName);

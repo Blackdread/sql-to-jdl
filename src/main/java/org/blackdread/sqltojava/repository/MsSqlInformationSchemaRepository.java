@@ -24,7 +24,7 @@ import static org.jooq.impl.DSL.name;
  */
 @Repository
 @Profile("mssql")
-public class MsSqlInformationSchemaRepository implements InformationSchemaRepositoryInterface {
+public class MsSqlInformationSchemaRepository implements InformationSchemaRepository {
 
     private static final Logger log = LoggerFactory.getLogger(MsSqlInformationSchemaRepository.class);
 
