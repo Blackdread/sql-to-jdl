@@ -1,8 +1,10 @@
 package org.blackdread.sqltojava.shared;
 
+import org.blackdread.sqltojava.shared.interfaces.JdbcContainerTest;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,9 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * This is base class for JdbcDatabaseContainer set up for tests.
  */
-public abstract class JdbcDatabaseContainerExtension implements BeforeAllCallback, AfterAllCallback {
+public abstract class JdbcDatabaseContainerExtension
+    implements BeforeAllCallback,
+               AfterAllCallback,
+               TestInstancePostProcessor {
 
-    private JdbcDatabaseContainer container;
+    protected JdbcDatabaseContainer container;
     protected abstract JdbcDatabaseContainer createContainer();
 
     /**
@@ -38,6 +43,13 @@ public abstract class JdbcDatabaseContainerExtension implements BeforeAllCallbac
         container.stop();
         assertFalse(container.isRunning(),
                     String.format("Container %s should not be running", container.getDockerImageName()));
+    }
+
+    @Override
+    public void postProcessTestInstance(Object testInstance,
+                                        ExtensionContext context) {
+        JdbcContainerTest jdbcContainerTest = (JdbcContainerTest) testInstance;
+        jdbcContainerTest.container(container);
     }
 
     /**

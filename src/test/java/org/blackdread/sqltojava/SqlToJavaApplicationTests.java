@@ -1,20 +1,14 @@
 package org.blackdread.sqltojava;
 
 import org.blackdread.sqltojava.extension.MySqlLatestExtension;
-import org.blackdread.sqltojava.shared.MainApplicationContextLoader;
+import org.blackdread.sqltojava.shared.tests.BaseJdbcContainerTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ContextConfiguration(loader = MainApplicationContextLoader.class)
 @ExtendWith(MySqlLatestExtension.class)
-public class SqlToJavaApplicationTests {
+public class SqlToJavaApplicationTests extends BaseJdbcContainerTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
