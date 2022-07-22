@@ -5,11 +5,13 @@ import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.service.logic.ExportService;
 import org.blackdread.sqltojava.service.logic.JdlService;
 import org.blackdread.sqltojava.service.logic.SqlService;
+import org.blackdread.sqltojava.util.AppUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.util.List;
@@ -36,7 +38,9 @@ public class SqlToJavaApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SqlToJavaApplication.class, args);
+        SpringApplication app = new SpringApplicationBuilder(SqlToJavaApplication.class).application();
+        AppUtil.setup(app)
+               .run(args);
     }
 
     @Override
