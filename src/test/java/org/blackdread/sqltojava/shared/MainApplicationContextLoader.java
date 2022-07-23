@@ -14,5 +14,4 @@ public class MainApplicationContextLoader extends SpringBootContextLoader {
     protected SpringApplication getSpringApplication() {
         return AppUtil.setup(super.getSpringApplication());
     }
-
 }

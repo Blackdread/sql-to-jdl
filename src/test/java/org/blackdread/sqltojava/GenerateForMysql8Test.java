@@ -13,14 +13,17 @@ import org.springframework.test.context.DynamicPropertySource;
  * @author Yoann CAPLAIN
  */
 @ExtendWith(MySqlLatestExtension.class)
-public class GenerateForMysql8Test extends BaseJdbcContainerTest
+public class GenerateForMysql8Test
+    extends BaseJdbcContainerTest
     implements CompareJdlResultsTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.flyway.locations", () -> "classpath:db/mysql8");
         registry.add("application.export.path", () -> "./mysql8.jdl");
-        registry.add("expected.result.path", () -> "/result/mysql8-expected.jdl");
+        registry.add(
+            "expected.result.path",
+            () -> "/result/mysql8-expected.jdl"
+        );
     }
-
 }

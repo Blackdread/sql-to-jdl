@@ -17,5 +17,4 @@ public class SetupProfileAutomaticMysqlTest
         registry.add("spring.flyway.enabled", () -> "false");
         registry.add("expected.profile", () -> "mysql");
     }
-
 }

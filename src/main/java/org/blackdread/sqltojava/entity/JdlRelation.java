@@ -6,7 +6,6 @@ import java.util.Optional;
  * Created by Yoann CAPLAIN on 2017/10/6.
  */
 public interface JdlRelation {
-
     RelationType getRelationType();
 
     boolean isBidirectional();
@@ -15,7 +14,7 @@ public interface JdlRelation {
 
     boolean isInverseSideRequired();
 
-//    boolean isMapsId();
+    //    boolean isMapsId();
 
     Optional<String> getOwnerComment();
 
@@ -67,5 +66,4 @@ public interface JdlRelation {
      * @return Represent the "display field name" on the inverse side
      */
     Optional<String> getInverseSideDisplayField();
-
 }

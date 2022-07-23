@@ -8,13 +8,17 @@ import java.util.Objects;
  * @author Yoann CAPLAIN
  */
 public class TableRelationInformation {
-
     private final String tableName;
     private final String columnName;
     private final String referencedTableName;
     private final String referencedColumnName;
 
-    public TableRelationInformation(final String tableName, final String columnName, final String referencedTableName, final String referencedColumnName) {
+    public TableRelationInformation(
+        final String tableName,
+        final String columnName,
+        final String referencedTableName,
+        final String referencedColumnName
+    ) {
         this.tableName = tableName;
         this.columnName = columnName;
         this.referencedTableName = referencedTableName;
@@ -42,24 +46,41 @@ public class TableRelationInformation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final TableRelationInformation that = (TableRelationInformation) o;
-        return Objects.equals(tableName, that.tableName) &&
+        return (
+            Objects.equals(tableName, that.tableName) &&
             Objects.equals(columnName, that.columnName) &&
             Objects.equals(referencedTableName, that.referencedTableName) &&
-            Objects.equals(referencedColumnName, that.referencedColumnName);
+            Objects.equals(referencedColumnName, that.referencedColumnName)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tableName, columnName, referencedTableName, referencedColumnName);
+        return Objects.hash(
+            tableName,
+            columnName,
+            referencedTableName,
+            referencedColumnName
+        );
     }
 
     @Override
     public String toString() {
-        return "TableRelationInformation{" +
-            "tableName='" + tableName + '\'' +
-            ", columnName='" + columnName + '\'' +
-            ", referencedTableName='" + referencedTableName + '\'' +
-            ", referencedColumnName='" + referencedColumnName + '\'' +
-            '}';
+        return (
+            "TableRelationInformation{" +
+            "tableName='" +
+            tableName +
+            '\'' +
+            ", columnName='" +
+            columnName +
+            '\'' +
+            ", referencedTableName='" +
+            referencedTableName +
+            '\'' +
+            ", referencedColumnName='" +
+            referencedColumnName +
+            '\'' +
+            '}'
+        );
     }
 }

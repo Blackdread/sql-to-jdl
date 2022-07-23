@@ -11,5 +11,4 @@ public class MySqlLatestExtension extends JdbcDatabaseContainerExtension {
     protected JdbcDatabaseContainer createContainer() {
         return new MySQLContainer(DockerImageName.parse("mysql:latest"));
     }
-
 }

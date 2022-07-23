@@ -1,12 +1,10 @@
 package org.blackdread.sqltojava.entity.impl;
 
-import org.blackdread.sqltojava.entity.SqlTable;
-import org.apache.commons.lang3.StringUtils;
-import org.blackdread.sqltojava.entity.SqlTable;
-
-import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
+import javax.annotation.Nullable;
+import org.apache.commons.lang3.StringUtils;
+import org.blackdread.sqltojava.entity.SqlTable;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -14,14 +12,16 @@ import java.util.Optional;
  * @author Yoann CAPLAIN
  */
 public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
-
     private final String name;
 
     private final String comment;
 
     public SqlTableImpl(final String name, @Nullable final String comment) {
         this.name = Objects.requireNonNull(name);
-        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.comment =
+            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
+                ? null
+                : comment;
     }
 
     @Override
@@ -49,10 +49,16 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
 
     @Override
     public String toString() {
-        return "SqlTableImpl{" +
-            "name='" + name + '\'' +
-            ", comment='" + comment + '\'' +
-            '}';
+        return (
+            "SqlTableImpl{" +
+            "name='" +
+            name +
+            '\'' +
+            ", comment='" +
+            comment +
+            '\'' +
+            '}'
+        );
     }
 
     @Override

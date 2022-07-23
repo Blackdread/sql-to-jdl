@@ -1,6 +1,9 @@
 package org.blackdread.sqltojava.service.logic;
 
 import com.google.common.collect.Maps;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.entity.SqlTable;
@@ -18,10 +21,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * <p>Created on 2018/2/7.</p>
  *
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class SqlService {
-
     private static final Logger log = LoggerFactory.getLogger(SqlService.class);
 
     private final ApplicationProperties applicationProperties;
@@ -38,7 +36,10 @@ public class SqlService {
     private final InformationSchemaService informationSchemaService;
 
     @Autowired
-    public SqlService(final ApplicationProperties applicationProperties, final InformationSchemaService informationSchemaService) {
+    public SqlService(
+        final ApplicationProperties applicationProperties,
+        final InformationSchemaService informationSchemaService
+    ) {
         this.applicationProperties = applicationProperties;
         this.informationSchemaService = informationSchemaService;
     }
@@ -49,11 +50,18 @@ public class SqlService {
     public List<SqlTable> buildTables() {
         log.debug("buildTables called");
         final List<String> ignoredTableNames = applicationProperties.getIgnoredTableNames();
-        return informationSchemaService.getAllTableInformation()
+        return informationSchemaService
+            .getAllTableInformation()
             .stream()
             .filter(table -> !doesTableEndWithDetailKeyword(table))
             .filter(table -> !isTableIgnored(ignoredTableNames, table))
-            .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null)))
+            .map(
+                table ->
+                    new SqlTableImpl(
+                        table.getName(),
+                        table.getComment().orElse(null)
+                    )
+            )
             .collect(Collectors.toList());
     }
 
@@ -61,10 +69,11 @@ public class SqlService {
         String tablename = table.getName();
         boolean result = tablename.toLowerCase().endsWith("_detail");
         if (result) {
-            String msg = String
-                .format("Skipped processing table [%s] which ends with the JDL keyword [Detail]. "
-                        + "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
-                    tablename);
+            String msg = String.format(
+                "Skipped processing table [%s] which ends with the JDL keyword [Detail]. " +
+                "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
+                tablename
+            );
             log.error(msg);
         }
         return result;
@@ -73,30 +82,51 @@ public class SqlService {
     @Cacheable("SqlService.buildColumns")
     public List<SqlColumn> buildColumns() {
         log.debug("buildColumns called");
-        return buildTables().stream()
-            .map(table -> Maps.immutableEntry(table, informationSchemaService.getFullColumnInformationOfTable(table.getName())))
-            .map(entry -> entry.getValue().stream()
-                .map(columnInformation -> {
-                        final String columnType = columnInformation.getType();
+        return buildTables()
+            .stream()
+            .map(
+                table ->
+                    Maps.immutableEntry(
+                        table,
+                        informationSchemaService.getFullColumnInformationOfTable(
+                            table.getName()
+                        )
+                    )
+            )
+            .map(
+                entry ->
+                    entry
+                        .getValue()
+                        .stream()
+                        .map(
+                            columnInformation -> {
+                                final String columnType = columnInformation.getType();
 
-                        // hard coded for now, we can later extract in some service, etc.
-                        final boolean isNativeEnum = columnType.startsWith("enum") || columnType.startsWith("set");
+                                // hard coded for now, we can later extract in some service, etc.
+                                final boolean isNativeEnum =
+                                    columnType.startsWith("enum") ||
+                                    columnType.startsWith("set");
 
-                        return new SqlColumnImpl(
-                            entry.getKey(),
-                            columnInformation.getName(),
-                            columnType,
-                            columnInformation.isPrimary(),
-                            isForeignKey(entry.getKey().getName(), columnInformation.getName()),
-                            columnInformation.isNullable(),
-                            columnInformation.isUnique(),
-                            isNativeEnum,
-                            columnInformation.getDefaultValue().orElse(null),
-                            columnInformation.getComment()
-                        );
-                    }
-                )
-                .collect(Collectors.toList())
+                                return new SqlColumnImpl(
+                                    entry.getKey(),
+                                    columnInformation.getName(),
+                                    columnType,
+                                    columnInformation.isPrimary(),
+                                    isForeignKey(
+                                        entry.getKey().getName(),
+                                        columnInformation.getName()
+                                    ),
+                                    columnInformation.isNullable(),
+                                    columnInformation.isUnique(),
+                                    isNativeEnum,
+                                    columnInformation
+                                        .getDefaultValue()
+                                        .orElse(null),
+                                    columnInformation.getComment()
+                                );
+                            }
+                        )
+                        .collect(Collectors.toList())
             )
             .flatMap(Collection::stream)
             .collect(Collectors.toList());
@@ -104,28 +134,57 @@ public class SqlService {
 
     @Cacheable("SqlService.getTableOfForeignKey")
     public SqlTable getTableOfForeignKey(final SqlColumn column) {
-        log.debug("getTableOfForeignKey called: ({}) ({})", column.getTable().getName(), column.getName());
-        return informationSchemaService.getAllTableRelationInformation().stream()
+        log.debug(
+            "getTableOfForeignKey called: ({}) ({})",
+            column.getTable().getName(),
+            column.getName()
+        );
+        return informationSchemaService
+            .getAllTableRelationInformation()
+            .stream()
             .filter(e -> e.getTableName().equals(column.getTable().getName()))
             .filter(e -> e.getColumnName().equals(column.getName()))
             .findFirst()
             .map(TableRelationInformation::getReferencedTableName)
-            .map(tableName -> buildTables().stream().filter(e -> e.getName().equals(tableName)).findFirst())
-            .map(sqlTable -> sqlTable.orElseThrow(() -> new IllegalStateException("Table not found or is ignored")))
-            .orElseThrow(() -> new IllegalArgumentException("Column is not a foreign key"));
+            .map(
+                tableName ->
+                    buildTables()
+                        .stream()
+                        .filter(e -> e.getName().equals(tableName))
+                        .findFirst()
+            )
+            .map(
+                sqlTable ->
+                    sqlTable.orElseThrow(
+                        () ->
+                            new IllegalStateException(
+                                "Table not found or is ignored"
+                            )
+                    )
+            )
+            .orElseThrow(
+                () ->
+                    new IllegalArgumentException("Column is not a foreign key")
+            );
     }
 
     @Cacheable("SqlService.isEnumTable")
     public boolean isEnumTable(final String tableName) {
-        final List<ColumnInformation> table = informationSchemaService.getFullColumnInformationOfTable(tableName);
+        final List<ColumnInformation> table = informationSchemaService.getFullColumnInformationOfTable(
+            tableName
+        );
 
-        if (table.size() != 2)
-            return false;
+        if (table.size() != 2) return false;
 
         for (final ColumnInformation column : table) {
             // Our design contract define that id and code/name is an enum table so logic is put here
-            if (!column.getName().equalsIgnoreCase("id") && (!column.getName().equalsIgnoreCase("code") && !column.getName().equalsIgnoreCase("name")))
-                return false;
+            if (
+                !column.getName().equalsIgnoreCase("id") &&
+                (
+                    !column.getName().equalsIgnoreCase("code") &&
+                    !column.getName().equalsIgnoreCase("name")
+                )
+            ) return false;
         }
 
         return true;
@@ -152,7 +211,10 @@ public class SqlService {
      * @deprecated not implemented yet
      */
     @Cacheable("SqlService.getEnumValuesForColumn")
-    public List<String> getEnumValues(final String tableName, final String columnName) {
+    public List<String> getEnumValues(
+        final String tableName,
+        final String columnName
+    ) {
         throw new IllegalStateException("todo");
     }
 
@@ -164,9 +226,11 @@ public class SqlService {
      * @return True if this column name is referencing an enum table
      */
     @Cacheable("SqlService.isForeignKeyFromAnEnumTable")
-    public boolean isForeignKeyFromAnEnumTable(final String tableName, final String columnName) {
-        if (!isForeignKey(tableName, columnName))
-            return false;
+    public boolean isForeignKeyFromAnEnumTable(
+        final String tableName,
+        final String columnName
+    ) {
+        if (!isForeignKey(tableName, columnName)) return false;
         return isEnumTable(SqlUtils.removeIdFromEnd(columnName));
     }
 
@@ -176,8 +240,13 @@ public class SqlService {
      * @return True if column is a foreign key
      */
     @Cacheable("SqlService.isForeignKey")
-    public boolean isForeignKey(final String tableName, final String columnName) {
-        return informationSchemaService.getAllTableRelationInformation().stream()
+    public boolean isForeignKey(
+        final String tableName,
+        final String columnName
+    ) {
+        return informationSchemaService
+            .getAllTableRelationInformation()
+            .stream()
             .filter(e -> e.getTableName().equals(tableName))
             .anyMatch(e -> e.getColumnName().equals(columnName));
     }
@@ -191,21 +260,23 @@ public class SqlService {
      */
     @Cacheable("SqlService.isPureManyToManyTable")
     public boolean isPureManyToManyTable(final String tableName) {
-        final List<ColumnInformation> table = informationSchemaService.getFullColumnInformationOfTable(tableName);
+        final List<ColumnInformation> table = informationSchemaService.getFullColumnInformationOfTable(
+            tableName
+        );
 
-        if (table.size() != 2)
-            return false;
+        if (table.size() != 2) return false;
 
         for (final ColumnInformation column : table) {
-            if (!isForeignKey(tableName, column.getName()))
-                return false;
+            if (!isForeignKey(tableName, column.getName())) return false;
         }
 
         return true;
     }
 
-    private boolean isTableIgnored(final List<String> ignoredTableNames, final TableInformation table) {
+    private boolean isTableIgnored(
+        final List<String> ignoredTableNames,
+        final TableInformation table
+    ) {
         return ignoredTableNames.contains(table.getName());
     }
-
 }

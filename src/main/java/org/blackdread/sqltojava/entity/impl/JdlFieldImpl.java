@@ -1,13 +1,12 @@
 package org.blackdread.sqltojava.entity.impl;
 
-import org.apache.commons.lang3.StringUtils;
-import org.blackdread.sqltojava.entity.JdlField;
-import org.blackdread.sqltojava.entity.JdlFieldEnum;
-
+import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
+import org.blackdread.sqltojava.entity.JdlField;
+import org.blackdread.sqltojava.entity.JdlFieldEnum;
 
 /**
  * <p>Created on 2018/2/9.</p>
@@ -17,7 +16,6 @@ import java.util.Optional;
 @Immutable
 @ThreadSafe
 public class JdlFieldImpl implements JdlField {
-
     private final JdlFieldEnum type;
     private final String name;
     private final String enumEntityName;
@@ -29,11 +27,25 @@ public class JdlFieldImpl implements JdlField {
     private final boolean isNativeEnum;
     private final boolean isUnique;
 
-    public JdlFieldImpl(final JdlFieldEnum type, final String name, final boolean isRequired, @Nullable final String comment, @Nullable final Integer min, @Nullable final Integer max, @Nullable final String pattern, @Nullable final String enumEntityName, final boolean isNativeEnum, final boolean isUnique) {
+    public JdlFieldImpl(
+        final JdlFieldEnum type,
+        final String name,
+        final boolean isRequired,
+        @Nullable final String comment,
+        @Nullable final Integer min,
+        @Nullable final Integer max,
+        @Nullable final String pattern,
+        @Nullable final String enumEntityName,
+        final boolean isNativeEnum,
+        final boolean isUnique
+    ) {
         this.type = type;
         this.name = name;
         this.isRequired = isRequired;
-        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.comment =
+            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
+                ? null
+                : comment;
         this.min = min;
         this.max = max;
         this.pattern = pattern;
@@ -94,16 +106,31 @@ public class JdlFieldImpl implements JdlField {
 
     @Override
     public String toString() {
-        return "JdlFieldImpl{" +
-            "type=" + type +
-            ", name='" + name + '\'' +
-            ", enumEntityName='" + enumEntityName + '\'' +
-            ", isRequired=" + isRequired +
-            ", comment='" + comment + '\'' +
-            ", min=" + min +
-            ", max=" + max +
-            ", pattern='" + pattern + '\'' +
-            ", isNativeEnum=" + isNativeEnum +
-            '}';
+        return (
+            "JdlFieldImpl{" +
+            "type=" +
+            type +
+            ", name='" +
+            name +
+            '\'' +
+            ", enumEntityName='" +
+            enumEntityName +
+            '\'' +
+            ", isRequired=" +
+            isRequired +
+            ", comment='" +
+            comment +
+            '\'' +
+            ", min=" +
+            min +
+            ", max=" +
+            max +
+            ", pattern='" +
+            pattern +
+            '\'' +
+            ", isNativeEnum=" +
+            isNativeEnum +
+            '}'
+        );
     }
 }

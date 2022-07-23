@@ -16,5 +16,4 @@ public final class AppUtil {
         app.addListeners(new SetDatabaseProfileApplicationEventListener());
         return app;
     }
-
 }

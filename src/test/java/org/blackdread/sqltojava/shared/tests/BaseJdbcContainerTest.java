@@ -20,25 +20,26 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ExtendWith(LoggingExtension.class)
 @ContextConfiguration(loader = MainApplicationContextLoader.class)
 public abstract class BaseJdbcContainerTest
-    implements LoggingTest,
-               EnvironmentTest,
-               JdbcContainerTest,
-               ContainersStartedTest {
-
+    implements
+        LoggingTest, EnvironmentTest, JdbcContainerTest, ContainersStartedTest {
     private static Logger log;
     private JdbcDatabaseContainer container;
 
     // EnvironmentTest
     @Autowired
     private Environment env;
+
     @Override
-    public Environment env() { return env; }
+    public Environment env() {
+        return env;
+    }
 
     // LoggingTest
     @Override
     public Logger log() {
         return log;
     }
+
     @Override
     public void logger(Logger log) {
         BaseJdbcContainerTest.log = log;
@@ -49,9 +50,9 @@ public abstract class BaseJdbcContainerTest
     public JdbcDatabaseContainer container() {
         return container;
     }
+
     @Override
     public void container(JdbcDatabaseContainer container) {
         this.container = container;
     }
-
 }

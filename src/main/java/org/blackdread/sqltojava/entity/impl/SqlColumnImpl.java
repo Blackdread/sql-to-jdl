@@ -1,12 +1,11 @@
 package org.blackdread.sqltojava.entity.impl;
 
+import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.entity.SqlTable;
-
-import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -14,7 +13,6 @@ import java.util.Optional;
  * @author Yoann CAPLAIN
  */
 public class SqlColumnImpl implements SqlColumn {
-
     private final SqlTable table;
 
     private final String name;
@@ -55,8 +53,17 @@ public class SqlColumnImpl implements SqlColumn {
         this.isNullable = isNullable;
         this.isUnique = isUnique;
         this.isNativeEnum = isNativeEnum;
-        this.defaultValue = (StringUtils.isBlank(defaultValue) || "null".equalsIgnoreCase(comment)) ? null : defaultValue;
-        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.defaultValue =
+            (
+                    StringUtils.isBlank(defaultValue) ||
+                    "null".equalsIgnoreCase(comment)
+                )
+                ? null
+                : defaultValue;
+        this.comment =
+            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
+                ? null
+                : comment;
     }
 
     @Override
@@ -114,9 +121,11 @@ public class SqlColumnImpl implements SqlColumn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final SqlColumnImpl sqlColumn = (SqlColumnImpl) o;
-        return Objects.equals(table, sqlColumn.table) &&
+        return (
+            Objects.equals(table, sqlColumn.table) &&
             Objects.equals(name, sqlColumn.name) &&
-            Objects.equals(type, sqlColumn.type);
+            Objects.equals(type, sqlColumn.type)
+        );
     }
 
     @Override
@@ -126,17 +135,33 @@ public class SqlColumnImpl implements SqlColumn {
 
     @Override
     public String toString() {
-        return "SqlColumnImpl{" +
-            "table=" + table +
-            ", name='" + name + '\'' +
-            ", type='" + type + '\'' +
-            ", isPrimaryKey=" + isPrimaryKey +
-            ", isForeignKey=" + isForeignKey +
-            ", isNullable=" + isNullable +
-            ", isUnique=" + isUnique +
-            ", isNativeEnum=" + isNativeEnum +
-            ", defaultValue='" + defaultValue + '\'' +
-            ", comment='" + comment + '\'' +
-            '}';
+        return (
+            "SqlColumnImpl{" +
+            "table=" +
+            table +
+            ", name='" +
+            name +
+            '\'' +
+            ", type='" +
+            type +
+            '\'' +
+            ", isPrimaryKey=" +
+            isPrimaryKey +
+            ", isForeignKey=" +
+            isForeignKey +
+            ", isNullable=" +
+            isNullable +
+            ", isUnique=" +
+            isUnique +
+            ", isNativeEnum=" +
+            isNativeEnum +
+            ", defaultValue='" +
+            defaultValue +
+            '\'' +
+            ", comment='" +
+            comment +
+            '\'' +
+            '}'
+        );
     }
 }
