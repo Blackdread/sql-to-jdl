@@ -32,6 +32,9 @@
 
         <testcontainers.version>1.17.3</testcontainers.version>
 
+        <!-- By default just re-write code with prettier -->
+        <plugin.prettier.goal>write</plugin.prettier.goal>
+
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
     </properties>
@@ -232,6 +235,19 @@
                         </target>
                     </generator>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.hubspot.maven.plugins</groupId>
+                <artifactId>prettier-maven-plugin</artifactId>
+                <version>0.18</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>${plugin.prettier.goal}</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!--<plugin>-->
             <!--<groupId>org.jacoco</groupId>-->
