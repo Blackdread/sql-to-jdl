@@ -35,6 +35,10 @@
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
+        <maven.checkstyle.plugin.version>3.1.2</maven.checkstyle.plugin.version>
+        <checkstyle.version>9.3</checkstyle.version>
+        <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
+
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
     </properties>
@@ -248,6 +252,23 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                </configuration>
+
             </plugin>
             <!--<plugin>-->
             <!--<groupId>org.jacoco</groupId>-->

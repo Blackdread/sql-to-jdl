@@ -39,7 +39,11 @@ public class ColumnInformation {
         if (
             StringUtils.isBlank(defaultValue) ||
             "null".equalsIgnoreCase(defaultValue)
-        ) this.defaultValue = null; else this.defaultValue = defaultValue;
+        ) {
+            this.defaultValue = null;
+        } else {
+            this.defaultValue = defaultValue;
+        }
         this.extra = extra;
         this.comment = comment;
     }

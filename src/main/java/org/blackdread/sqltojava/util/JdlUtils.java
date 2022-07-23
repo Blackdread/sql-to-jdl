@@ -83,9 +83,11 @@ public final class JdlUtils {
             builder.append(entity.getComment().get());
             builder.append(" */\n");
         }
-        if (entity.isEnum()) builder.append("enum "); else builder.append(
-            "entity "
-        );
+        if (entity.isEnum()) {
+            builder.append("enum ");
+        } else {
+            builder.append("entity ");
+        }
         builder.append(entity.getName());
         builder.append(" {\n");
         for (final JdlField field : entity.getFields()) {
@@ -141,16 +143,20 @@ public final class JdlUtils {
 
         if (field.getMin().isPresent()) {
             builder.append(" ");
-            if (field.getType().equals(JdlFieldEnum.STRING)) builder.append(
-                validationMinLength(field.getMin().get())
-            ); else builder.append(validationMin(field.getMin().get()));
+            if (field.getType().equals(JdlFieldEnum.STRING)) {
+                builder.append(validationMinLength(field.getMin().get()));
+            } else {
+                builder.append(validationMin(field.getMin().get()));
+            }
         }
         if (field.getMax().isPresent()) {
             builder.append(" ");
 
-            if (field.getType().equals(JdlFieldEnum.STRING)) builder.append(
-                validationMaxLength(field.getMax().get())
-            ); else builder.append(validationMax(field.getMax().get()));
+            if (field.getType().equals(JdlFieldEnum.STRING)) {
+                builder.append(validationMaxLength(field.getMax().get()));
+            } else {
+                builder.append(validationMax(field.getMax().get()));
+            }
         }
         if (field.getPattern().isPresent()) {
             builder.append(" ");
