@@ -1,9 +1,8 @@
 package org.blackdread.sqltojava.pojo;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Objects;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -11,7 +10,6 @@ import java.util.Optional;
  * @author Yoann CAPLAIN
  */
 public class TableInformation {
-
     private final String name;
 
     private final String comment;
@@ -22,7 +20,10 @@ public class TableInformation {
 
     public TableInformation(final String name, final String comment) {
         this.name = name;
-        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.comment =
+            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
+                ? null
+                : comment;
     }
 
     public String getName() {
@@ -35,10 +36,16 @@ public class TableInformation {
 
     @Override
     public String toString() {
-        return "TableInformation{" +
-            "name='" + name + '\'' +
-            ", comment='" + comment + '\'' +
-            '}';
+        return (
+            "TableInformation{" +
+            "name='" +
+            name +
+            '\'' +
+            ", comment='" +
+            comment +
+            '\'' +
+            '}'
+        );
     }
 
     @Override

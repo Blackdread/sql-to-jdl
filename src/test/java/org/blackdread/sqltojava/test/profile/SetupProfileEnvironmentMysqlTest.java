@@ -18,7 +18,7 @@ public class SetupProfileEnvironmentMysqlTest
      */
     @BeforeAll
     static void beforeAll() {
-      System.setProperty("spring.profiles.active", "mysql57");
+        System.setProperty("spring.profiles.active", "mysql57");
     }
 
     @DynamicPropertySource
@@ -26,5 +26,4 @@ public class SetupProfileEnvironmentMysqlTest
         registry.add("spring.flyway.enabled", () -> "false");
         registry.add("expected.profile", () -> "mysql57");
     }
-
 }

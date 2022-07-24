@@ -7,7 +7,6 @@ import java.util.Optional;
  * Created by Yoann CAPLAIN on 2017/10/6.
  */
 public interface JdlEntity {
-
     String getName();
 
     List<JdlField> getFields();
@@ -27,5 +26,4 @@ public interface JdlEntity {
      * @return Relations where this entity is the owner side
      */
     List<JdlRelation> getRelations();
-
 }

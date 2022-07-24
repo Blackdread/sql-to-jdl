@@ -2,16 +2,15 @@ package org.blackdread.sqltojava.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Streams;
-import org.blackdread.sqltojava.entity.JdlFieldEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import org.blackdread.sqltojava.entity.JdlFieldEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -20,30 +19,33 @@ import java.util.stream.Collectors;
  */
 @Service
 public class SqlJdlTypeService {
-
-    private static final Logger log = LoggerFactory.getLogger(SqlJdlTypeService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        SqlJdlTypeService.class
+    );
 
     @PostConstruct
     private void init() {
-        final List<String> total = Streams.concat(
-            jdlString().stream(),
-            jdlBigDecimal().stream(),
-            jdlBoolean().stream(),
-            jdlDouble().stream(),
-            jdlEnum().stream(),
-            jdlFloat().stream(),
-            jdlInstant().stream(),
-            jdlInteger().stream(),
-            jdlLocalDate().stream(),
-            jdlLong().stream(),
-            jdlZonedDateTime().stream(),
-            jdlTextBlob().stream(),
-            jdlBlob().stream(),
-            jdlTime().stream(),
-            jdlYear().stream(),
-            jdlJson().stream(),
-            jdlGeometry().stream()
-        ).collect(Collectors.toList());
+        final List<String> total = Streams
+            .concat(
+                jdlString().stream(),
+                jdlBigDecimal().stream(),
+                jdlBoolean().stream(),
+                jdlDouble().stream(),
+                jdlEnum().stream(),
+                jdlFloat().stream(),
+                jdlInstant().stream(),
+                jdlInteger().stream(),
+                jdlLocalDate().stream(),
+                jdlLong().stream(),
+                jdlZonedDateTime().stream(),
+                jdlTextBlob().stream(),
+                jdlBlob().stream(),
+                jdlTime().stream(),
+                jdlYear().stream(),
+                jdlJson().stream(),
+                jdlGeometry().stream()
+            )
+            .collect(Collectors.toList());
 
         final HashSet<String> setTotal = new HashSet<>(total);
         if (setTotal.size() != total.size()) {
@@ -54,7 +56,6 @@ public class SqlJdlTypeService {
 
     public JdlFieldEnum sqlTypeToJdlType(final String sqlType) {
         final String type = sqlType.toLowerCase();
-
 
         if (isTypeContained(jdlInstant(), type)) {
             return JdlFieldEnum.INSTANT;
@@ -127,10 +128,12 @@ public class SqlJdlTypeService {
         throw new IllegalStateException("Unknown type: " + type);
     }
 
-    private boolean isTypeContained(final List<String> list, final String type) {
+    private boolean isTypeContained(
+        final List<String> list,
+        final String type
+    ) {
         return list.stream().anyMatch(type::startsWith);
     }
-
 
     /**
      * Not support by base jhipster but to export database which has this type.
@@ -215,6 +218,4 @@ public class SqlJdlTypeService {
     protected List<String> jdlGeometry() {
         return Lists.newArrayList("geometry");
     }
-
-
 }

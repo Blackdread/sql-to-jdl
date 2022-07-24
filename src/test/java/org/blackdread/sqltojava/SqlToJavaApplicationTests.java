@@ -16,7 +16,5 @@ public class SqlToJavaApplicationTests extends BaseJdbcContainerTest {
     }
 
     @Test
-    public void contextLoads() {
-    }
-
+    public void contextLoads() {}
 }

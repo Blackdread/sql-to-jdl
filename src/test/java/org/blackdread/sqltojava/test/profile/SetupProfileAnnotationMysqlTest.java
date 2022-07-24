@@ -19,5 +19,4 @@ public class SetupProfileAnnotationMysqlTest
         registry.add("spring.flyway.enabled", () -> "false");
         registry.add("expected.profile", () -> "mysql57");
     }
-
 }

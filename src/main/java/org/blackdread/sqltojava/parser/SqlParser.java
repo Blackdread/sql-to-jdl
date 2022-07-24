@@ -1,7 +1,6 @@
 package org.blackdread.sqltojava.parser;
 
 import com.google.common.io.Files;
-
 import java.io.File;
 
 /**
@@ -15,8 +14,6 @@ public class SqlParser {
      */
     public static void parse(final File fileToParse, final File saveInto) {
         checkIsSql(fileToParse);
-
-
     }
 
     private static void checkIsSql(final File file) {

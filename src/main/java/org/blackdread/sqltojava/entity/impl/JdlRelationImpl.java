@@ -1,15 +1,12 @@
 package org.blackdread.sqltojava.entity.impl;
 
-import org.blackdread.sqltojava.entity.JdlRelation;
-import org.blackdread.sqltojava.entity.RelationType;
-import org.apache.commons.lang3.StringUtils;
-import org.blackdread.sqltojava.entity.JdlRelation;
-import org.blackdread.sqltojava.entity.RelationType;
-
+import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
+import org.blackdread.sqltojava.entity.JdlRelation;
+import org.blackdread.sqltojava.entity.RelationType;
 
 /**
  * <p>Created on 2018/2/12.</p>
@@ -19,7 +16,6 @@ import java.util.Optional;
 @Immutable
 @ThreadSafe
 public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
-
     private final RelationType relationType;
 
     private final boolean isBidirectional;
@@ -39,32 +35,192 @@ public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
 
     private final String extraRelationComment;
 
-
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, null, null, null, null, null, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, ownerDisplayField, null, null, null, null, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            ownerDisplayField,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField, @Nullable final String ownerComment) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, ownerDisplayField, ownerComment, null, null, null, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField,
+        @Nullable final String ownerComment
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            ownerDisplayField,
+            ownerComment,
+            null,
+            null,
+            null,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField, @Nullable final String ownerComment, @Nullable final String inverseSideComment) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, ownerDisplayField, ownerComment, inverseSideComment, null, null, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField,
+        @Nullable final String ownerComment,
+        @Nullable final String inverseSideComment
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            ownerDisplayField,
+            ownerComment,
+            inverseSideComment,
+            null,
+            null,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField, @Nullable final String ownerComment, @Nullable final String inverseSideComment, @Nullable final String inverseSideRelationName) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, ownerDisplayField, ownerComment, inverseSideComment, inverseSideRelationName, null, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField,
+        @Nullable final String ownerComment,
+        @Nullable final String inverseSideComment,
+        @Nullable final String inverseSideRelationName
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            ownerDisplayField,
+            ownerComment,
+            inverseSideComment,
+            inverseSideRelationName,
+            null,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField, @Nullable final String ownerComment, @Nullable final String inverseSideComment, @Nullable final String inverseSideRelationName, @Nullable final String inverseDisplayField) {
-        this(relationType, isBidirectional, isOwnerRequired, isInverseSideRequired, ownerEntityName, inverseSideEntityName, ownerRelationName, ownerDisplayField, ownerComment, inverseSideComment, inverseSideRelationName, inverseDisplayField, null);
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField,
+        @Nullable final String ownerComment,
+        @Nullable final String inverseSideComment,
+        @Nullable final String inverseSideRelationName,
+        @Nullable final String inverseDisplayField
+    ) {
+        this(
+            relationType,
+            isBidirectional,
+            isOwnerRequired,
+            isInverseSideRequired,
+            ownerEntityName,
+            inverseSideEntityName,
+            ownerRelationName,
+            ownerDisplayField,
+            ownerComment,
+            inverseSideComment,
+            inverseSideRelationName,
+            inverseDisplayField,
+            null
+        );
     }
 
-    public JdlRelationImpl(final RelationType relationType, final boolean isBidirectional, final boolean isOwnerRequired, final boolean isInverseSideRequired, final String ownerEntityName, final String inverseSideEntityName, final String ownerRelationName, @Nullable final String ownerDisplayField, @Nullable final String ownerComment, @Nullable final String inverseSideComment, @Nullable final String inverseSideRelationName, @Nullable final String inverseDisplayField, @Nullable final String extraRelationComment) {
+    public JdlRelationImpl(
+        final RelationType relationType,
+        final boolean isBidirectional,
+        final boolean isOwnerRequired,
+        final boolean isInverseSideRequired,
+        final String ownerEntityName,
+        final String inverseSideEntityName,
+        final String ownerRelationName,
+        @Nullable final String ownerDisplayField,
+        @Nullable final String ownerComment,
+        @Nullable final String inverseSideComment,
+        @Nullable final String inverseSideRelationName,
+        @Nullable final String inverseDisplayField,
+        @Nullable final String extraRelationComment
+    ) {
         this.relationType = relationType;
         this.isBidirectional = isBidirectional;
         this.isOwnerRequired = isOwnerRequired;
@@ -74,13 +230,49 @@ public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
         this.inverseSideEntityName = inverseSideEntityName;
 
         this.ownerRelationName = ownerRelationName;
-        this.ownerDisplayField = (StringUtils.isBlank(ownerDisplayField) || "null".equalsIgnoreCase(ownerDisplayField)) ? null : ownerDisplayField;
+        this.ownerDisplayField =
+            (
+                    StringUtils.isBlank(ownerDisplayField) ||
+                    "null".equalsIgnoreCase(ownerDisplayField)
+                )
+                ? null
+                : ownerDisplayField;
 
-        this.ownerComment = (StringUtils.isBlank(ownerComment) || "null".equalsIgnoreCase(ownerComment)) ? null : ownerComment;
-        this.inverseSideComment = (StringUtils.isBlank(inverseSideComment) || "null".equalsIgnoreCase(inverseSideComment)) ? null : inverseSideComment;
-        this.inverseSideRelationName = (StringUtils.isBlank(inverseSideRelationName) || "null".equalsIgnoreCase(inverseSideRelationName)) ? null : inverseSideRelationName;
-        this.inverseDisplayField = (StringUtils.isBlank(inverseDisplayField) || "null".equalsIgnoreCase(inverseDisplayField)) ? null : inverseDisplayField;
-        this.extraRelationComment = (StringUtils.isBlank(extraRelationComment) || "null".equalsIgnoreCase(extraRelationComment)) ? null : extraRelationComment;
+        this.ownerComment =
+            (
+                    StringUtils.isBlank(ownerComment) ||
+                    "null".equalsIgnoreCase(ownerComment)
+                )
+                ? null
+                : ownerComment;
+        this.inverseSideComment =
+            (
+                    StringUtils.isBlank(inverseSideComment) ||
+                    "null".equalsIgnoreCase(inverseSideComment)
+                )
+                ? null
+                : inverseSideComment;
+        this.inverseSideRelationName =
+            (
+                    StringUtils.isBlank(inverseSideRelationName) ||
+                    "null".equalsIgnoreCase(inverseSideRelationName)
+                )
+                ? null
+                : inverseSideRelationName;
+        this.inverseDisplayField =
+            (
+                    StringUtils.isBlank(inverseDisplayField) ||
+                    "null".equalsIgnoreCase(inverseDisplayField)
+                )
+                ? null
+                : inverseDisplayField;
+        this.extraRelationComment =
+            (
+                    StringUtils.isBlank(extraRelationComment) ||
+                    "null".equalsIgnoreCase(extraRelationComment)
+                )
+                ? null
+                : extraRelationComment;
     }
 
     @Override

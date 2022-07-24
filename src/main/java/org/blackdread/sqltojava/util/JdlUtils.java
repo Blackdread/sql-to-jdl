@@ -1,11 +1,10 @@
 package org.blackdread.sqltojava.util;
 
+import javax.validation.constraints.NotNull;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
 import org.blackdread.sqltojava.entity.JdlRelation;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -14,8 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 public final class JdlUtils {
 
-    private JdlUtils() {
-    }
+    private JdlUtils() {}
 
     @NotNull
     public static String validationMax(final int max) {
@@ -85,10 +83,11 @@ public final class JdlUtils {
             builder.append(entity.getComment().get());
             builder.append(" */\n");
         }
-        if (entity.isEnum())
+        if (entity.isEnum()) {
             builder.append("enum ");
-        else
+        } else {
             builder.append("entity ");
+        }
         builder.append(entity.getName());
         builder.append(" {\n");
         for (final JdlField field : entity.getFields()) {
@@ -117,7 +116,16 @@ public final class JdlUtils {
         builder.append(" ");
         switch (field.getType()) {
             case ENUM:
-                builder.append(field.getEnumEntityName().orElseThrow(() -> new IllegalStateException("An enum field must have its enum entity name set")));
+                builder.append(
+                    field
+                        .getEnumEntityName()
+                        .orElseThrow(
+                            () ->
+                                new IllegalStateException(
+                                    "An enum field must have its enum entity name set"
+                                )
+                        )
+                );
                 break;
             default:
                 builder.append(field.getType().toCamelUpper());
@@ -135,18 +143,20 @@ public final class JdlUtils {
 
         if (field.getMin().isPresent()) {
             builder.append(" ");
-            if (field.getType().equals(JdlFieldEnum.STRING))
+            if (field.getType().equals(JdlFieldEnum.STRING)) {
                 builder.append(validationMinLength(field.getMin().get()));
-            else
+            } else {
                 builder.append(validationMin(field.getMin().get()));
+            }
         }
         if (field.getMax().isPresent()) {
             builder.append(" ");
 
-            if (field.getType().equals(JdlFieldEnum.STRING))
+            if (field.getType().equals(JdlFieldEnum.STRING)) {
                 builder.append(validationMaxLength(field.getMax().get()));
-            else
+            } else {
                 builder.append(validationMax(field.getMax().get()));
+            }
         }
         if (field.getPattern().isPresent()) {
             builder.append(" ");
@@ -155,7 +165,6 @@ public final class JdlUtils {
         return builder.toString();
     }
 
-
     /**
      * Specific for pure ManyToMany relation table
      *
@@ -163,38 +172,53 @@ public final class JdlUtils {
      * @return Jdl representation of the relation
      */
     @NotNull
-    public static String writeRelationPureManyToMany(final JdlRelation relation) {
-        return "// TODO This is a pure ManyToMany relation (delete me and decide owner side)\n" + writeRelation(relation);
+    public static String writeRelationPureManyToMany(
+        final JdlRelation relation
+    ) {
+        return (
+            "// TODO This is a pure ManyToMany relation (delete me and decide owner side)\n" +
+            writeRelation(relation)
+        );
     }
 
     @NotNull
     public static String writeRelation(final JdlRelation relation) {
-//         relationship ManyToOne {
-//              /** comment */
-//              TeamMember{user(login) required} to
-//              /** comment */
-//              User{teamMember(field)}
-//         }
+        //         relationship ManyToOne {
+        //              /** comment */
+        //              TeamMember{user(login) required} to
+        //              /** comment */
+        //              User{teamMember(field)}
+        //         }
         final StringBuilder builder = new StringBuilder(200);
-        relation.getExtraRelationComment().ifPresent(s -> builder.append("// ").append(s).append("\n"));
+        relation
+            .getExtraRelationComment()
+            .ifPresent(s -> builder.append("// ").append(s).append("\n"));
         builder.append("relationship ");
         builder.append(relation.getRelationType().toJdl());
         builder.append(" {\n");
-        relation.getOwnerComment().ifPresent(ownerComment -> {
-            builder.append("\t");
-            builder.append("/** ");
-            builder.append(relation.getOwnerComment().get());
-            builder.append(" */\n");
-        });
+        relation
+            .getOwnerComment()
+            .ifPresent(
+                ownerComment -> {
+                    builder.append("\t");
+                    builder.append("/** ");
+                    builder.append(relation.getOwnerComment().get());
+                    builder.append(" */\n");
+                }
+            );
         builder.append("\t");
         builder.append(relation.getOwnerEntityName());
         builder.append("{");
         builder.append(relation.getOwnerRelationName());
-        relation.getOwnerDisplayField().ifPresent(ownerDisplayField -> {
-            builder.append("(");
-            builder.append(ownerDisplayField);
-            builder.append(")");
-        });
+        relation
+            .getOwnerDisplayField()
+            .ifPresent(
+                ownerDisplayField -> {
+                    builder.append("(");
+                    builder.append(ownerDisplayField);
+                    builder.append(")");
+                }
+            );
         if (relation.isOwnerRequired()) {
             builder.append(" required");
         }
@@ -205,18 +229,30 @@ public final class JdlUtils {
             builder.append(relation.getInverseSideComment().get());
             builder.append(" */\n");
             builder.append("\t");
-        } else
-            builder.append(" ");
+        } else builder.append(" ");
 
         builder.append(relation.getInverseSideEntityName());
         if (relation.isBidirectional()) {
             builder.append("{");
-            builder.append(relation.getInverseSideRelationName().orElseThrow(() -> new IllegalStateException("A bidirectional relation has to have a inverse side relation name")));
-            relation.getInverseSideDisplayField().ifPresent(inverseSideDisplayField -> {
-                builder.append("(");
-                builder.append(inverseSideDisplayField);
-                builder.append(")");
-            });
+            builder.append(
+                relation
+                    .getInverseSideRelationName()
+                    .orElseThrow(
+                        () ->
+                            new IllegalStateException(
+                                "A bidirectional relation has to have a inverse side relation name"
+                            )
+                    )
+            );
+            relation
+                .getInverseSideDisplayField()
+                .ifPresent(
+                    inverseSideDisplayField -> {
+                        builder.append("(");
+                        builder.append(inverseSideDisplayField);
+                        builder.append(")");
+                    }
+                );
             if (relation.isInverseSideRequired()) {
                 builder.append(" required");
             }
@@ -227,5 +263,4 @@ public final class JdlUtils {
 
         return builder.toString();
     }
-
 }

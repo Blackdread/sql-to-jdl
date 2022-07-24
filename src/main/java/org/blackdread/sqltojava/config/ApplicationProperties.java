@@ -2,13 +2,12 @@ package org.blackdread.sqltojava.config;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
-
-import java.nio.file.Path;
-import java.util.List;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.ResourceUtils;
 
@@ -20,7 +19,6 @@ import org.springframework.util.ResourceUtils;
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
-
     /**
      * Database name to export to JDL
      */
@@ -33,16 +31,24 @@ public class ApplicationProperties {
     private final List<String> reservedList;
 
     @SuppressWarnings("unchecked")
-    public ApplicationProperties(final String databaseToExport, final List<String> ignoredTableNames, final Export export, final String reservedKeywords) {
+    public ApplicationProperties(
+        final String databaseToExport,
+        final List<String> ignoredTableNames,
+        final Export export,
+        final String reservedKeywords
+    ) {
         this.databaseToExport = databaseToExport;
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
-        this.reservedList = JsonParserFactory.getJsonParser()
-            .parseMap(keywordsAsJson(reservedKeywords)).values()
-            .stream()
-            .map(obj -> (List<String>) obj)
-            .flatMap(Collection::stream)
-            .collect(Collectors.toList());
+        this.reservedList =
+            JsonParserFactory
+                .getJsonParser()
+                .parseMap(keywordsAsJson(reservedKeywords))
+                .values()
+                .stream()
+                .map(obj -> (List<String>) obj)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     public String getDatabaseToExport() {
@@ -62,7 +68,6 @@ public class ApplicationProperties {
     }
 
     public static class Export {
-
         private final Path path;
 
         private final String type;
@@ -79,7 +84,6 @@ public class ApplicationProperties {
         public String getType() {
             return type;
         }
-
     }
 
     private String keywordsAsJson(String file) {
@@ -90,5 +94,4 @@ public class ApplicationProperties {
             return "{\"key\": []}";
         }
     }
-
 }

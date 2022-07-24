@@ -1,5 +1,6 @@
 package org.blackdread.sqltojava;
 
+import java.util.List;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.service.logic.ExportService;
@@ -14,13 +15,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import java.util.List;
-
 @EnableConfigurationProperties(ApplicationProperties.class)
 @SpringBootApplication
 public class SqlToJavaApplication implements CommandLineRunner {
-
-    private static final Logger log = LoggerFactory.getLogger(SqlToJavaApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        SqlToJavaApplication.class
+    );
 
     private final ApplicationProperties applicationProperties;
 
@@ -30,7 +30,12 @@ public class SqlToJavaApplication implements CommandLineRunner {
 
     private final ExportService exportService;
 
-    public SqlToJavaApplication(final ApplicationProperties applicationProperties, final SqlService sqlService, final JdlService jdlService, final ExportService exportService) {
+    public SqlToJavaApplication(
+        final ApplicationProperties applicationProperties,
+        final SqlService sqlService,
+        final JdlService jdlService,
+        final ExportService exportService
+    ) {
         this.applicationProperties = applicationProperties;
         this.sqlService = sqlService;
         this.jdlService = jdlService;
@@ -38,9 +43,11 @@ public class SqlToJavaApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplicationBuilder(SqlToJavaApplication.class).application();
-        AppUtil.setup(app)
-               .run(args);
+        SpringApplication app = new SpringApplicationBuilder(
+            SqlToJavaApplication.class
+        )
+        .application();
+        AppUtil.setup(app).run(args);
     }
 
     @Override
@@ -50,5 +57,4 @@ public class SqlToJavaApplication implements CommandLineRunner {
 
         exportService.export(entities);
     }
-
 }

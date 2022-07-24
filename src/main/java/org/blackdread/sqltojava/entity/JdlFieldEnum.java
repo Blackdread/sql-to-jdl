@@ -49,6 +49,9 @@ public enum JdlFieldEnum {
     JSON_AS_TEXT;
 
     public String toCamelUpper() {
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, this.name());
+        return CaseFormat.UPPER_UNDERSCORE.to(
+            CaseFormat.UPPER_CAMEL,
+            this.name()
+        );
     }
 }

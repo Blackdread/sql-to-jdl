@@ -12,5 +12,4 @@ public final class JdbcUtil {
         assert parts[0].equals("jdbc");
         return parts[1];
     }
-
 }

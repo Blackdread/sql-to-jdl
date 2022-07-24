@@ -1,5 +1,11 @@
 package org.blackdread.sqltojava.service.logic;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlRelation;
@@ -9,13 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.List;
-
 /**
  * <p>Created on 2018/2/9.</p>
  *
@@ -23,8 +22,9 @@ import java.util.List;
  */
 @Service
 public class ExportService {
-
-    private static final Logger log = LoggerFactory.getLogger(ExportService.class);
+    private static final Logger log = LoggerFactory.getLogger(
+        ExportService.class
+    );
 
     private final ApplicationProperties applicationProperties;
 
@@ -34,7 +34,9 @@ public class ExportService {
 
     public void export(final List<JdlEntity> entities) {
         if (entities.isEmpty()) {
-            log.error("No entities were found for which JDL is to be generated. Please review console logs");
+            log.error(
+                "No entities were found for which JDL is to be generated. Please review console logs"
+            );
             return;
         }
 
@@ -46,10 +48,11 @@ public class ExportService {
 
         log.info("Exporting into: {}", path.toAbsolutePath().toString());
 
-
         if (Files.isDirectory(path)) {
             log.error("Path is a directory: {}", path.toAbsolutePath());
-            throw new IllegalArgumentException("Cannot export into a directory");
+            throw new IllegalArgumentException(
+                "Cannot export into a directory"
+            );
         }
 
         try {
@@ -59,7 +62,12 @@ public class ExportService {
             throw new IllegalStateException(e);
         }
 
-        try (BufferedWriter out = Files.newBufferedWriter(path, StandardOpenOption.CREATE)) {
+        try (
+            BufferedWriter out = Files.newBufferedWriter(
+                path,
+                StandardOpenOption.CREATE
+            )
+        ) {
             for (final JdlEntity entity : entities) {
                 if (!entity.isPureManyToMany()) {
                     out.write(JdlUtils.writeEntity(entity));
@@ -76,7 +84,9 @@ public class ExportService {
             for (final JdlEntity entity : entities) {
                 for (final JdlRelation relation : entity.getRelations()) {
                     if (relation.getRelationType() == RelationType.ManyToMany) {
-                        out.write(JdlUtils.writeRelationPureManyToMany(relation));
+                        out.write(
+                            JdlUtils.writeRelationPureManyToMany(relation)
+                        );
                     } else {
                         out.write(JdlUtils.writeRelation(relation));
                     }
@@ -105,6 +115,5 @@ public class ExportService {
             log.error("Error", e);
             throw new IllegalStateException(e);
         }
-
     }
 }

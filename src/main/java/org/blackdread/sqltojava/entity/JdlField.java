@@ -1,13 +1,11 @@
 package org.blackdread.sqltojava.entity;
 
-
 import java.util.Optional;
 
 /**
  * Created by Yoann CAPLAIN on 2017/10/6.
  */
 public interface JdlField {
-
     JdlFieldEnum getType();
 
     String getName();
@@ -49,5 +47,4 @@ public interface JdlField {
      * @return - <code>true</code> if the column is marked as a unique column
      */
     boolean isUnique();
-
 }

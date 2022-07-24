@@ -22,14 +22,17 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ContextConfiguration(loader = MainApplicationContextLoader.class)
 @ExtendWith(MsSqlLatestExtension.class)
 @Disabled
-public class GenerateForSqlServerTest extends BaseJdbcContainerTest
+public class GenerateForSqlServerTest
+    extends BaseJdbcContainerTest
     implements CompareJdlResultsTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.flyway.locations", () -> "classpath:db/mssql");
         registry.add("application.export.path", () -> "./mssql.jdl");
-        registry.add("expected.result.path", () -> "/result/mssql-expected.jdl");
+        registry.add(
+            "expected.result.path",
+            () -> "/result/mssql-expected.jdl"
+        );
     }
-
 }
