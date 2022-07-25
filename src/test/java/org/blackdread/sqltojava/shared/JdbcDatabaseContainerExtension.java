@@ -13,8 +13,7 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 /**
  * This is base class for JdbcDatabaseContainer set up for tests.
  */
-public abstract class JdbcDatabaseContainerExtension
-    implements BeforeAllCallback, AfterAllCallback, TestInstancePostProcessor {
+public abstract class JdbcDatabaseContainerExtension implements BeforeAllCallback, AfterAllCallback, TestInstancePostProcessor {
     protected JdbcDatabaseContainer container;
 
     protected abstract JdbcDatabaseContainer createContainer();
@@ -27,13 +26,7 @@ public abstract class JdbcDatabaseContainerExtension
     public void beforeAll(ExtensionContext context) {
         container = createContainer();
         container.start();
-        assertTrue(
-            container.isRunning(),
-            String.format(
-                "Container %s should be running",
-                container.getDockerImageName()
-            )
-        );
+        assertTrue(container.isRunning(), String.format("Container %s should be running", container.getDockerImageName()));
         setupJdbcDatabaseContainer(container);
     }
 
@@ -44,20 +37,11 @@ public abstract class JdbcDatabaseContainerExtension
     @Override
     public void afterAll(ExtensionContext context) {
         container.stop();
-        assertFalse(
-            container.isRunning(),
-            String.format(
-                "Container %s should not be running",
-                container.getDockerImageName()
-            )
-        );
+        assertFalse(container.isRunning(), String.format("Container %s should not be running", container.getDockerImageName()));
     }
 
     @Override
-    public void postProcessTestInstance(
-        Object testInstance,
-        ExtensionContext context
-    ) {
+    public void postProcessTestInstance(Object testInstance, ExtensionContext context) {
         JdbcContainerTest jdbcContainerTest = (JdbcContainerTest) testInstance;
         jdbcContainerTest.container(container);
     }
@@ -67,20 +51,9 @@ public abstract class JdbcDatabaseContainerExtension
      * passed to this method.
      * @param jdbcDatabaseContainer
      */
-    public void setupJdbcDatabaseContainer(
-        JdbcDatabaseContainer jdbcDatabaseContainer
-    ) {
-        System.setProperty(
-            "spring.datasource.url",
-            jdbcDatabaseContainer.getJdbcUrl()
-        );
-        System.setProperty(
-            "spring.datasource.username",
-            jdbcDatabaseContainer.getUsername()
-        );
-        System.setProperty(
-            "spring.datasource.password",
-            jdbcDatabaseContainer.getPassword()
-        );
+    public void setupJdbcDatabaseContainer(JdbcDatabaseContainer jdbcDatabaseContainer) {
+        System.setProperty("spring.datasource.url", jdbcDatabaseContainer.getJdbcUrl());
+        System.setProperty("spring.datasource.username", jdbcDatabaseContainer.getUsername());
+        System.setProperty("spring.datasource.password", jdbcDatabaseContainer.getPassword());
     }
 }

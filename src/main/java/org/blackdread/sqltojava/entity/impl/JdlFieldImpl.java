@@ -42,10 +42,7 @@ public class JdlFieldImpl implements JdlField {
         this.type = type;
         this.name = name;
         this.isRequired = isRequired;
-        this.comment =
-            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
-                ? null
-                : comment;
+        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
         this.min = min;
         this.max = max;
         this.pattern = pattern;

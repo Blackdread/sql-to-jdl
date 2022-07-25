@@ -18,10 +18,7 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
 
     public SqlTableImpl(final String name, @Nullable final String comment) {
         this.name = Objects.requireNonNull(name);
-        this.comment =
-            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
-                ? null
-                : comment;
+        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
     }
 
     @Override
@@ -49,16 +46,7 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
 
     @Override
     public String toString() {
-        return (
-            "SqlTableImpl{" +
-            "name='" +
-            name +
-            '\'' +
-            ", comment='" +
-            comment +
-            '\'' +
-            '}'
-        );
+        return ("SqlTableImpl{" + "name='" + name + '\'' + ", comment='" + comment + '\'' + '}');
     }
 
     @Override

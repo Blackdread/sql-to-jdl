@@ -41,10 +41,7 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
     ) {
         this.name = name;
         this.fields = ImmutableList.copyOf(fields);
-        this.comment =
-            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
-                ? null
-                : comment;
+        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
         this.isEnum = isEnum;
         this.isPureManyToMany = isPureManyToMany;
         this.relations = ImmutableList.copyOf(relations);

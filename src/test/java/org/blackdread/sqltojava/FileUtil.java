@@ -14,16 +14,11 @@ import java.util.List;
  */
 public final class FileUtil {
 
-    public static List<String> readAllLinesClasspath(final String name)
-        throws URISyntaxException, IOException {
-        return Files.readAllLines(
-            Paths.get(FileUtil.class.getResource(name).toURI()),
-            StandardCharsets.UTF_8
-        );
+    public static List<String> readAllLinesClasspath(final String name) throws URISyntaxException, IOException {
+        return Files.readAllLines(Paths.get(FileUtil.class.getResource(name).toURI()), StandardCharsets.UTF_8);
     }
 
-    public static List<String> readAllLines(final String name)
-        throws URISyntaxException, IOException {
+    public static List<String> readAllLines(final String name) throws URISyntaxException, IOException {
         return Files.readAllLines(Paths.get(name), StandardCharsets.UTF_8);
     }
     /*

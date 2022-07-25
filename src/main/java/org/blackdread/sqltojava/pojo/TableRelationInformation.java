@@ -56,12 +56,7 @@ public class TableRelationInformation {
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            tableName,
-            columnName,
-            referencedTableName,
-            referencedColumnName
-        );
+        return Objects.hash(tableName, columnName, referencedTableName, referencedColumnName);
     }
 
     @Override

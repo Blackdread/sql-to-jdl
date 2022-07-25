@@ -13,10 +13,6 @@ public interface ProfileActiveTest extends EnvironmentTest {
 
         String[] activeProfiles = env().getActiveProfiles();
         String[] expectedProfiles = new String[] { expectedProfile };
-        Assertions.assertArrayEquals(
-            expectedProfiles,
-            activeProfiles,
-            "Incorrect profile set"
-        );
+        Assertions.assertArrayEquals(expectedProfiles, activeProfiles, "Incorrect profile set");
     }
 }

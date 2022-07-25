@@ -36,10 +36,7 @@ public class ColumnInformation {
         this.isNullable = isNullable;
         this.isPrimary = isPrimary;
         this.isUnique = isUnique;
-        if (
-            StringUtils.isBlank(defaultValue) ||
-            "null".equalsIgnoreCase(defaultValue)
-        ) {
+        if (StringUtils.isBlank(defaultValue) || "null".equalsIgnoreCase(defaultValue)) {
             this.defaultValue = null;
         } else {
             this.defaultValue = defaultValue;
