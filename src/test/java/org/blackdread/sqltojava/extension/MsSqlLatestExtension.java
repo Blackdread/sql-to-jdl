@@ -9,11 +9,6 @@ public class MsSqlLatestExtension extends JdbcDatabaseContainerExtension {
 
     @Override
     protected JdbcDatabaseContainer createContainer() {
-        return new MSSQLServerContainer(
-            DockerImageName
-                .parse("mcr.microsoft.com/mssql/server")
-                .withTag("2022-latest")
-        )
-        .acceptLicense();
+        return new MSSQLServerContainer(DockerImageName.parse("mcr.microsoft.com/mssql/server").withTag("2022-latest")).acceptLicense();
     }
 }

@@ -231,48 +231,19 @@ public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
 
         this.ownerRelationName = ownerRelationName;
         this.ownerDisplayField =
-            (
-                    StringUtils.isBlank(ownerDisplayField) ||
-                    "null".equalsIgnoreCase(ownerDisplayField)
-                )
-                ? null
-                : ownerDisplayField;
+            (StringUtils.isBlank(ownerDisplayField) || "null".equalsIgnoreCase(ownerDisplayField)) ? null : ownerDisplayField;
 
-        this.ownerComment =
-            (
-                    StringUtils.isBlank(ownerComment) ||
-                    "null".equalsIgnoreCase(ownerComment)
-                )
-                ? null
-                : ownerComment;
+        this.ownerComment = (StringUtils.isBlank(ownerComment) || "null".equalsIgnoreCase(ownerComment)) ? null : ownerComment;
         this.inverseSideComment =
-            (
-                    StringUtils.isBlank(inverseSideComment) ||
-                    "null".equalsIgnoreCase(inverseSideComment)
-                )
-                ? null
-                : inverseSideComment;
+            (StringUtils.isBlank(inverseSideComment) || "null".equalsIgnoreCase(inverseSideComment)) ? null : inverseSideComment;
         this.inverseSideRelationName =
-            (
-                    StringUtils.isBlank(inverseSideRelationName) ||
-                    "null".equalsIgnoreCase(inverseSideRelationName)
-                )
+            (StringUtils.isBlank(inverseSideRelationName) || "null".equalsIgnoreCase(inverseSideRelationName))
                 ? null
                 : inverseSideRelationName;
         this.inverseDisplayField =
-            (
-                    StringUtils.isBlank(inverseDisplayField) ||
-                    "null".equalsIgnoreCase(inverseDisplayField)
-                )
-                ? null
-                : inverseDisplayField;
+            (StringUtils.isBlank(inverseDisplayField) || "null".equalsIgnoreCase(inverseDisplayField)) ? null : inverseDisplayField;
         this.extraRelationComment =
-            (
-                    StringUtils.isBlank(extraRelationComment) ||
-                    "null".equalsIgnoreCase(extraRelationComment)
-                )
-                ? null
-                : extraRelationComment;
+            (StringUtils.isBlank(extraRelationComment) || "null".equalsIgnoreCase(extraRelationComment)) ? null : extraRelationComment;
     }
 
     @Override

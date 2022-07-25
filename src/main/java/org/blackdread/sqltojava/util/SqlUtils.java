@@ -23,10 +23,7 @@ import org.slf4j.LoggerFactory;
 public final class SqlUtils {
     private static final Logger log = LoggerFactory.getLogger(SqlUtils.class);
 
-    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile(
-        "(^[a-z]+)\\(([0-9]+)\\)$",
-        Pattern.CASE_INSENSITIVE
-    );
+    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
 
     private SqlUtils() {}
 
@@ -37,23 +34,15 @@ public final class SqlUtils {
     public static String removeIdFromEnd(final String value) {
         return value.endsWith("_id")
             ? value.substring(0, value.length() - 3)
-            : value.endsWith("Id")
-                ? value.substring(0, value.length() - 2)
-                : value;
+            : value.endsWith("Id") ? value.substring(0, value.length() - 2) : value;
     }
 
     public static String changeToCamelCase(final String value) {
         return CaseFormat.LOWER_UNDERSCORE.to(LOWER_CAMEL, value);
     }
 
-    public static Map<SqlTable, List<SqlColumn>> groupColumnsByTable(
-        final List<SqlColumn> sqlColumns
-    ) {
-        return sqlColumns
-            .stream()
-            .collect(
-                Collectors.groupingBy(SqlColumn::getTable, Collectors.toList())
-            );
+    public static Map<SqlTable, List<SqlColumn>> groupColumnsByTable(final List<SqlColumn> sqlColumns) {
+        return sqlColumns.stream().collect(Collectors.groupingBy(SqlColumn::getTable, Collectors.toList()));
     }
 
     public static Optional<Integer> parseSqlSize(String value) {

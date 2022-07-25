@@ -18,9 +18,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(ApplicationProperties.class)
 @SpringBootApplication
 public class SqlToJavaApplication implements CommandLineRunner {
-    private static final Logger log = LoggerFactory.getLogger(
-        SqlToJavaApplication.class
-    );
+    private static final Logger log = LoggerFactory.getLogger(SqlToJavaApplication.class);
 
     private final ApplicationProperties applicationProperties;
 
@@ -43,10 +41,7 @@ public class SqlToJavaApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplicationBuilder(
-            SqlToJavaApplication.class
-        )
-        .application();
+        SpringApplication app = new SpringApplicationBuilder(SqlToJavaApplication.class).application();
         AppUtil.setup(app).run(args);
     }
 

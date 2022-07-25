@@ -53,17 +53,8 @@ public class SqlColumnImpl implements SqlColumn {
         this.isNullable = isNullable;
         this.isUnique = isUnique;
         this.isNativeEnum = isNativeEnum;
-        this.defaultValue =
-            (
-                    StringUtils.isBlank(defaultValue) ||
-                    "null".equalsIgnoreCase(comment)
-                )
-                ? null
-                : defaultValue;
-        this.comment =
-            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
-                ? null
-                : comment;
+        this.defaultValue = (StringUtils.isBlank(defaultValue) || "null".equalsIgnoreCase(comment)) ? null : defaultValue;
+        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
     }
 
     @Override
@@ -121,11 +112,7 @@ public class SqlColumnImpl implements SqlColumn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final SqlColumnImpl sqlColumn = (SqlColumnImpl) o;
-        return (
-            Objects.equals(table, sqlColumn.table) &&
-            Objects.equals(name, sqlColumn.name) &&
-            Objects.equals(type, sqlColumn.type)
-        );
+        return (Objects.equals(table, sqlColumn.table) && Objects.equals(name, sqlColumn.name) && Objects.equals(type, sqlColumn.type));
     }
 
     @Override

@@ -11,17 +11,12 @@ public interface CompareJdlResultsTest extends LoggingTest, EnvironmentTest {
     @Test
     default void testFileSame() throws URISyntaxException, IOException {
         String expectedResultPath = env().getProperty("expected.result.path");
-        String applicationExportPath = env()
-            .getProperty("application.export.path");
+        String applicationExportPath = env().getProperty("application.export.path");
         log().info("expected.result.path: " + expectedResultPath);
         log().info("application.export.path: " + applicationExportPath);
 
-        final List<String> expected = FileUtil.readAllLinesClasspath(
-            expectedResultPath
-        );
-        final List<String> actual = FileUtil.readAllLines(
-            applicationExportPath
-        );
+        final List<String> expected = FileUtil.readAllLinesClasspath(expectedResultPath);
+        final List<String> actual = FileUtil.readAllLines(applicationExportPath);
         AssertUtil.assertFileSame(expected, actual);
     }
 }

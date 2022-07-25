@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SqlJdlTypeService {
-    private static final Logger log = LoggerFactory.getLogger(
-        SqlJdlTypeService.class
-    );
+    private static final Logger log = LoggerFactory.getLogger(SqlJdlTypeService.class);
 
     @PostConstruct
     private void init() {
@@ -128,10 +126,7 @@ public class SqlJdlTypeService {
         throw new IllegalStateException("Unknown type: " + type);
     }
 
-    private boolean isTypeContained(
-        final List<String> list,
-        final String type
-    ) {
+    private boolean isTypeContained(final List<String> list, final String type) {
         return list.stream().anyMatch(type::startsWith);
     }
 

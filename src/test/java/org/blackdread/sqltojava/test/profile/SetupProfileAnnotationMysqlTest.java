@@ -10,9 +10,7 @@ import org.springframework.test.context.DynamicPropertySource;
 
 @ExtendWith(MySqlLatestExtension.class)
 @ActiveProfiles("mysql57")
-public class SetupProfileAnnotationMysqlTest
-    extends BaseJdbcContainerTest
-    implements ProfileActiveTest {
+public class SetupProfileAnnotationMysqlTest extends BaseJdbcContainerTest implements ProfileActiveTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {

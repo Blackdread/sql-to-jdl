@@ -22,9 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ExportService {
-    private static final Logger log = LoggerFactory.getLogger(
-        ExportService.class
-    );
+    private static final Logger log = LoggerFactory.getLogger(ExportService.class);
 
     private final ApplicationProperties applicationProperties;
 
@@ -34,9 +32,7 @@ public class ExportService {
 
     public void export(final List<JdlEntity> entities) {
         if (entities.isEmpty()) {
-            log.error(
-                "No entities were found for which JDL is to be generated. Please review console logs"
-            );
+            log.error("No entities were found for which JDL is to be generated. Please review console logs");
             return;
         }
 
@@ -50,9 +46,7 @@ public class ExportService {
 
         if (Files.isDirectory(path)) {
             log.error("Path is a directory: {}", path.toAbsolutePath());
-            throw new IllegalArgumentException(
-                "Cannot export into a directory"
-            );
+            throw new IllegalArgumentException("Cannot export into a directory");
         }
 
         try {
@@ -62,12 +56,7 @@ public class ExportService {
             throw new IllegalStateException(e);
         }
 
-        try (
-            BufferedWriter out = Files.newBufferedWriter(
-                path,
-                StandardOpenOption.CREATE
-            )
-        ) {
+        try (BufferedWriter out = Files.newBufferedWriter(path, StandardOpenOption.CREATE)) {
             for (final JdlEntity entity : entities) {
                 if (!entity.isPureManyToMany()) {
                     out.write(JdlUtils.writeEntity(entity));
@@ -84,9 +73,7 @@ public class ExportService {
             for (final JdlEntity entity : entities) {
                 for (final JdlRelation relation : entity.getRelations()) {
                     if (relation.getRelationType() == RelationType.ManyToMany) {
-                        out.write(
-                            JdlUtils.writeRelationPureManyToMany(relation)
-                        );
+                        out.write(JdlUtils.writeRelationPureManyToMany(relation));
                     } else {
                         out.write(JdlUtils.writeRelation(relation));
                     }

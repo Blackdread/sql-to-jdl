@@ -23,11 +23,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Profile("mssql")
-public class MsSqlInformationSchemaRepository
-    implements InformationSchemaRepository {
-    private static final Logger log = LoggerFactory.getLogger(
-        MsSqlInformationSchemaRepository.class
-    );
+public class MsSqlInformationSchemaRepository implements InformationSchemaRepository {
+    private static final Logger log = LoggerFactory.getLogger(MsSqlInformationSchemaRepository.class);
 
     private final DSLContext create;
 
@@ -38,16 +35,11 @@ public class MsSqlInformationSchemaRepository
 
     // See https://docs.microsoft.com/en-us/sql/relational-databases/system-information-schema-views/system-information-schema-views-transact-sql?view=sql-server-2017
 
-    public List<TableRelationInformation> getAllTableRelationInformation(
-        final String dbName
-    ) {
+    public List<TableRelationInformation> getAllTableRelationInformation(final String dbName) {
         throw new IllegalStateException("todo");
     }
 
-    public List<ColumnInformation> getFullColumnInformationOfTable(
-        final String dbName,
-        final String tableName
-    ) {
+    public List<ColumnInformation> getFullColumnInformationOfTable(final String dbName, final String tableName) {
         // TODO not finished
 
         return create
@@ -74,10 +66,7 @@ public class MsSqlInformationSchemaRepository
     }
 
     public List<TableInformation> getAllTableInformation(final String dbName) {
-        return getAllTableName(dbName)
-            .stream()
-            .map(it -> new TableInformation(it, null))
-            .collect(Collectors.toList());
+        return getAllTableName(dbName).stream().map(it -> new TableInformation(it, null)).collect(Collectors.toList());
     }
 
     public List<String> getAllTableName(final String dbName) {
@@ -85,23 +74,12 @@ public class MsSqlInformationSchemaRepository
         return create
             .select(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME)
             .from(InformationSchema.INFORMATION_SCHEMA.TABLES)
-            .where(
-                InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA.eq(
-                    dbName
-                )
-            )
+            .where(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA.eq(dbName))
             .fetch()
             .getValues(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME);
     }
 
-    private TableRelationInformation map(
-        final Record4<String, String, String, String> r
-    ) {
-        return new TableRelationInformation(
-            r.value1(),
-            r.value2(),
-            r.value3(),
-            r.value4()
-        );
+    private TableRelationInformation map(final Record4<String, String, String, String> r) {
+        return new TableRelationInformation(r.value1(), r.value2(), r.value3(), r.value4());
     }
 }

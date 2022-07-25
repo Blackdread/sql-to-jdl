@@ -6,13 +6,8 @@ import org.blackdread.sqltojava.pojo.TableInformation;
 import org.blackdread.sqltojava.pojo.TableRelationInformation;
 
 public interface InformationSchemaRepository {
-    List<TableRelationInformation> getAllTableRelationInformation(
-        final String dbName
-    );
-    List<ColumnInformation> getFullColumnInformationOfTable(
-        final String dbName,
-        final String tableName
-    );
+    List<TableRelationInformation> getAllTableRelationInformation(final String dbName);
+    List<ColumnInformation> getFullColumnInformationOfTable(final String dbName, final String tableName);
     List<TableInformation> getAllTableInformation(final String dbName);
     List<String> getAllTableName(final String dbName);
 }

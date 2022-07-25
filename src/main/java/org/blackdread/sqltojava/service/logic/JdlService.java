@@ -31,11 +31,7 @@ public class JdlService {
 
     private final ApplicationProperties properties;
 
-    public JdlService(
-        final SqlService sqlService,
-        final ApplicationProperties properties,
-        final SqlJdlTypeService sqlJdlTypeService
-    ) {
+    public JdlService(final SqlService sqlService, final ApplicationProperties properties, final SqlJdlTypeService sqlJdlTypeService) {
         this.sqlService = sqlService;
         this.sqlJdlTypeService = sqlJdlTypeService;
         this.properties = properties;
@@ -55,9 +51,7 @@ public class JdlService {
             .collect(Collectors.toList());
     }
 
-    protected Optional<JdlEntity> buildEntity(
-        final Map.Entry<SqlTable, List<SqlColumn>> entry
-    ) {
+    protected Optional<JdlEntity> buildEntity(final Map.Entry<SqlTable, List<SqlColumn>> entry) {
         final List<JdlField> fields = entry
             .getValue()
             .stream()
@@ -70,13 +64,7 @@ public class JdlService {
             .getValue()
             .stream()
             .filter(SqlColumn::isForeignKey)
-            .map(
-                (SqlColumn column) ->
-                    buildRelation(
-                        column,
-                        sqlService.getTableOfForeignKey(column)
-                    )
-            )
+            .map((SqlColumn column) -> buildRelation(column, sqlService.getTableOfForeignKey(column)))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .sorted()
@@ -125,56 +113,29 @@ public class JdlService {
         final boolean isNativeEnum = column.isNativeEnum();
         String pattern = null;
 
-        if (
-            sqlService.isEnumTable(column.getTable().getName())
-        ) return Optional.empty();
+        if (sqlService.isEnumTable(column.getTable().getName())) return Optional.empty();
 
         if (column.isForeignKey()) {
             // check if table referenced is an enum, otherwise, skip
-            final SqlTable tableOfForeignKey = sqlService.getTableOfForeignKey(
-                column
-            );
+            final SqlTable tableOfForeignKey = sqlService.getTableOfForeignKey(column);
             if (!sqlService.isEnumTable(tableOfForeignKey.getName())) {
-                log.info(
-                    "Skipped field of ({}) as ({}) is not an enum table",
-                    column,
-                    tableOfForeignKey
-                );
+                log.info("Skipped field of ({}) as ({}) is not an enum table", column, tableOfForeignKey);
                 return Optional.empty();
             }
             jdlType = JdlFieldEnum.ENUM;
-            name =
-                SqlUtils.changeToCamelCase(
-                    SqlUtils.removeIdFromEnd(column.getName())
-                );
-            enumEntityName =
-                StringUtils.capitalize(
-                    SqlUtils.changeToCamelCase(
-                        SqlUtils.removeIdFromEnd(tableOfForeignKey.getName())
-                    )
-                );
+            name = SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName()));
+            enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(tableOfForeignKey.getName())));
             comment =
                 column
                     .getComment()
-                    .map(
-                        comment1 ->
-                            tableOfForeignKey
-                                .getComment()
-                                .map(c -> comment1 + ". " + c)
-                                .orElse(comment1)
-                    )
+                    .map(comment1 -> tableOfForeignKey.getComment().map(c -> comment1 + ". " + c).orElse(comment1))
                     .orElse(tableOfForeignKey.getComment().orElse(null));
         } else {
             if (isNativeEnum) {
                 jdlType = JdlFieldEnum.ENUM;
                 name = SqlUtils.changeToCamelCase(column.getName());
                 // todo name of enumEntityName is not great but never mind
-                enumEntityName =
-                    StringUtils.capitalize(
-                        SqlUtils.changeToCamelCase(
-                            SqlUtils.removeIdFromEnd(column.getName())
-                        )
-                    );
+                enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName())));
             } else {
                 jdlType = sqlJdlTypeService.sqlTypeToJdlType(column.getType());
                 name = SqlUtils.changeToCamelCase(column.getName());
@@ -241,13 +202,8 @@ public class JdlService {
      * @param inverseSideTable The table referenced by the column of the owner side
      * @return The relation or empty if relation is to be ignored
      */
-    protected Optional<JdlRelation> buildRelation(
-        final SqlColumn column,
-        final SqlTable inverseSideTable
-    ) {
-        if (!column.isForeignKey()) throw new IllegalArgumentException(
-            "Cannot create a relation from a non foreign key"
-        );
+    protected Optional<JdlRelation> buildRelation(final SqlColumn column, final SqlTable inverseSideTable) {
+        if (!column.isForeignKey()) throw new IllegalArgumentException("Cannot create a relation from a non foreign key");
 
         final String tableName = column.getTable().getName();
         final String columnName = column.getName();
@@ -257,23 +213,14 @@ public class JdlService {
         final boolean isUnique = column.isUnique();
 
         if (sqlService.isEnumTable(inverseSideTable.getName())) {
-            log.info(
-                "Skipped relation of ({}) as ({}) is an enum table",
-                column,
-                inverseSideTable
-            );
+            log.info("Skipped relation of ({}) as ({}) is an enum table", column, inverseSideTable);
             return Optional.empty();
         }
 
-        final boolean isPureManyToManyTable = sqlService.isPureManyToManyTable(
-            tableName
-        );
+        final boolean isPureManyToManyTable = sqlService.isPureManyToManyTable(tableName);
 
         // it allows to have a clearer idea when reading the generated file
-        final String extraRelationComment = column
-            .getTable()
-            .getComment()
-            .orElse(null);
+        final String extraRelationComment = column.getTable().getComment().orElse(null);
 
         final RelationType relationType;
         if (isPureManyToManyTable) {
@@ -287,14 +234,10 @@ public class JdlService {
         }
 
         // TeamMember{user(login) required} to User
-        final String inverseSideEntityName = getEntityNameFormatted(
-            inverseSideTable.getName()
-        );
+        final String inverseSideEntityName = getEntityNameFormatted(inverseSideTable.getName());
 
         // We put always bidirectional but we have no way to generate good inverse name so we put the owner side name
-        final String inverseSideRelationName = SqlUtils.changeToCamelCase(
-            tableName
-        );
+        final String inverseSideRelationName = SqlUtils.changeToCamelCase(tableName);
         final String ownerEntityName = getEntityNameFormatted(tableName);
         boolean required = !isNullable;
         if (required) {
@@ -320,9 +263,7 @@ public class JdlService {
                 false,
                 ownerEntityName,
                 inverseSideEntityName,
-                SqlUtils.changeToCamelCase(
-                    SqlUtils.removeIdFromEnd(columnName)
-                ),
+                SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)),
                 // Cannot know so has to be set manually after generation, default is ID by jHipster
                 null,
                 column.getComment().orElse(null),

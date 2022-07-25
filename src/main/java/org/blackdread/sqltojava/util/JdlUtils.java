@@ -119,12 +119,7 @@ public final class JdlUtils {
                 builder.append(
                     field
                         .getEnumEntityName()
-                        .orElseThrow(
-                            () ->
-                                new IllegalStateException(
-                                    "An enum field must have its enum entity name set"
-                                )
-                        )
+                        .orElseThrow(() -> new IllegalStateException("An enum field must have its enum entity name set"))
                 );
                 break;
             default:
@@ -172,13 +167,8 @@ public final class JdlUtils {
      * @return Jdl representation of the relation
      */
     @NotNull
-    public static String writeRelationPureManyToMany(
-        final JdlRelation relation
-    ) {
-        return (
-            "// TODO This is a pure ManyToMany relation (delete me and decide owner side)\n" +
-            writeRelation(relation)
-        );
+    public static String writeRelationPureManyToMany(final JdlRelation relation) {
+        return ("// TODO This is a pure ManyToMany relation (delete me and decide owner side)\n" + writeRelation(relation));
     }
 
     @NotNull
@@ -190,9 +180,7 @@ public final class JdlUtils {
         //              User{teamMember(field)}
         //         }
         final StringBuilder builder = new StringBuilder(200);
-        relation
-            .getExtraRelationComment()
-            .ifPresent(s -> builder.append("// ").append(s).append("\n"));
+        relation.getExtraRelationComment().ifPresent(s -> builder.append("// ").append(s).append("\n"));
         builder.append("relationship ");
         builder.append(relation.getRelationType().toJdl());
         builder.append(" {\n");
@@ -237,12 +225,7 @@ public final class JdlUtils {
             builder.append(
                 relation
                     .getInverseSideRelationName()
-                    .orElseThrow(
-                        () ->
-                            new IllegalStateException(
-                                "A bidirectional relation has to have a inverse side relation name"
-                            )
-                    )
+                    .orElseThrow(() -> new IllegalStateException("A bidirectional relation has to have a inverse side relation name"))
             );
             relation
                 .getInverseSideDisplayField()

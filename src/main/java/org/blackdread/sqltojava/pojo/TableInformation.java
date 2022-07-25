@@ -20,10 +20,7 @@ public class TableInformation {
 
     public TableInformation(final String name, final String comment) {
         this.name = name;
-        this.comment =
-            (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment))
-                ? null
-                : comment;
+        this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
     }
 
     public String getName() {
@@ -36,16 +33,7 @@ public class TableInformation {
 
     @Override
     public String toString() {
-        return (
-            "TableInformation{" +
-            "name='" +
-            name +
-            '\'' +
-            ", comment='" +
-            comment +
-            '\'' +
-            '}'
-        );
+        return ("TableInformation{" + "name='" + name + '\'' + ", comment='" + comment + '\'' + '}');
     }
 
     @Override
