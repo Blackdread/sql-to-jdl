@@ -3,32 +3,18 @@ name: Java CI
 on: [push]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    services:
-      # See https://dev.mysql.com/doc/refman/5.7/en/docker-mysql-more-topics.html    
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306
-#           - 3306:3306
-#          - 3306/tcp
-        env:
-#           MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-#          MYSQL_ROOT_HOST: '%'
-#          MYSQL_ROOT_PASSWORD: root
-#          MYSQL_USER: root
-#          MYSQL_PASSWORD: root
-          MYSQL_DATABASE: any
-        
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build with Maven
-      run: mvn package --file pom.xml
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up JDK 17
+              uses: actions/setup-java@v3
+              with:
+                  distribution: 'adopt'
+                  java-version: '17'
+                  cache: 'maven'
+            - name: Build and Run Tests
+              run: mvn test --file pom.xml --batch-mode --fail-at-end
+            - name: Publish Test Report
+              if: ${{ always() }}
+              uses: scacap/action-surefire-report@v1
