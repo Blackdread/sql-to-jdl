@@ -5,12 +5,6 @@ singleQuote: true
 tabWidth: 2
 useTabs: false
 
-# js and ts rules:
-arrowParens: avoid
-
-# jsx and tsx rules:
-bracketSameLine: false
-
 # java rules:
 overrides:
   - files: "*.java"
