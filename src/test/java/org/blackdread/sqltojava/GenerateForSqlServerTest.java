@@ -29,5 +29,6 @@ public class GenerateForSqlServerTest extends BaseJdbcContainerTest implements C
         registry.add("spring.flyway.locations", () -> "classpath:db/mssql");
         registry.add("application.export.path", () -> "./mssql.jdl");
         registry.add("expected.result.path", () -> "/result/mssql-expected.jdl");
+        registry.add("spring.liquibase.enabled", () -> false);
     }
 }

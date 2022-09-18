@@ -15,5 +15,6 @@ public class PruneKeywordsTest extends BaseJdbcContainerTest implements CompareJ
         registry.add("spring.flyway.locations", () -> "classpath:db/prune-reserved");
         registry.add("application.export.path", () -> "./pruned.jdl");
         registry.add("expected.result.path", () -> "/result/pruned-jdl.jdl");
+        registry.add("spring.liquibase.enabled", () -> false);
     }
 }

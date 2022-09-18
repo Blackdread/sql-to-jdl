@@ -183,6 +183,12 @@
             <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.6.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -269,6 +275,15 @@
                     <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
                 </configuration>
 
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.16.0</version>
+                <configuration>
+                    <propertyFileWillOverride>true</propertyFileWillOverride>
+                    <propertyFile>src/test/resources/liquibase.properties</propertyFile>
+                </configuration>
             </plugin>
             <!--<plugin>-->
             <!--<groupId>org.jacoco</groupId>-->

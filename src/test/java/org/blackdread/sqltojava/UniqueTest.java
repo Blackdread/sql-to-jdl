@@ -15,5 +15,6 @@ public class UniqueTest extends BaseJdbcContainerTest implements CompareJdlResul
         registry.add("spring.flyway.locations", () -> "classpath:db/unique");
         registry.add("application.export.path", () -> "./unique.jdl");
         registry.add("expected.result.path", () -> "/result/unique-expected.jdl");
+        registry.add("spring.liquibase.enabled", () -> false);
     }
 }

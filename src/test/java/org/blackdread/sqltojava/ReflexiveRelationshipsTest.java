@@ -15,5 +15,6 @@ public class ReflexiveRelationshipsTest extends BaseJdbcContainerTest implements
         registry.add("spring.flyway.locations", () -> "classpath:db/self-reference");
         registry.add("application.export.path", () -> "./reflexive.jdl");
         registry.add("expected.result.path", () -> "/result/reflexive-expected.jdl");
+        registry.add("spring.liquibase.enabled", () -> false);
     }
 }
