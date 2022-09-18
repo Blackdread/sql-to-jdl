@@ -1,6 +1,6 @@
 databaseChangeLog:
     - changeSet:
-          id: views-1
+          id: view-create-table
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
           changes:
               - createTable:
@@ -29,8 +29,8 @@ databaseChangeLog:
                               type: DECIMAL(19, 5)
                     tableName: order_details
     - changeSet:
-          id: views-2
-          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          id: view-create-view
+          author: jason.long (generated)
           changes:
               - createView:
                     fullDefinition: false
@@ -40,3 +40,10 @@ databaseChangeLog:
                         from order_details
                         group by order_details.order_number order by total desc
                     viewName: sale_per_order
+    - changeSet:
+          id: view-add-comment-view-postgres
+          author: jason.long (generated)
+          dbms: postgresql
+          changes:
+              - sql: comment on view sale_per_order is 'VIEW';
+              - rollback:

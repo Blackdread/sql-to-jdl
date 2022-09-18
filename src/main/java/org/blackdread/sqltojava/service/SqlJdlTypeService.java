@@ -192,7 +192,7 @@ public class SqlJdlTypeService {
     }
 
     protected List<String> jdlBigDecimal() {
-        return Lists.newArrayList("decimal");
+        return Lists.newArrayList("decimal", "numeric");
     }
 
     protected List<String> jdlInstant() {
