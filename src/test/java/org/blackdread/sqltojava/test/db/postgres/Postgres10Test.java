@@ -6,11 +6,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
-class Postgres09SqlToJdlTransactionPerTestTest extends SqlToJdlTransactionPerTestTest {
-    static String dockerImageName;
-
+class Postgres10Test extends SqlToJdlTransactionPerTestTest {
     @Container
-    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:9"));
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:10-alpine"));
 
     @BeforeAll
     public static void setup() {
