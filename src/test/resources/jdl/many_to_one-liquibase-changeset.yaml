@@ -1,0 +1,79 @@
+databaseChangeLog:
+    - changeSet:
+          id: many_to_one-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: other
+                              type: VARCHAR(45)
+                    remarks: many_to_one_child comment
+                    tableName: many_to_one_child
+    - changeSet:
+          id: many_to_one-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: other
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: many_to_one_child_id
+                              type: VARCHAR(25)
+                    remarks: many_to_one_main comment
+                    tableName: many_to_one_main
+    - changeSet:
+          id: many_to_one-3
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createIndex:
+                    columns:
+                        - column:
+                              name: many_to_one_child_id
+                    indexName: fk_many_to_one_main_many_to_one_child1_idx
+                    tableName: many_to_one_main
+    - changeSet:
+          id: many_to_one-4
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: many_to_one_child_id
+                    baseTableName: many_to_one_main
+                    constraintName: fk_many_to_one_main_many_to_one_child1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: many_to_one_child
+                    validate: true

@@ -1,0 +1,47 @@
+databaseChangeLog:
+    - changeSet:
+          id: reflexive_relationship-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              autoIncrement: true
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: INT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(100)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: address
+                              type: VARCHAR(100)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: parent_id
+                              type: INT
+                    tableName: invoices
+    - changeSet:
+          id: reflexive_relationship-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: parent_id
+                    baseTableName: invoices
+                    constraintName: invoices_FK
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: invoices
+                    validate: true
+

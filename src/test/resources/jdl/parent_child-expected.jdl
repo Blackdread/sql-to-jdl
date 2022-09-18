@@ -1,0 +1,35 @@
+entity Child {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+entity Parent {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+
+
+// Relations
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
+relationship ManyToMany {
+	ParentHasChild{parent required} to Parent{parentHasChild}
+}
+
+// TODO This is a pure ManyToMany relation (delete me and decide owner side)
+// parent_has_child comment
+relationship ManyToMany {
+	ParentHasChild{child required} to Child{parentHasChild}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

@@ -1,0 +1,71 @@
+databaseChangeLog:
+    - changeSet:
+          id: enum-create-city-table
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              name: city_type
+                              remarks: native enum comment
+                              type: ENUM('small', 'big', 'mega')
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: city_status_id
+                              type: VARCHAR(25)
+                    tableName: city
+    - changeSet:
+          id: enum-create-city_status-table
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: name
+                              type: VARCHAR(255)
+                    remarks: city_status comment
+                    tableName: city_status
+    - changeSet:
+          id: enum-add-index-city_status_id
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createIndex:
+                    columns:
+                        - column:
+                              name: city_status_id
+                    indexName: fk_city_city_status1_idx
+                    tableName: city
+    - changeSet:
+          id: enum-add-foreign-key-city_status_id
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: city_status_id
+                    baseTableName: city
+                    constraintName: fk_city_city_status1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: city_status
+                    validate: true

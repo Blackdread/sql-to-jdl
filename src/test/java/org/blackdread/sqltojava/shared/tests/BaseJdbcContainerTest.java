@@ -19,13 +19,22 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(LoggingExtension.class)
 @ContextConfiguration(loader = MainApplicationContextLoader.class)
-public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentTest, JdbcContainerTest, ContainersStartedTest {
+public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentTest, JdbcContainerTest //    , ContainersStartedTest
+{
     private static Logger log;
-    private JdbcDatabaseContainer container;
+    private static JdbcDatabaseContainer container;
 
     // EnvironmentTest
     @Autowired
     private Environment env;
+
+    public static JdbcDatabaseContainer setupContainer(JdbcDatabaseContainer container) {
+        BaseJdbcContainerTest.container = container;
+        System.setProperty("spring.datasource.url", BaseJdbcContainerTest.container.getJdbcUrl());
+        System.setProperty("spring.datasource.username", BaseJdbcContainerTest.container.getUsername());
+        System.setProperty("spring.datasource.password", BaseJdbcContainerTest.container.getPassword());
+        return container;
+    }
 
     @Override
     public Environment env() {
@@ -51,6 +60,6 @@ public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentT
 
     @Override
     public void container(JdbcDatabaseContainer container) {
-        this.container = container;
+        BaseJdbcContainerTest.container = container;
     }
 }

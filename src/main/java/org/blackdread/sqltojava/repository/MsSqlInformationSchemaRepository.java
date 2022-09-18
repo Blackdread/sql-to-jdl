@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  * @author Yoann CAPLAIN
  */
 @Repository
-@Profile("mssql")
+@Profile("sqlserver")
 public class MsSqlInformationSchemaRepository implements InformationSchemaRepository {
     private static final Logger log = LoggerFactory.getLogger(MsSqlInformationSchemaRepository.class);
 

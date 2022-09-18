@@ -1,0 +1,42 @@
+databaseChangeLog:
+    - changeSet:
+          id: views-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: order_number
+                              type: VARCHAR(255)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: product_code
+                              type: VARCHAR(50)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: quantity_ordered
+                              type: INT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: price_each
+                              type: DECIMAL(19, 5)
+                    tableName: order_details
+    - changeSet:
+          id: views-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createView:
+                    fullDefinition: false
+                    remarks: VIEW
+                    selectQuery: select order_details.order_number AS order_number,
+                        sum((order_details.quantity_ordered * order_details.price_each)) AS total
+                        from order_details
+                        group by order_details.order_number order by total desc
+                    viewName: sale_per_order

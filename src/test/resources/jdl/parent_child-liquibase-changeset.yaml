@@ -1,0 +1,117 @@
+databaseChangeLog:
+    - changeSet:
+          id: parent_child-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: other
+                              type: VARCHAR(45)
+                    tableName: child
+    - changeSet:
+          id: parent_child-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: other
+                              type: VARCHAR(45)
+                    tableName: parent
+    - changeSet:
+          id: parent_child-3
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: parent_id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: child_id
+                              type: VARCHAR(25)
+                    remarks: parent_has_child comment
+                    tableName: parent_has_child
+    - changeSet:
+          id: parent_child-4
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createIndex:
+                    columns:
+                        - column:
+                              name: child_id
+                    indexName: fk_parent_has_child_child1_idx
+                    tableName: parent_has_child
+    - changeSet:
+          id: parent_child-5
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createIndex:
+                    columns:
+                        - column:
+                              name: parent_id
+                    indexName: fk_parent_has_child_parent1_idx
+                    tableName: parent_has_child
+    - changeSet:
+          id: parent_child-6
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: child_id
+                    baseTableName: parent_has_child
+                    constraintName: fk_parent_has_child_child1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: child
+                    validate: true
+    - changeSet:
+          id: parent_child-7
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: parent_id
+                    baseTableName: parent_has_child
+                    constraintName: fk_parent_has_child_parent1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: parent
+                    validate: true

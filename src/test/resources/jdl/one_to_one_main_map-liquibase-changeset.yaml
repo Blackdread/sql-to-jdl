@@ -1,0 +1,59 @@
+databaseChangeLog:
+    - changeSet:
+          id: one_to_one_main_map-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: one_to_one_main_map_id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                    tableName: one_to_one_child_map
+    - changeSet:
+          id: one_to_one_main_map-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: name
+                              type: VARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: other
+                              type: VARCHAR(45)
+                    remarks: one_to_one_main_map comment
+                    tableName: one_to_one_main_map
+    - changeSet:
+          id: one_to_one_main_map-3
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: one_to_one_main_map_id
+                    baseTableName: one_to_one_child_map
+                    constraintName: fk_one_to_one_child_map_one_to_one_main_map1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: one_to_one_main_map
+                    validate: true
+

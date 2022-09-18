@@ -1,0 +1,24 @@
+entity OrderDetails {
+	orderNumber String required maxlength(255),
+	productCode String required maxlength(50),
+	quantityOrdered Integer required,
+	priceEach BigDecimal required
+}
+
+/** VIEW */
+entity SalePerOrder {
+	orderNumber String required maxlength(255),
+	total BigDecimal
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

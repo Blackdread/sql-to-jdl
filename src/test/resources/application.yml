@@ -29,6 +29,8 @@ application:
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
+        - DATABASECHANGELOG
+        - DATABASECHANGELOGLOCK
         - flyway_schema_history
         - QRTZ_BLOB_TRIGGERS
         - QRTZ_CALENDARS

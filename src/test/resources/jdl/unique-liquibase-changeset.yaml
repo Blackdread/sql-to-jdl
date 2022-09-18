@@ -1,0 +1,21 @@
+databaseChangeLog:
+- changeSet:
+    id: unique-1
+    author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+            name: id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+              unique: true
+            name: ssnNumber
+            type: VARCHAR(100)
+        tableName: student
