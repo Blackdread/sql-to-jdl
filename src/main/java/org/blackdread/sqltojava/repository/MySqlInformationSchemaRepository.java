@@ -65,11 +65,9 @@ public class MySqlInformationSchemaRepository implements InformationSchemaReposi
                     new ColumnInformation(
                         (String) r.get("Field"),
                         (String) r.get("Type"),
-                        (String) r.get("Collation"),
                         (String) r.get("Null"),
                         (String) r.get("Key"),
                         (String) r.get("Default"),
-                        (String) r.get("Extra"),
                         (String) r.get("Comment")
                     )
             );

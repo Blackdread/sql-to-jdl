@@ -54,12 +54,10 @@ public class MsSqlInformationSchemaRepository implements InformationSchemaReposi
                     new ColumnInformation(
                         (String) r.get("COLUMN_NAME"),
                         (String) r.get("DATA_TYPE"),
-                        (String) r.get("COLLATION_NAME"),
                         (boolean) r.get("IS_NULLABLE"),
                         false,
                         false,
                         (String) r.get("COLUMN_DEFAULT"),
-                        "",
                         ""
                     )
             );
