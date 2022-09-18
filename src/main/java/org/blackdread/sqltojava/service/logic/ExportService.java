@@ -2,6 +2,7 @@ package org.blackdread.sqltojava.service.logic;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -30,19 +31,81 @@ public class ExportService {
         this.applicationProperties = applicationProperties;
     }
 
-    public void export(final List<JdlEntity> entities) {
+    /**
+     * Exports jdl to string
+     * @param entities
+     * @return
+     */
+    public String exportString(final List<JdlEntity> entities) {
+        String nl = System.lineSeparator();
         if (entities.isEmpty()) {
             log.error("No entities were found for which JDL is to be generated. Please review console logs");
-            return;
+            return "";
         }
 
         // 1. Entities
         // 2. Relations
         // 3. Options
 
+        try (StringWriter out = new StringWriter()) {
+            for (final JdlEntity entity : entities) {
+                if (!entity.isPureManyToMany()) {
+                    out.write(JdlUtils.writeEntity(entity));
+                    out.write(nl);
+                    out.write(nl);
+                }
+            }
+
+            out.write(nl);
+            out.write(nl);
+            out.write("// Relations");
+            out.write(nl);
+
+            for (final JdlEntity entity : entities) {
+                for (final JdlRelation relation : entity.getRelations()) {
+                    if (relation.getRelationType() == RelationType.ManyToMany) {
+                        out.write(JdlUtils.writeRelationPureManyToMany(relation));
+                    } else {
+                        out.write(JdlUtils.writeRelation(relation));
+                    }
+                    out.write(nl);
+                    out.write(nl);
+                }
+            }
+
+            out.write(nl);
+            out.write(nl);
+            out.write("// Options");
+            out.write(nl);
+
+            out.write(JdlUtils.serviceClassAll());
+            out.write(nl);
+            out.write(JdlUtils.paginationAll());
+            out.write(nl);
+            out.write(JdlUtils.mapStructAll());
+            out.write(nl);
+            out.write(JdlUtils.filterAll());
+            out.write(nl);
+            out.write(nl);
+
+            out.flush();
+            return out.toString();
+        } catch (IOException e) {
+            log.error("Error", e);
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * Exports jdl to file defined with export.path
+     * @param entities
+     * @return
+     */
+    public void export(final List<JdlEntity> entities) {
+        final String jdl = exportString(entities);
         final Path path = applicationProperties.getExport().getPath();
 
-        log.info("Exporting into: {}", path.toAbsolutePath().toString());
+        log.info("Exporting into: {}", path.toAbsolutePath());
 
         if (Files.isDirectory(path)) {
             log.error("Path is a directory: {}", path.toAbsolutePath());
@@ -57,46 +120,7 @@ public class ExportService {
         }
 
         try (BufferedWriter out = Files.newBufferedWriter(path, StandardOpenOption.CREATE)) {
-            for (final JdlEntity entity : entities) {
-                if (!entity.isPureManyToMany()) {
-                    out.write(JdlUtils.writeEntity(entity));
-                    out.newLine();
-                    out.newLine();
-                }
-            }
-
-            out.newLine();
-            out.newLine();
-            out.write("// Relations");
-            out.newLine();
-
-            for (final JdlEntity entity : entities) {
-                for (final JdlRelation relation : entity.getRelations()) {
-                    if (relation.getRelationType() == RelationType.ManyToMany) {
-                        out.write(JdlUtils.writeRelationPureManyToMany(relation));
-                    } else {
-                        out.write(JdlUtils.writeRelation(relation));
-                    }
-                    out.newLine();
-                    out.newLine();
-                }
-            }
-
-            out.newLine();
-            out.newLine();
-            out.write("// Options");
-            out.newLine();
-
-            out.write(JdlUtils.serviceClassAll());
-            out.newLine();
-            out.write(JdlUtils.paginationAll());
-            out.newLine();
-            out.write(JdlUtils.mapStructAll());
-            out.newLine();
-            out.write(JdlUtils.filterAll());
-            out.newLine();
-            out.newLine();
-
+            out.write(jdl);
             out.flush();
         } catch (IOException e) {
             log.error("Error", e);
