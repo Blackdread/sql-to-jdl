@@ -1,6 +1,6 @@
 databaseChangeLog:
     - changeSet:
-          id: enum-create-city-table
+          id: enum-create-table-city
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
           changes:
               - createTable:
@@ -15,17 +15,44 @@ databaseChangeLog:
                               name: name
                               type: VARCHAR(45)
                         - column:
-                              name: city_type
-                              remarks: native enum comment
-                              type: ENUM('small', 'big', 'mega')
-                        - column:
                               constraints:
                                   nullable: false
                               name: city_status_id
                               type: VARCHAR(25)
                     tableName: city
     - changeSet:
-          id: enum-create-city_status-table
+          id: enum-add-field-mysql
+          author: jason.long (generated)
+          dbms: mysql
+          changes:
+              - addColumn:
+                    tableName: city
+                    columns:
+                    - column:
+                          name: city_type
+                          remarks: native enum comment
+                          type: ENUM('small', 'big', 'mega')
+    - changeSet:
+          id: enum-add-enum-type-postgres
+          author: jason.long
+          dbms: postgresql
+          changes:
+              - sql: create type city_type as enum ('small', 'big', 'mega');
+              - rollback: drop type city_type;
+    - changeSet:
+          id: enum-add-field-postgres
+          author: jason.long
+          dbms: postgresql
+          changes:
+              - addColumn:
+                    tableName: city
+                    columns:
+                        - column:
+                              name: city_type
+                              remarks: native enum comment
+                              type: city_type
+    - changeSet:
+          id: enum-create-table-city_status
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
           changes:
               - createTable:
@@ -45,7 +72,7 @@ databaseChangeLog:
                     remarks: city_status comment
                     tableName: city_status
     - changeSet:
-          id: enum-add-index-city_status_id
+          id: enum-add-idx_city_city_status
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
           changes:
               - createIndex:
@@ -55,7 +82,7 @@ databaseChangeLog:
                     indexName: fk_city_city_status1_idx
                     tableName: city
     - changeSet:
-          id: enum-add-foreign-key-city_status_id
+          id: enum-add-fk_city_city_status
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
           changes:
               - addForeignKeyConstraint:
