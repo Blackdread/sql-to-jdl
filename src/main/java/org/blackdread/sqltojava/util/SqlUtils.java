@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public final class SqlUtils {
     private static final Logger log = LoggerFactory.getLogger(SqlUtils.class);
 
-    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z\\s]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
 
     private SqlUtils() {}
 
