@@ -15,15 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-/**
- * mysql57 profile was only added to test if a profile could be overridden without having to add another
- * repository implementation.  Currently, tests against MySQl 5.7 will fail with the following error.
- * FlywayEditionUpgradeRequiredException:
- * Flyway Teams Edition or MySQL upgrade required:
- * MySQL 5.7 is no longer supported by Flyway Community Edition, but still supported by Flyway Teams Edition.
- */
 @Repository
-@Profile({ "mysql", "mysql57" })
+@Profile("mysql")
 public class MySqlInformationSchemaRepository implements InformationSchemaRepository {
     private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 

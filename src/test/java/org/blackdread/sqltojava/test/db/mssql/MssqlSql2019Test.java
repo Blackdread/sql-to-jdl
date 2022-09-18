@@ -1,4 +1,4 @@
-package org.blackdread.sqltojava.db.mssql;
+package org.blackdread.sqltojava.test.db.mssql;
 
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;

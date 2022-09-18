@@ -34,14 +34,6 @@ public abstract class TransactionPerTestTest extends BaseJdbcContainerTest {
     private static final ResourceAccessor RESOURCE_ACCESSOR = new ClassLoaderResourceAccessor();
     private Liquibase liquibase;
 
-    //@Autowired
-    //CreateContainerService createContainerService;
-
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.flyway.enabled", () -> "false");
-    }
-
     @Autowired
     private DataSource dataSource;
 

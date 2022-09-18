@@ -20,8 +20,7 @@ spring:
     jooq:
         sql-dialect: mysql
     flyway:
-        locations:
-
+        enabled: false
 
 application:
     reserved-keywords: classpath:reserved/keywords.json

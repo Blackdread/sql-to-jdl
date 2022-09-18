@@ -9,13 +9,15 @@ import liquibase.exception.LiquibaseException;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.service.logic.ExportService;
 import org.blackdread.sqltojava.service.logic.JdlService;
+import org.blackdread.sqltojava.shared.interfaces.ProfileActiveTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //@ExtendWith(JdbcDatabaseContainerExtension.class)
-public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestTest {
+public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestTest implements ProfileActiveTest {
     @Autowired
     private JdlService jdlService;
 

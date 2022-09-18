@@ -19,7 +19,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ExtendWith(LoggingExtension.class)
 @ContextConfiguration(loader = MainApplicationContextLoader.class)
-public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentTest, JdbcContainerTest //    , ContainersStartedTest
+public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentTest, JdbcContainerTest
 {
     private static Logger log;
     private static JdbcDatabaseContainer container;

@@ -17,7 +17,8 @@ spring:
                 useServerPrepStmts: true
     jooq:
         sql-dialect: mysql
-
+    flyway:
+        enabled: false
 
 application:
     reserved-keywords: classpath:reserved/keywords.json

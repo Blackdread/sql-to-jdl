@@ -1,4 +1,4 @@
-package org.blackdread.sqltojava.db.mysql;
+package org.blackdread.sqltojava.test.db.mysql;
 
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +12,7 @@ class Mysql57Test extends SqlToJdlTransactionPerTestTest {
 
     @BeforeAll
     public static void setup() {
+        System.setProperty("expected.profile", "mysql");
         setupContainer(MYSQL_CONTAINER);
     }
 }
