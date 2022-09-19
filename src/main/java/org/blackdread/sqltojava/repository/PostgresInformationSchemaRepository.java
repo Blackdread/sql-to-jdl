@@ -1,20 +1,15 @@
 package org.blackdread.sqltojava.repository;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import org.blackdread.sqltojava.pojo.ColumnInformation;
 import org.blackdread.sqltojava.pojo.TableInformation;
 import org.blackdread.sqltojava.pojo.TableRelationInformation;
+import org.blackdread.sqltojava.util.ResourceUtil;
 import org.jooq.DSLContext;
-import org.jooq.Record4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,26 +24,14 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
         this.create = create;
     }
 
-    @Value("classpath:sql/postgres-getAllTableRelationInformation.sql")
-    private Resource getAllTableRelationInformationSql;
-
-    @Value("classpath:sql/postgres-getFullColumnInformationOfTable.sql")
-    private Resource getFullColumnInformationOfTableSql;
-
-    @Value("classpath:sql/postgres-getAllTableInformation.sql")
-    private Resource getAllTableInformationSql;
+    public static final String ALL_TABLE_RELATIONAL_INFROMATION = ResourceUtil.readString("sql/postgres-getAllTableRelationInformation.sql");
+    public static final String FULL_COLUMN_INFORMATION_OF_TABLE = ResourceUtil.readString("sql/postgres-getFullColumnInformationOfTable.sql");
+    public static final String ALL_TABLE_INFORMATION = ResourceUtil.readString("sql/postgres-getAllTableInformation.sql");
 
     @Override
     public List<TableRelationInformation> getAllTableRelationInformation(final String dbName) {
-        String sql = null;
-        try {
-            File file = getAllTableRelationInformationSql.getFile();
-            sql = new String(Files.readAllBytes(file.toPath()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         return create
-            .resultQuery(sql, dbName)
+            .resultQuery(ALL_TABLE_RELATIONAL_INFROMATION, dbName)
             .fetch()
             .map(
                 r ->
@@ -57,33 +40,14 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
                         (String) r.get("column_name"),
                         (String) r.get("foreign_table_name"),
                         (String) r.get("foreign_column_name")
-                        /*public TableRelationInformation(
-        final String tableName,
-        final String columnName,
-        final String referencedTableName,
-        final String referencedColumnName
-    ) {
-            this.tableName = tableName;
-            this.columnName = columnName;
-            this.referencedTableName = referencedTableName;
-            this.referencedColumnName = referencedColumnName;
-        }*/
-
                     )
             );
     }
 
     @Override
     public List<ColumnInformation> getFullColumnInformationOfTable(final String dbName, final String tableName) {
-        String sql = null;
-        try {
-            File file = getFullColumnInformationOfTableSql.getFile();
-            sql = new String(Files.readAllBytes(file.toPath()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         return create
-            .resultQuery(sql, tableName)
+            .resultQuery(FULL_COLUMN_INFORMATION_OF_TABLE, tableName)
             .fetch()
             .map(
                 r ->
@@ -99,17 +63,8 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
     }
 
     public List<TableInformation> getAllTableInformation(final String dbName) {
-        String sql = null;
-        try {
-            File file = getAllTableInformationSql.getFile();
-            sql = new String(Files.readAllBytes(file.toPath()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         return create
-            .resultQuery(sql)
-            //            .bind(1, tableName)
+            .resultQuery(ALL_TABLE_INFORMATION)
             .fetch()
             .map(r -> new TableInformation((String) r.get("table_name"), (String) r.get("comment")));
     }
@@ -118,7 +73,4 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
         throw new UnsupportedOperationException();
     }
 
-    private TableRelationInformation map(final Record4<String, String, String, String> r) {
-        return new TableRelationInformation(r.value1(), r.value2(), r.value3(), r.value4());
-    }
 }
