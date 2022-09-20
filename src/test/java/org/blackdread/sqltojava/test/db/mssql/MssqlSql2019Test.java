@@ -7,7 +7,7 @@ import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
-@Disabled
+@Disabled("Implementation incomplete")
 class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
     @Container
     private static final MSSQLServerContainer MSSQL_CONTAINER = new MSSQLServerContainer(
