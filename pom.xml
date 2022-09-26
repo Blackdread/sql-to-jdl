@@ -36,7 +36,7 @@
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
         <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
-        <checkstyle.version>10.3.3</checkstyle.version>
+        <checkstyle.version>10.3.4</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
