@@ -114,7 +114,8 @@ public final class JdlUtils {
         builder.append("\t");
         builder.append(field.getName());
         builder.append(" ");
-        switch (field.getType()) {
+        JdlFieldEnum type = field.getType();
+        switch (type) {
             case ENUM:
                 builder.append(
                     field
@@ -123,7 +124,7 @@ public final class JdlUtils {
                 );
                 break;
             default:
-                builder.append(field.getType().toCamelUpper());
+                builder.append(("UUID".equals(type.name())) ? type.name() : type.toCamelUpper());
         }
 
         if (field.isRequired()) {

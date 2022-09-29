@@ -3,20 +3,17 @@ package org.blackdread.sqltojava.shared.tests;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.stream.Stream;
 import liquibase.exception.LiquibaseException;
-import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.service.logic.ExportService;
 import org.blackdread.sqltojava.service.logic.JdlService;
 import org.blackdread.sqltojava.shared.interfaces.ProfileActiveTest;
+import org.blackdread.sqltojava.util.ResourceUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-//@ExtendWith(JdbcDatabaseContainerExtension.class)
 public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestTest implements ProfileActiveTest {
     @Autowired
     private JdlService jdlService;
@@ -61,15 +58,41 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
     @ParameterizedTest
     @MethodSource("provideTestNames")
     public void testChangelog(String testName) throws SQLException, LiquibaseException {
-        String pathJdlExpected = String.format("/jdl/%s-expected.jdl", testName);
-        String jdlExpected = pathToString(pathJdlExpected);
-        assertThat(jdlExpected).isNotNull().withFailMessage(String.format("%s was null", pathJdlExpected));
-
-        String pathChangeLogFile = String.format("/jdl/%s-liquibase-changeset.yaml", testName);
+        String activeProfile = env().getActiveProfiles()[0];
+        String pathChangeLogFile = getExpectedLiquibaseChangeset(testName, activeProfile);
         runChangeLogFile(pathChangeLogFile);
 
-        List<JdlEntity> entities = jdlService.buildEntities();
-        String jdlActual = exportService.exportString(entities);
+        String jdlExpected = getExpectedJdl(testName, activeProfile);
+        String jdlActual = exportService.exportString(jdlService.buildEntities());
         assertThat(jdlActual).isEqualTo(jdlExpected).withFailMessage("No Student");
+    }
+
+    /**
+     * The expected jdl file will first be searched for at /jdl/testName-liquibase-changeset-activeProfile.yaml and then at
+     * /jdl/testName-liquibase-changeset.yaml.  If neither match an error will be thrown.
+     *
+     * @param testName
+     * @param activeProfile
+     * @return
+     */
+    private String getExpectedLiquibaseChangeset(String testName, String activeProfile) {
+        String pathChangesetProfile = String.format("/jdl/%s-liquibase-changeset-%s.yaml", testName, activeProfile);
+        String pathChangesetDefault = String.format("/jdl/%s-liquibase-changeset.yaml", testName);
+        return ResourceUtil.getFirstExistingResourcePath("liquibase-changeset.yaml", pathChangesetProfile, pathChangesetDefault);
+    }
+
+    /**
+     * The expected jdl file will first be searched for at /jdl/testName-expected-activeProfile.jdl and then at
+     * /jdl/testName-expected.jdl.  If neither match an error will be thrown.
+     *
+     * @param testName
+     * @param activeProfile
+     * @return
+     */
+    private String getExpectedJdl(String testName, String activeProfile) {
+        String pathJdlExpectedProfile = String.format("/jdl/%s-expected-%s.jdl", testName, activeProfile);
+        String pathJdlExpectedDefault = String.format("/jdl/%s-expected.jdl", testName);
+        String pathJdlExpected = ResourceUtil.getFirstExistingResourcePath("expected.jdl", pathJdlExpectedProfile, pathJdlExpectedDefault);
+        return pathToString(pathJdlExpected);
     }
 }

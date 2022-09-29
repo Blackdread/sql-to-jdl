@@ -55,4 +55,9 @@ public final class SqlUtils {
         log.warn("Did not find sql size from: {}", value);
         return Optional.empty();
     }
+
+    public static String parseSqlType(String value) {
+        String typeName = value.split("\\(")[0];
+        return typeName;
+    }
 }

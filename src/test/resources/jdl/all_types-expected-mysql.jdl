@@ -16,27 +16,31 @@ entity AllType {
 	myDatetime Instant required,
 	myTimestamp Instant required,
 	myTime String required minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
-	myYear String required pattern(/^-?(\d+)$/),
 	myBigint Long required,
 	myTinyint Boolean required,
 	/** small int comment */
 	mySmallint Integer required,
-	myMediumint Integer required,
 	myDecimal BigDecimal required,
-	myFloat Float required,
 	myDouble Double required,
-	myEnumSql MyEnumSql required,
-	mySet MySet required,
 	myBit Boolean required,
 	myBool Boolean required,
 	myJson String required,
-	myGeometry String required,
 	myTinyblob Blob required,
 	myMediumblob Blob required,
-	/** blob comment */
-	myBlob Blob required,
 	myLongblob Blob required,
 	myTinyint8 Boolean required
+}
+
+/** my table comment */
+entity MysqlType {
+	myYear String required pattern(/^-?(\d+)$/),
+	myMediumint Integer required,
+	myFloat Float required,
+	myEnumSql MyEnumSql required,
+	mySet MySet required,
+	myGeometry String required,
+	/** blob comment */
+	myBlob Blob required
 }
 
 

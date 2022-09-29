@@ -24,8 +24,12 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
         this.create = create;
     }
 
-    public static final String ALL_TABLE_RELATIONAL_INFROMATION = ResourceUtil.readString("sql/postgres-getAllTableRelationInformation.sql");
-    public static final String FULL_COLUMN_INFORMATION_OF_TABLE = ResourceUtil.readString("sql/postgres-getFullColumnInformationOfTable.sql");
+    public static final String ALL_TABLE_RELATIONAL_INFROMATION = ResourceUtil.readString(
+        "sql/postgres-getAllTableRelationInformation.sql"
+    );
+    public static final String FULL_COLUMN_INFORMATION_OF_TABLE = ResourceUtil.readString(
+        "sql/postgres-getFullColumnInformationOfTable.sql"
+    );
     public static final String ALL_TABLE_INFORMATION = ResourceUtil.readString("sql/postgres-getAllTableInformation.sql");
 
     @Override
@@ -72,5 +76,4 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
     public List<String> getAllTableName(final String dbName) {
         throw new UnsupportedOperationException();
     }
-
 }

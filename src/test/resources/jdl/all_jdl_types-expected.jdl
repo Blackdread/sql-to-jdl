@@ -1,0 +1,38 @@
+/** This comment will be taken into account */
+enum EnumType {
+    // But not this one!
+    VALUE1,
+    VALUE2
+}
+
+entity AllType {
+    myString String,
+    myInteger Integer,
+    myLong Long,
+    myBigDecimal BigDecimal,
+    myFloat Float,
+    myDouble Double,
+    myEnum Enum,
+    myBoolean Boolean,
+    myLocalDate LocalDate,
+    myZonedDateTime ZonedDateTime,
+    myInstant Instant,
+    myDuration Duration,
+    myUUID UUID,
+    myBlob Blob,
+    myAnyBlob AnyBlob,
+    myImageBlob ImageBlob,
+    myTextBlob TextBlob
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

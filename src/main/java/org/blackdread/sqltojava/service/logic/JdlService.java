@@ -165,11 +165,8 @@ public class JdlService {
                 min = null;
                 break;
             case GEOMETRY_AS_TEXT:
-                jdlType = JdlFieldEnum.STRING;
-                max = null;
-                min = null;
-                break;
             case JSON_AS_TEXT:
+            case STRING_UNBOUNDED:
                 jdlType = JdlFieldEnum.STRING;
                 max = null;
                 min = null;
