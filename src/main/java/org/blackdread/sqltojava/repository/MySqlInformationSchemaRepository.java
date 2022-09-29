@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("mysql")
+@Profile({ "mysql", "mariadb" })
 public class MySqlInformationSchemaRepository implements InformationSchemaRepository {
     private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 
