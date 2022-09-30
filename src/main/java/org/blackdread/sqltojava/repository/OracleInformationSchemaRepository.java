@@ -38,5 +38,4 @@ public class OracleInformationSchemaRepository implements InformationSchemaRepos
     public List<TableInformation> getAllTableInformation(String dbName) {
         throw new UnsupportedOperationException();
     }
-
 }

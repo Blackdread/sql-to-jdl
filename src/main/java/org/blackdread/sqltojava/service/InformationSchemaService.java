@@ -51,5 +51,4 @@ public class InformationSchemaService {
         log.debug("getAllTableInformation called");
         return informationSchemaRepository.getAllTableInformation(applicationProperties.getDatabaseToExport());
     }
-
 }

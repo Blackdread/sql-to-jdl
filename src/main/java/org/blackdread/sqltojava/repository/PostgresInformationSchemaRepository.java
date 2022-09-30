@@ -72,5 +72,4 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
             .fetch()
             .map(r -> new TableInformation((String) r.get("table_name"), (String) r.get("comment")));
     }
-
 }
