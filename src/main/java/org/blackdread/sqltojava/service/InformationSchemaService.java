@@ -52,9 +52,4 @@ public class InformationSchemaService {
         return informationSchemaRepository.getAllTableInformation(applicationProperties.getDatabaseToExport());
     }
 
-    @Cacheable("InformationSchemaService.getAllTableName")
-    public List<String> getAllTableName() {
-        log.debug("getAllTableName called");
-        return informationSchemaRepository.getAllTableName(applicationProperties.getDatabaseToExport());
-    }
 }

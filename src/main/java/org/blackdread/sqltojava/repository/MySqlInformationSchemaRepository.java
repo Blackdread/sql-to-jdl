@@ -75,15 +75,6 @@ public class MySqlInformationSchemaRepository implements InformationSchemaReposi
             .map(r -> new TableInformation(r.value1(), r.value2()));
     }
 
-    public List<String> getAllTableName(final String dbName) {
-        return create
-            .select(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME)
-            .from(InformationSchema.INFORMATION_SCHEMA.TABLES)
-            .where(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA.eq(dbName))
-            .fetch()
-            .getValues(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME);
-    }
-
     private TableRelationInformation map(final Record4<String, String, String, String> r) {
         return new TableRelationInformation(r.value1(), r.value2(), r.value3(), r.value4());
     }

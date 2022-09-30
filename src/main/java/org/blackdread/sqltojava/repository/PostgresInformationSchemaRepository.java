@@ -73,7 +73,4 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
             .map(r -> new TableInformation((String) r.get("table_name"), (String) r.get("comment")));
     }
 
-    public List<String> getAllTableName(final String dbName) {
-        throw new UnsupportedOperationException();
-    }
 }
