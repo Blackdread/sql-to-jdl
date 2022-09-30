@@ -2,7 +2,6 @@ package org.blackdread.sqltojava.shared.tests;
 
 import org.blackdread.sqltojava.shared.LoggingExtension;
 import org.blackdread.sqltojava.shared.MainApplicationContextLoader;
-import org.blackdread.sqltojava.shared.interfaces.ContainersStartedTest;
 import org.blackdread.sqltojava.shared.interfaces.EnvironmentTest;
 import org.blackdread.sqltojava.shared.interfaces.JdbcContainerTest;
 import org.blackdread.sqltojava.shared.interfaces.LoggingTest;
