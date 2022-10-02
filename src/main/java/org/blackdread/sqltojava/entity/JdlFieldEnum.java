@@ -53,7 +53,12 @@ public enum JdlFieldEnum {
     /**
      * Defined here to allow to have a string without max length set for postgres text type
      */
-    STRING_UNBOUNDED;
+    STRING_UNBOUNDED,
+
+    /**
+     * Defined here to allow to jdl to generate with unsupported fields rather than failing with an error.
+     */
+    UNSUPPORTED;
 
     public String toCamelUpper() {
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, this.name());

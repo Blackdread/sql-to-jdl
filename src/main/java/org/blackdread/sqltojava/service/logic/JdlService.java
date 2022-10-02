@@ -1,5 +1,9 @@
 package org.blackdread.sqltojava.service.logic;
 
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.ENUM;
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.STRING;
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -122,7 +126,7 @@ public class JdlService {
                 log.info("Skipped field of ({}) as ({}) is not an enum table", column, tableOfForeignKey);
                 return Optional.empty();
             }
-            jdlType = JdlFieldEnum.ENUM;
+            jdlType = ENUM;
             name = SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName()));
             enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(tableOfForeignKey.getName())));
             comment =
@@ -132,7 +136,7 @@ public class JdlService {
                     .orElse(tableOfForeignKey.getComment().orElse(null));
         } else {
             if (isNativeEnum) {
-                jdlType = JdlFieldEnum.ENUM;
+                jdlType = ENUM;
                 name = SqlUtils.changeToCamelCase(column.getName());
                 // todo name of enumEntityName is not great but never mind
                 enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName())));
@@ -141,7 +145,12 @@ public class JdlService {
                 name = SqlUtils.changeToCamelCase(column.getName());
                 enumEntityName = null;
             }
-            comment = column.getComment().orElse(null);
+            if (jdlType == UNSUPPORTED) {
+                comment = String.join(column.getComment().orElse(""), " ", column.getType());
+            } else {
+                comment = column.getComment().orElse(null);
+            }
+            //    comment = (jdlType=UNSUPPORTED) column.getComment().orElse(null);
         }
 
         final Integer min;
@@ -154,20 +163,20 @@ public class JdlService {
                 break;
             case TIME_AS_TEXT:
                 pattern = "^(([0-1]\\d)|(2[0-3])):([0-5]\\d):([0-5]\\d)$";
-                jdlType = JdlFieldEnum.STRING;
+                jdlType = STRING;
                 max = 8;
                 min = 8;
                 break;
             case YEAR_AS_TEXT:
                 pattern = "^-?(\\d+)$";
-                jdlType = JdlFieldEnum.STRING;
+                jdlType = STRING;
                 max = null;
                 min = null;
                 break;
             case GEOMETRY_AS_TEXT:
             case JSON_AS_TEXT:
             case STRING_UNBOUNDED:
-                jdlType = JdlFieldEnum.STRING;
+                jdlType = STRING;
                 max = null;
                 min = null;
                 break;

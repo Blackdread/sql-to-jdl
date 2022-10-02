@@ -1,49 +1,62 @@
-select vsc.is_nullable as view_is_nullable,
-       s.schema_name,
-       t.table_name,
-       c.column_name,
-       case
-           when c.data_type='USER-DEFINED' then 'enum('||c.udt_name||')'
-           when c.character_maximum_length is null then c.data_type
-           else c.data_type || '(' || c.character_maximum_length || ')'
+with w_columns as (
+    select c.table_schema,
+           c.table_name,
+           c.column_name,
+           case
+               when c.data_type='USER-DEFINED' then 'enum('||c.udt_name||')'
+               when c.character_maximum_length is null then c.data_type
+               else c.data_type || '(' || c.character_maximum_length || ')'
            end as data_type,
-       case
-           when vsc.is_nullable is null then c.is_nullable
-           else vsc.is_nullable
+           c.column_default,
+           case
+               when vsc.is_nullable is null then c.is_nullable
+               else vsc.is_nullable
            end as is_nullable,
-       case when sum(case when tc.constraint_type='PRIMARY KEY'then 1 else 0 end)=1 then 'PRI'
-            when sum(case when tc.constraint_type='UNIQUE'then 1 else 0 end)=1 then 'UNI'
-            else ''
-       end as key,
-       c.column_default,
-       pg_catalog.col_description(cl.oid, c.ordinal_position) as comment
-from information_schema.columns c
-    join information_schema.tables t on t.table_name=c.table_name
-    join information_schema.schemata s on s.schema_name=t.table_schema
-    join pg_catalog.pg_class cl on cl.relname=t.table_name
-    join pg_catalog.pg_namespace ns on ns.nspname=s.schema_name
-    left join information_schema.constraint_column_usage cu on cu.column_name = c.column_name
-    left join information_schema.table_constraints tc on tc.table_schema=s.schema_name
-    and tc.table_name=t.table_name
-    and cu.constraint_name = tc.constraint_name
-    and tc.constraint_type in ('UNIQUE', 'PRIMARY KEY')
-    left join information_schema.view_column_usage vcu on vcu.view_name=c.table_name
-    and vcu.table_schema=c.table_schema
-    and vcu.column_name=c.column_name
-    left join information_schema.columns vsc on vsc.table_name=vcu.table_name
-where s.schema_name='public'  and t.table_name={0}
-group by s.schema_name,
-    t.table_name,
-    c.is_nullable,
-    c.column_name,
-    c.column_default,
-    c.is_nullable,
-    cl.oid,
-    c.data_type,
-    c.ordinal_position,
-    c.character_maximum_length,
-    c.udt_name,
-    vsc.is_nullable
-order by s.schema_name,
-    t.table_name,
-    c.ordinal_position
+           pg_catalog.col_description(cl.oid, c.ordinal_position) as comment,
+           c.ordinal_position
+    from information_schema.columns c
+    join pg_catalog.pg_class cl on  cl.oid=concat(c.table_schema, '.', c.table_name)::regclass::oid
+    left join information_schema.view_column_usage vcu on vcu.table_schema=c.table_schema
+                                                      and vcu.view_name=c.table_name
+                                                      and vcu.column_name=c.column_name
+    left join information_schema.columns vsc on vsc.table_schema=vcu.table_schema
+                                            and vsc.table_name=vcu.table_name
+                                            and vsc.column_name=vcu.column_name
+    where c.table_schema not in ('pg_catalog', 'information_schema')
+    order by c.table_schema,
+             c.table_name,
+             c.ordinal_position
+), w_constraints as (
+    select c.table_schema,
+           c.table_name,
+           c.column_name,
+           left(tc.constraint_type,3) as key
+    from information_schema.columns c
+    join information_schema.constraint_column_usage cu on cu.column_name = c.column_name
+    join information_schema.table_constraints tc on tc.table_schema=c.table_schema
+                                                and tc.table_name=c.table_name
+                                                and cu.constraint_name = tc.constraint_name
+                                                and tc.constraint_type in ('UNIQUE', 'PRIMARY KEY')
+    where c.table_schema not in ('pg_catalog', 'information_schema')
+    order by c.table_schema,
+             c.table_name,
+             c.column_name
+) select distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
+         cd.table_schema,
+         cd.table_name,
+         cd.column_name,
+         cd.data_type,
+         cd. column_default,
+         cd.is_nullable,
+         cd.comment,
+         cc.key,
+         cd.ordinal_position
+from w_columns cd
+left join w_constraints cc on cc.table_schema=cd.table_schema
+                          and cc.table_name=cd.table_name
+                          and cc.column_name=cd.column_name
+where cd.table_schema='public'
+  and cd.table_name={0}
+order by cd.table_schema,
+         cd.table_name,
+         cd.ordinal_position;

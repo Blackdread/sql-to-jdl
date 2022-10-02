@@ -45,9 +45,8 @@ public class PostgresJdlTypeService implements SqlJdlTypeService {
 
     public JdlFieldEnum sqlTypeToJdlType(final String sqlType) {
         String typeName = SqlUtils.parseSqlType(sqlType);
-        JdlFieldEnum jdlType = Optional
-            .ofNullable(typeMap.get(typeName))
-            .orElseThrow(() -> new IllegalStateException("Unknown type: " + typeName));
+        JdlFieldEnum jdlType = Optional.ofNullable(typeMap.get(typeName)).orElse(UNSUPPORTED);
+        //orElseThrow(() -> new IllegalStateException("Unknown type: " + typeName));
         return jdlType;
     }
 }
