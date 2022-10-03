@@ -23,7 +23,7 @@ databaseChangeLog:
     - changeSet:
           id: enum-add-field-mysql
           author: jason.long (generated)
-          dbms: mysql
+          dbms: mysql,mariadb
           changes:
               - addColumn:
                     tableName: city

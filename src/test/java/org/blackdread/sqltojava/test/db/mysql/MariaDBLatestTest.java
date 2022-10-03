@@ -7,14 +7,14 @@ import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
-@Disabled("Fails enum test")
+//@Disabled("Fails enum test")
 class MariaDBLatestTest extends SqlToJdlTransactionPerTestTest {
     @Container
     private static final MariaDBContainer MARIA_DB_CONTAINER = new MariaDBContainer(DockerImageName.parse("mariadb:latest"));
 
     @BeforeAll
     public static void setup() {
-        System.setProperty("expected.profile", "mysql");
+        System.setProperty("expected.profile", "mariadb");
         setupContainer(MARIA_DB_CONTAINER);
     }
 }

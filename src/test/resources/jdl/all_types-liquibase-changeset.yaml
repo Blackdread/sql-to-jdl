@@ -2,7 +2,7 @@ databaseChangeLog:
     - changeSet:
           id: all_types-create_table_all
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
-          dbms: mysql
+          dbms: mysql,mariadb
           changes:
               - createTable:
                     columns:
@@ -147,7 +147,7 @@ databaseChangeLog:
     - changeSet:
           id: all_types-create_table_ansi_sql
           author: Generated with liquibase:generate-changelog from flyway sql from existing tests
-          dbms: mysql
+          dbms: mysql,mariadb
           changes:
               - createTable:
                     columns:
