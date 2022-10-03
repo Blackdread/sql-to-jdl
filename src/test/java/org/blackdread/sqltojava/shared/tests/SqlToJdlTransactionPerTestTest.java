@@ -64,7 +64,7 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
 
         String jdlExpected = getExpectedJdl(testName, activeProfile);
         String jdlActual = exportService.exportString(jdlService.buildEntities());
-        assertThat(jdlActual).isEqualTo(jdlExpected).withFailMessage("No Student");
+        assertThat(jdlActual).isEqualTo(jdlExpected).withFailMessage("JDL output did not match expected.");
     }
 
     /**
