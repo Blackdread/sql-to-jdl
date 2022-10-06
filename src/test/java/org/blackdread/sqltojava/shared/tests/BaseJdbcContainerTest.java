@@ -5,6 +5,7 @@ import org.blackdread.sqltojava.shared.MainApplicationContextLoader;
 import org.blackdread.sqltojava.shared.interfaces.EnvironmentTest;
 import org.blackdread.sqltojava.shared.interfaces.JdbcContainerTest;
 import org.blackdread.sqltojava.shared.interfaces.LoggingTest;
+import org.jooq.SQLDialect;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentT
         System.setProperty("spring.datasource.url", container.getJdbcUrl());
         System.setProperty("spring.datasource.username", container.getUsername());
         System.setProperty("spring.datasource.password", container.getPassword());
+        System.setProperty("spring.jooq.sql-dialect", getJooqSqlDialect(container));
         System.setProperty("application.database-to-export", getDefaultSchema(container));
         return container;
     }
@@ -53,7 +55,28 @@ public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentT
         } else if (c instanceof PostgreSQLContainer) {
             return "public";
         } else if (c instanceof MSSQLServerContainer) {
-            return "dbo";
+            return "test";
+        } else {
+            throw new IllegalArgumentException("Unrecognized JdbcDatabaseContainer " + container.getClass());
+        }
+    }
+
+    /**
+     * Get the jOOQ SQL dialect based on JdbcDatabaseContainer type.
+     * OracleContainer and MSSQLServerContainer are not by jOOQ Open source edition.
+     * @return
+     * @throws IllegalArgumentException
+     */
+    private static String getJooqSqlDialect(JdbcDatabaseContainer c) throws IllegalArgumentException {
+        //TODO use Pattern matching for switch when out of preview
+        if (c instanceof MySQLContainer) {
+            return SQLDialect.MYSQL.name();
+        } else if (c instanceof MariaDBContainer) {
+            return SQLDialect.MARIADB.name();
+        } else if (c instanceof PostgreSQLContainer) {
+            return SQLDialect.POSTGRES.name();
+        } else if (c instanceof MSSQLServerContainer || c instanceof OracleContainer) {
+            return SQLDialect.DEFAULT.name();
         } else {
             throw new IllegalArgumentException("Unrecognized JdbcDatabaseContainer " + container.getClass());
         }

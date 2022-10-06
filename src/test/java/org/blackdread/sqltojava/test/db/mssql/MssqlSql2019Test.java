@@ -17,6 +17,7 @@ class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
 
     @BeforeAll
     public static void setup() {
+        System.setProperty("expected.profile", "sqlserver");
         setupContainer(MSSQL_CONTAINER);
     }
 }
