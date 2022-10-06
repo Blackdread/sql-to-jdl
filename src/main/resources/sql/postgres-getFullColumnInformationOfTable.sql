@@ -37,7 +37,7 @@ with w_columns as (
                                                 and tc.table_name=c.table_name
                                                 and cu.constraint_name = tc.constraint_name
                                                 and tc.constraint_type in ('UNIQUE', 'PRIMARY KEY')
-    where c.table_schema not in ('pg_catalog', 'information_schema')
+    where c.table_schema={0}
     order by c.table_schema,
              c.table_name,
              c.column_name
@@ -55,8 +55,8 @@ from w_columns cd
 left join w_constraints cc on cc.table_schema=cd.table_schema
                           and cc.table_name=cd.table_name
                           and cc.column_name=cd.column_name
-where cd.table_schema='public'
-  and cd.table_name={0}
+where cd.table_schema={0}
+  and cd.table_name={1}
 order by cd.table_schema,
          cd.table_name,
          cd.ordinal_position;

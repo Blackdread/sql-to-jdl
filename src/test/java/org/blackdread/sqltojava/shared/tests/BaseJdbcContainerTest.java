@@ -12,6 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.JdbcDatabaseContainer;
+import org.testcontainers.containers.MSSQLServerContainer;
+import org.testcontainers.containers.MariaDBContainer;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.OracleContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
@@ -28,10 +33,30 @@ public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentT
 
     public static JdbcDatabaseContainer setupContainer(JdbcDatabaseContainer container) {
         BaseJdbcContainerTest.container = container;
-        System.setProperty("spring.datasource.url", BaseJdbcContainerTest.container.getJdbcUrl());
-        System.setProperty("spring.datasource.username", BaseJdbcContainerTest.container.getUsername());
-        System.setProperty("spring.datasource.password", BaseJdbcContainerTest.container.getPassword());
+        System.setProperty("spring.datasource.url", container.getJdbcUrl());
+        System.setProperty("spring.datasource.username", container.getUsername());
+        System.setProperty("spring.datasource.password", container.getPassword());
+        System.setProperty("application.database-to-export", getDefaultSchema(container));
         return container;
+    }
+
+    /**
+     * Get the default schema based on JdbcDatabaseContainer type.  OracleContainer and MSSQLServerContainer have not been tested.
+     * @param c
+     * @return
+     * @throws IllegalArgumentException
+     */
+    private static String getDefaultSchema(JdbcDatabaseContainer c) throws IllegalArgumentException {
+        //TODO use Pattern matching for switch when out of preview
+        if (c instanceof MySQLContainer || c instanceof MariaDBContainer || c instanceof OracleContainer) {
+            return "test";
+        } else if (c instanceof PostgreSQLContainer) {
+            return "public";
+        } else if (c instanceof MSSQLServerContainer) {
+            return "dbo";
+        } else {
+            throw new IllegalArgumentException("Unrecognized JdbcDatabaseContainer " + container.getClass());
+        }
     }
 
     @Override

@@ -33,9 +33,9 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
     public static final String ALL_TABLE_INFORMATION = ResourceUtil.readString("sql/postgres-getAllTableInformation.sql");
 
     @Override
-    public List<TableRelationInformation> getAllTableRelationInformation(final String dbName) {
+    public List<TableRelationInformation> getAllTableRelationInformation(final String schemaName) {
         return create
-            .resultQuery(ALL_TABLE_RELATIONAL_INFROMATION, dbName)
+            .resultQuery(ALL_TABLE_RELATIONAL_INFROMATION, schemaName)
             .fetch()
             .map(
                 r ->
@@ -49,9 +49,9 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
     }
 
     @Override
-    public List<ColumnInformation> getFullColumnInformationOfTable(final String dbName, final String tableName) {
+    public List<ColumnInformation> getFullColumnInformationOfTable(final String schemaName, final String tableName) {
         return create
-            .resultQuery(FULL_COLUMN_INFORMATION_OF_TABLE, tableName)
+            .resultQuery(FULL_COLUMN_INFORMATION_OF_TABLE, schemaName, tableName)
             .fetch()
             .map(
                 r ->
@@ -66,9 +66,9 @@ public class PostgresInformationSchemaRepository implements InformationSchemaRep
             );
     }
 
-    public List<TableInformation> getAllTableInformation(final String dbName) {
+    public List<TableInformation> getAllTableInformation(final String schemaName) {
         return create
-            .resultQuery(ALL_TABLE_INFORMATION)
+            .resultQuery(ALL_TABLE_INFORMATION, schemaName)
             .fetch()
             .map(r -> new TableInformation((String) r.get("table_name"), (String) r.get("comment")));
     }

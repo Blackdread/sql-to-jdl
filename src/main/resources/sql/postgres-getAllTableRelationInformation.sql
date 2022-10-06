@@ -12,7 +12,7 @@ join information_schema.key_column_usage as kcu on tc.constraint_name = kcu.cons
 join information_schema.constraint_column_usage as ccu on ccu.constraint_name = tc.constraint_name
                                                       and ccu.table_schema = tc.table_schema
 where tc.constraint_type = 'FOREIGN KEY'
-  and tc.table_schema='public'
+  and tc.table_schema={0}
 order by tc.table_schema,
          tc.table_name,
          kcu.column_name;
