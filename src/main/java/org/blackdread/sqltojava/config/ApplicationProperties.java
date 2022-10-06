@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.json.JsonParserFactory;
@@ -19,6 +21,8 @@ import org.springframework.util.ResourceUtils;
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+    private static final Logger log = LoggerFactory.getLogger(ApplicationProperties.class);
+
     /**
      * Database name to export to JDL
      */
@@ -37,6 +41,7 @@ public class ApplicationProperties {
         final Export export,
         final String reservedKeywords
     ) {
+        log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
