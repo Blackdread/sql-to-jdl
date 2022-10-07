@@ -22,12 +22,13 @@ with w_columns as (
     left join information_schema.columns vsc on vsc.table_schema=vcu.table_schema
                                             and vsc.table_name=vcu.table_name
                                             and vsc.column_name=vcu.column_name
-    where c.table_schema not in ('pg_catalog', 'information_schema')
+    where c.table_schema=:schemaName
     order by c.table_schema,
              c.table_name,
              c.ordinal_position
 ), w_constraints as (
-    select c.table_schema,
+    select distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
+           c.table_schema,
            c.table_name,
            c.column_name,
            left(tc.constraint_type,3) as key
@@ -37,16 +38,16 @@ with w_columns as (
                                                 and tc.table_name=c.table_name
                                                 and cu.constraint_name = tc.constraint_name
                                                 and tc.constraint_type in ('UNIQUE', 'PRIMARY KEY')
-    where c.table_schema={0}
+    where c.table_schema=:schemaName
     order by c.table_schema,
              c.table_name,
              c.column_name
-) select distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
+) select --distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
          cd.table_schema,
          cd.table_name,
          cd.column_name,
          cd.data_type,
-         cd. column_default,
+         cd.column_default,
          cd.is_nullable,
          cd.comment,
          cc.key,
@@ -55,8 +56,8 @@ from w_columns cd
 left join w_constraints cc on cc.table_schema=cd.table_schema
                           and cc.table_name=cd.table_name
                           and cc.column_name=cd.column_name
-where cd.table_schema={0}
-  and cd.table_name={1}
+where cd.table_schema=:schemaName
+  and cd.table_name=:tableName
 order by cd.table_schema,
          cd.table_name,
          cd.ordinal_position;
