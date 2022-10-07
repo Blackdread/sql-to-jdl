@@ -187,27 +187,23 @@ public final class JdlUtils {
         builder.append(" {\n");
         relation
             .getOwnerComment()
-            .ifPresent(
-                ownerComment -> {
-                    builder.append("\t");
-                    builder.append("/** ");
-                    builder.append(relation.getOwnerComment().get());
-                    builder.append(" */\n");
-                }
-            );
+            .ifPresent(ownerComment -> {
+                builder.append("\t");
+                builder.append("/** ");
+                builder.append(relation.getOwnerComment().get());
+                builder.append(" */\n");
+            });
         builder.append("\t");
         builder.append(relation.getOwnerEntityName());
         builder.append("{");
         builder.append(relation.getOwnerRelationName());
         relation
             .getOwnerDisplayField()
-            .ifPresent(
-                ownerDisplayField -> {
-                    builder.append("(");
-                    builder.append(ownerDisplayField);
-                    builder.append(")");
-                }
-            );
+            .ifPresent(ownerDisplayField -> {
+                builder.append("(");
+                builder.append(ownerDisplayField);
+                builder.append(")");
+            });
         if (relation.isOwnerRequired()) {
             builder.append(" required");
         }
@@ -230,13 +226,11 @@ public final class JdlUtils {
             );
             relation
                 .getInverseSideDisplayField()
-                .ifPresent(
-                    inverseSideDisplayField -> {
-                        builder.append("(");
-                        builder.append(inverseSideDisplayField);
-                        builder.append(")");
-                    }
-                );
+                .ifPresent(inverseSideDisplayField -> {
+                    builder.append("(");
+                    builder.append(inverseSideDisplayField);
+                    builder.append(")");
+                });
             if (relation.isInverseSideRequired()) {
                 builder.append(" required");
             }

@@ -9,6 +9,7 @@ import org.testcontainers.utility.DockerImageName;
 
 //@Disabled("Fails enum test")
 class MariaDBLatestTest extends SqlToJdlTransactionPerTestTest {
+
     @Container
     private static final MariaDBContainer MARIA_DB_CONTAINER = new MariaDBContainer(DockerImageName.parse("mariadb:latest"));
 

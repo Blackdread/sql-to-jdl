@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("postgresql")
 public class PostgresJdlTypeService implements SqlJdlTypeService {
+
     private static final Logger log = LoggerFactory.getLogger(PostgresJdlTypeService.class);
     private final Map<String, JdlFieldEnum> typeMap = Map.ofEntries(
         Map.entry("boolean", BOOLEAN),

@@ -15,6 +15,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestTest implements ProfileActiveTest {
+
     @Autowired
     private JdlService jdlService;
 

@@ -12,6 +12,7 @@ import org.blackdread.sqltojava.entity.SqlTable;
  * @author Yoann CAPLAIN
  */
 public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
+
     private final String name;
 
     private final String comment;

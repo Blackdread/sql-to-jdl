@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("sqlserver")
 public class MsSqlJdlTypeService implements SqlJdlTypeService {
+
     private static final Logger log = LoggerFactory.getLogger(MsSqlJdlTypeService.class);
 
     @Override

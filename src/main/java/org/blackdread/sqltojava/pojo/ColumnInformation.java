@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author Yoann CAPLAIN
  */
 public class ColumnInformation {
+
     private final String name;
     private final String type;
     private final boolean isNullable;

@@ -16,6 +16,7 @@ import org.blackdread.sqltojava.entity.JdlFieldEnum;
 @Immutable
 @ThreadSafe
 public class JdlFieldImpl implements JdlField {
+
     private final JdlFieldEnum type;
     private final String name;
     private final String enumEntityName;

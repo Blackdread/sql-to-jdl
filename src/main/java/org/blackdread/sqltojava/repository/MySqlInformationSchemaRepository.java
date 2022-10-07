@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile({ "mysql", "mariadb" })
 public class MySqlInformationSchemaRepository implements InformationSchemaRepository {
+
     private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 
     private final DSLContext create;
@@ -53,16 +54,15 @@ public class MySqlInformationSchemaRepository implements InformationSchemaReposi
             .resultQuery("SHOW FULL COLUMNS FROM " + dbName + "." + tableName)
             //            .bind(1, tableName)
             .fetch()
-            .map(
-                r ->
-                    new ColumnInformation(
-                        (String) r.get("Field"),
-                        (String) r.get("Type"),
-                        (String) r.get("Null"),
-                        (String) r.get("Key"),
-                        (String) r.get("Default"),
-                        (String) r.get("Comment")
-                    )
+            .map(r ->
+                new ColumnInformation(
+                    (String) r.get("Field"),
+                    (String) r.get("Type"),
+                    (String) r.get("Null"),
+                    (String) r.get("Key"),
+                    (String) r.get("Default"),
+                    (String) r.get("Comment")
+                )
             );
     }
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 public final class ResourceUtil {
+
     private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
 
     public static String readString(Resource resource) {

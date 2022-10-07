@@ -21,6 +21,7 @@ import org.springframework.util.ResourceUtils;
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+
     private static final Logger log = LoggerFactory.getLogger(ApplicationProperties.class);
 
     /**
@@ -73,6 +74,7 @@ public class ApplicationProperties {
     }
 
     public static class Export {
+
         private final Path path;
 
         private final String type;

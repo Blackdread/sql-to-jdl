@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("oracle")
 public class OracleJdlTypeService implements SqlJdlTypeService {
+
     private static final Logger log = LoggerFactory.getLogger(OracleJdlTypeService.class);
 
     @Override

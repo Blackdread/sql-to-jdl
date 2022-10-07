@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 public class SetDatabaseProfileApplicationEventListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
     private static final Logger log = LoggerFactory.getLogger(SetDatabaseProfileApplicationEventListener.class);
 
     @Override

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class InformationSchemaService {
+
     private static final Logger log = LoggerFactory.getLogger(InformationSchemaService.class);
 
     private final ApplicationProperties applicationProperties;

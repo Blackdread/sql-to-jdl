@@ -24,6 +24,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile("sqlserver")
 public class MsSqlInformationSchemaRepository implements InformationSchemaRepository {
+
     private static final Logger log = LoggerFactory.getLogger(MsSqlInformationSchemaRepository.class);
 
     private final DSLContext create;
@@ -49,17 +50,16 @@ public class MsSqlInformationSchemaRepository implements InformationSchemaReposi
                 name(tableName)
             )
             .fetch()
-            .map(
-                r ->
-                    new ColumnInformation(
-                        (String) r.get("COLUMN_NAME"),
-                        (String) r.get("DATA_TYPE"),
-                        (boolean) r.get("IS_NULLABLE"),
-                        false,
-                        false,
-                        (String) r.get("COLUMN_DEFAULT"),
-                        ""
-                    )
+            .map(r ->
+                new ColumnInformation(
+                    (String) r.get("COLUMN_NAME"),
+                    (String) r.get("DATA_TYPE"),
+                    (boolean) r.get("IS_NULLABLE"),
+                    false,
+                    false,
+                    (String) r.get("COLUMN_DEFAULT"),
+                    ""
+                )
             );
     }
 

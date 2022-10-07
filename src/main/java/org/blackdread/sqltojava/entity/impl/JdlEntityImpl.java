@@ -19,6 +19,7 @@ import org.blackdread.sqltojava.entity.JdlRelation;
 @Immutable
 @ThreadSafe
 public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
+
     private final String name;
 
     private final List<JdlField> fields;

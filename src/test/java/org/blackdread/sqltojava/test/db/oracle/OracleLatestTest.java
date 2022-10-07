@@ -9,6 +9,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @Disabled("Implementation incomplete")
 class OracleLatestTest extends SqlToJdlTransactionPerTestTest {
+
     @Container
     private static final OracleContainer ORACLE_CONTAINER = new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:latest"));
 

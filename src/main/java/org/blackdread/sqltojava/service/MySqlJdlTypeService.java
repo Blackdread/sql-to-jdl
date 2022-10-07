@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile({ "mysql", "mariadb" })
 public class MySqlJdlTypeService implements SqlJdlTypeService {
+
     private static final Logger log = LoggerFactory.getLogger(MySqlJdlTypeService.class);
 
     @PostConstruct

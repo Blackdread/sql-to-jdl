@@ -27,6 +27,7 @@ import org.springframework.test.context.DynamicPropertySource;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class TransactionPerTestTest extends BaseJdbcContainerTest {
+
     private static final Logger log = LoggerFactory.getLogger(TransactionPerTestTest.class);
     private static final String rollbackTag = "0.0.0";
     private static final Contexts contexts = new Contexts("integration-test");

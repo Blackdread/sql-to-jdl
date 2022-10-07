@@ -7,6 +7,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
 
 class Postgres09TestTest extends SqlToJdlTransactionPerTestTest {
+
     static String dockerImageName;
 
     @Container

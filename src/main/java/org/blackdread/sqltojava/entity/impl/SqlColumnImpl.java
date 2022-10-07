@@ -13,6 +13,7 @@ import org.blackdread.sqltojava.entity.SqlTable;
  * @author Yoann CAPLAIN
  */
 public class SqlColumnImpl implements SqlColumn {
+
     private final SqlTable table;
 
     private final String name;

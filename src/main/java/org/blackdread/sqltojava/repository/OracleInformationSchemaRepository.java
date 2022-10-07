@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile("oracle")
 public class OracleInformationSchemaRepository implements InformationSchemaRepository {
+
     private static final Logger log = LoggerFactory.getLogger(OracleInformationSchemaRepository.class);
 
     private final DSLContext create;

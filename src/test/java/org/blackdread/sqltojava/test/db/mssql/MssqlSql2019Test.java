@@ -9,11 +9,12 @@ import org.testcontainers.utility.DockerImageName;
 
 @Disabled("Implementation incomplete")
 class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
+
     @Container
     private static final MSSQLServerContainer MSSQL_CONTAINER = new MSSQLServerContainer(
         DockerImageName.parse("mcr.microsoft.com/mssql/server").withTag("2019-latest")
     )
-    .acceptLicense();
+        .acceptLicense();
 
     @BeforeAll
     public static void setup() {

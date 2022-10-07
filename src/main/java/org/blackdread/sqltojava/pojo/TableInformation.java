@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author Yoann CAPLAIN
  */
 public class TableInformation {
+
     private String schema;
 
     private String name;

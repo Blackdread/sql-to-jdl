@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Profile("postgresql")
 public class PostgresInformationSchemaRepository implements InformationSchemaRepository {
+
     private static final Logger log = LoggerFactory.getLogger(PostgresInformationSchemaRepository.class);
     public static final String ALL_TABLE_RELATIONAL_INFROMATION = ResourceUtil.readString(
         "sql/postgres-getAllTableRelationInformation.sql"

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JdlService {
+
     private static final Logger log = LoggerFactory.getLogger(JdlService.class);
 
     private final SqlService sqlService;

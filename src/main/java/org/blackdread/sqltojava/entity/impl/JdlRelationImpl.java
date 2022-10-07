@@ -16,6 +16,7 @@ import org.blackdread.sqltojava.entity.RelationType;
 @Immutable
 @ThreadSafe
 public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
+
     private final RelationType relationType;
 
     private final boolean isBidirectional;
