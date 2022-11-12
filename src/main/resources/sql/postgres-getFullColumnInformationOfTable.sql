@@ -42,7 +42,7 @@ with w_columns as (
     order by c.table_schema,
              c.table_name,
              c.column_name
-) select --distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
+) select distinct -- Duplicates come from joining information_schema.view_column_usage.  Not sure it this is even useful.
          cd.table_schema,
          cd.table_name,
          cd.column_name,
