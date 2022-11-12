@@ -8,8 +8,7 @@ entity City {
 }
 
 /** city_status comment */
-enum CityStatus {
-}
+enum CityStatus {}
 
 
 

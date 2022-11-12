@@ -1,13 +1,11 @@
 /** many_to_one_child comment */
 entity ManyToOneChild {
-	id Long required,
 	name String required maxlength(45),
 	other String required maxlength(45)
 }
 
 /** many_to_one_main comment */
 entity ManyToOneMain {
-	id Long required,
 	name String required maxlength(45),
 	other String required maxlength(45)
 }

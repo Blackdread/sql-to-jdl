@@ -98,16 +98,20 @@ public final class JdlUtils {
             builder.append(")");
         }
 
-        builder.append(" {\n");
-        for (final JdlField field : entity.getFields()) {
-            builder.append(writeField(field));
-            builder.append(",\n");
+        if (!entity.getFields().isEmpty()) {
+            builder.append(" {\n");
+            for (final JdlField field : entity.getFields()) {
+                builder.append(writeField(field));
+                builder.append(",\n");
+            }
+            if (!entity.isEnum()) {
+                // remove the last ','
+                builder.deleteCharAt(builder.length() - 2);
+            }
+            builder.append("}");
+        } else if (entity.isEnum()) {
+            builder.append(" {}");
         }
-        if (!entity.isEnum()) {
-            // remove the last ','
-            builder.deleteCharAt(builder.length() - 2);
-        }
-        builder.append("}");
         return builder.toString();
     }
 

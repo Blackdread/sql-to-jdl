@@ -27,6 +27,7 @@ public class JdlFieldImpl implements JdlField {
     private final String pattern;
     private final boolean isNativeEnum;
     private final boolean isUnique;
+    private final boolean isPrimaryKey;
 
     public JdlFieldImpl(
         final JdlFieldEnum type,
@@ -38,7 +39,8 @@ public class JdlFieldImpl implements JdlField {
         @Nullable final String pattern,
         @Nullable final String enumEntityName,
         final boolean isNativeEnum,
-        final boolean isUnique
+        final boolean isUnique,
+        final boolean isPrimaryKey
     ) {
         this.type = type;
         this.name = name;
@@ -50,6 +52,7 @@ public class JdlFieldImpl implements JdlField {
         this.enumEntityName = enumEntityName;
         this.isNativeEnum = isNativeEnum;
         this.isUnique = isUnique;
+        this.isPrimaryKey = isPrimaryKey;
     }
 
     @Override
@@ -95,6 +98,11 @@ public class JdlFieldImpl implements JdlField {
     @Override
     public boolean isUnique() {
         return isUnique;
+    }
+
+    @Override
+    public boolean isPrimaryKey() {
+        return isPrimaryKey;
     }
 
     @Override

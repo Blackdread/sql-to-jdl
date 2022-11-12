@@ -1,5 +1,4 @@
 entity T(t) {
-	id Long required,
 	f Integer
 }
 

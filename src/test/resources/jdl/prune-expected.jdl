@@ -1,6 +1,4 @@
-entity Demo {
-	id Long required
-}
+entity Demo
 
 
 

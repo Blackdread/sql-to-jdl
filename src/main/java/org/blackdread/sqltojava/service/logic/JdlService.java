@@ -57,14 +57,22 @@ public class JdlService {
             .collect(Collectors.toList());
     }
 
+    private boolean isDefaultPrimaryKey(JdlField f) {
+        log.info("c.getName()=" + f.getName());
+        log.info("c.isPrimaryKey()=" + f.isPrimaryKey());
+        log.info("c.getType()=" + f.getType());
+        log.info("c.test=" + !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id")));
+        return !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id"));
+    }
+
     protected Optional<JdlEntity> buildEntity(final Map.Entry<SqlTable, List<SqlColumn>> entry) {
         final List<JdlField> fields = entry
             .getValue()
             .stream()
-            //            .filter(f -> !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id")))
             .map(this::buildField)
             .filter(Optional::isPresent)
             .map(Optional::get)
+            .filter(f -> isDefaultPrimaryKey(f))
             .collect(Collectors.toList());
 
         final List<JdlRelation> relations = entry
@@ -203,7 +211,8 @@ public class JdlService {
                 pattern,
                 enumEntityName,
                 isNativeEnum,
-                column.isUnique()
+                column.isUnique(),
+                column.isPrimaryKey()
             )
         );
     }
