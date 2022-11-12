@@ -61,6 +61,7 @@ public class JdlService {
         final List<JdlField> fields = entry
             .getValue()
             .stream()
+            //            .filter(f -> !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id")))
             .map(this::buildField)
             .filter(Optional::isPresent)
             .map(Optional::get)
@@ -76,7 +77,8 @@ public class JdlService {
             .sorted()
             .collect(Collectors.toList());
 
-        String entityName = getEntityNameFormatted(entry.getKey().getName());
+        String tableName = entry.getKey().getName();
+        String entityName = getEntityNameFormatted(tableName);
         List<String> reserved = properties.getReservedList();
 
         if (reserved.contains(entityName.toUpperCase())) {
@@ -94,6 +96,7 @@ public class JdlService {
 
         JdlEntity jdlEntity = new JdlEntityImpl(
             entityName,
+            properties.getAddTableNameJdl() ? tableName : null,
             fields,
             entry.getKey().getComment().orElse(null),
             sqlService.isEnumTable(entry.getKey().getName()),

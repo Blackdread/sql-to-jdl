@@ -1,0 +1,16 @@
+entity T(t) {
+	id Long required,
+	f Integer
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

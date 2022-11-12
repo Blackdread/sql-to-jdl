@@ -90,7 +90,14 @@ public final class JdlUtils {
         } else {
             builder.append("entity ");
         }
+
         builder.append(entity.getName());
+        if (entity.getTableName() != null) {
+            builder.append("(");
+            builder.append(entity.getTableName());
+            builder.append(")");
+        }
+
         builder.append(" {\n");
         for (final JdlField field : entity.getFields()) {
             builder.append(writeField(field));

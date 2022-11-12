@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface JdlEntity {
     String getName();
 
+    String getTableName();
+
     List<JdlField> getFields();
 
     Optional<String> getComment();

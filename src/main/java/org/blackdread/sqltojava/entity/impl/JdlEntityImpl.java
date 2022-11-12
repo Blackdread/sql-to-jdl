@@ -22,6 +22,8 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
 
     private final String name;
 
+    private final String tableName;
+
     private final List<JdlField> fields;
 
     private final String comment;
@@ -34,6 +36,7 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
 
     public JdlEntityImpl(
         final String name,
+        final String tableName,
         final List<JdlField> fields,
         @Nullable final String comment,
         final boolean isEnum,
@@ -41,6 +44,7 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
         final List<JdlRelation> relations
     ) {
         this.name = name;
+        this.tableName = tableName;
         this.fields = ImmutableList.copyOf(fields);
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
         this.isEnum = isEnum;
@@ -51,6 +55,11 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getTableName() {
+        return tableName;
     }
 
     @Override
@@ -84,6 +93,9 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
             "JdlEntityImpl{" +
             "name='" +
             name +
+            '\'' +
+            "tableName='" +
+            tableName +
             '\'' +
             ", fields=" +
             fields +
