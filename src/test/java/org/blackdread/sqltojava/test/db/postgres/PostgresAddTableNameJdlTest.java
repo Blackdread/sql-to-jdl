@@ -24,8 +24,6 @@ class PostgresAddTableNameJdlTest extends SqlToJdlTransactionPerTestTest {
     public static void setup() {
         environmentVariables.set("expected.profile", "postgresql");
         environmentVariables.set("application.add_table_name_jdl", "true");
-//        System.setProperty("expected.profile", "postgresql");
-//        System.setProperty("application.add_table_name_jdl", "true");
         setupContainer(POSTGRE_SQL_CONTAINER);
     }
 
