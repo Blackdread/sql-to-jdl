@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,8 @@ public class ApplicationProperties {
      * Database name to export to JDL
      */
     private final String databaseToExport;
-
+    private final List<String> databaseObjectPrefix;
+    private final Boolean addTableNameJdl;
     private final List<String> ignoredTableNames;
 
     private final Export export;
@@ -38,12 +40,16 @@ public class ApplicationProperties {
     @SuppressWarnings("unchecked")
     public ApplicationProperties(
         final String databaseToExport,
+        List<String> databaseObjectPrefix,
+        Boolean addTableNameJdl,
         final List<String> ignoredTableNames,
         final Export export,
         final String reservedKeywords
     ) {
         log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
+        this.databaseObjectPrefix = databaseObjectPrefix;
+        this.addTableNameJdl = Optional.of(addTableNameJdl).orElse(false);
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
         this.reservedList =
@@ -71,6 +77,14 @@ public class ApplicationProperties {
 
     public List<String> getReservedList() {
         return reservedList;
+    }
+
+    public Boolean getAddTableNameJdl() {
+        return addTableNameJdl;
+    }
+
+    public List<String> getDatabaseObjectPrefix() {
+        return databaseObjectPrefix;
     }
 
     public static class Export {

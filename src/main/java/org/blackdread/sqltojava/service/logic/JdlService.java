@@ -15,6 +15,7 @@ import org.blackdread.sqltojava.entity.impl.JdlEntityImpl;
 import org.blackdread.sqltojava.entity.impl.JdlFieldImpl;
 import org.blackdread.sqltojava.entity.impl.JdlRelationImpl;
 import org.blackdread.sqltojava.service.SqlJdlTypeService;
+import org.blackdread.sqltojava.util.JdlUtils;
 import org.blackdread.sqltojava.util.SqlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,8 +103,8 @@ public class JdlService {
         return Optional.of(jdlEntity);
     }
 
-    private static String getEntityNameFormatted(final String name) {
-        return StringUtils.capitalize(SqlUtils.changeToCamelCase(name));
+    private String getEntityNameFormatted(final String name) {
+        return JdlUtils.getEntityName(name, properties.getDatabaseObjectPrefix());
     }
 
     /**
@@ -244,8 +245,8 @@ public class JdlService {
         final String inverseSideEntityName = getEntityNameFormatted(inverseSideTable.getName());
 
         // We put always bidirectional but we have no way to generate good inverse name so we put the owner side name
-        final String inverseSideRelationName = SqlUtils.changeToCamelCase(tableName);
         final String ownerEntityName = getEntityNameFormatted(tableName);
+        final String inverseSideRelationName = JdlUtils.decapitalize(ownerEntityName);
         boolean required = !isNullable;
         if (required) {
             if (ownerEntityName.equals(inverseSideEntityName)) {

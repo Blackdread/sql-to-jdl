@@ -1,6 +1,8 @@
 package org.blackdread.sqltojava.util;
 
+import java.util.List;
 import javax.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
@@ -240,5 +242,21 @@ public final class JdlUtils {
         builder.append("}");
 
         return builder.toString();
+    }
+
+    public static String getEntityName(String name, List<String> prefixes) {
+        String entityName = prefixes
+            .stream()
+            .filter(prefix -> name.startsWith(prefix))
+            .findFirst()
+            .map(s -> name.substring(s.length()))
+            .orElse(name);
+        return StringUtils.capitalize(SqlUtils.changeToCamelCase(entityName));
+    }
+
+    public static String decapitalize(String string) {
+        char c[] = string.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        return new String(c);
     }
 }

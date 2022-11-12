@@ -28,6 +28,7 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
      */
     private static Stream<String> provideTestNames() {
         return Stream.of(
+            "uuid_id_required",
             "all_types",
             "one_to_one",
             "many_to_one",
