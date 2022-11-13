@@ -1,0 +1,15 @@
+entity UuidIdRequired {
+	id UUID
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

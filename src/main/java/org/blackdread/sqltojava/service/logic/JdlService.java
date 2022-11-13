@@ -58,10 +58,6 @@ public class JdlService {
     }
 
     private boolean isDefaultPrimaryKey(JdlField f) {
-        log.info("c.getName()=" + f.getName());
-        log.info("c.isPrimaryKey()=" + f.isPrimaryKey());
-        log.info("c.getType()=" + f.getType());
-        log.info("c.test=" + !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id")));
         return !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id"));
     }
 
@@ -72,7 +68,7 @@ public class JdlService {
             .map(this::buildField)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(f -> isDefaultPrimaryKey(f))
+            .filter(this::isDefaultPrimaryKey)
             .collect(Collectors.toList());
 
         final List<JdlRelation> relations = entry

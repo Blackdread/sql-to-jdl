@@ -140,7 +140,7 @@ public final class JdlUtils {
                 builder.append(("UUID".equals(type.name())) ? type.name() : type.toCamelUpper());
         }
 
-        if (field.isRequired()) {
+        if (field.isRequired() && !(field.getName().equals("id") && field.getType().equals(JdlFieldEnum.UUID))) {
             builder.append(" ");
             builder.append(validationRequired());
         }
