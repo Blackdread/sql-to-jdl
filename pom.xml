@@ -35,6 +35,7 @@
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
+        <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
         <checkstyle.version>10.4</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
@@ -221,7 +222,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                  <forkCount>2.5C</forkCount>
+                  <reuseForks>false</reuseForks>
+                </configuration>
+            </plugin>            
             <plugin>
                 <!-- We cannot use org.jooq.util.jpa.JPADatabase to generate from entities because we would need to move entities in another module -->
                 <groupId>org.jooq</groupId>
