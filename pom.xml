@@ -30,13 +30,13 @@
 
         <guava.version>31.1-jre</guava.version>
 
-        <testcontainers.version>1.17.3</testcontainers.version>
+        <testcontainers.version>1.17.5</testcontainers.version>
 
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
         <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
-        <checkstyle.version>10.3.4</checkstyle.version>
+        <checkstyle.version>10.4</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
