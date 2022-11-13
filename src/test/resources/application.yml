@@ -21,6 +21,10 @@ spring:
 application:
     reserved-keywords: classpath:reserved/keywords.json
     #database-to-export: dynamically set based on JdbcDatabaseContainer type
+    database-object-prefix:
+        - t_
+        - v_
+    add_table_name_jdl: false
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock

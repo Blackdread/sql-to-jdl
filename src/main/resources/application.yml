@@ -23,6 +23,10 @@ spring:
 application:
     reserved-keywords: classpath:reserved/keywords.json
     database-to-export: my_database_name
+    database-object-prefix:
+        - t_,
+        - v_
+    add_table_name_jdl: true
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
