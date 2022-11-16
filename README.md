@@ -6,10 +6,35 @@ Tool to translate SQL databases to JDL format of jHipster (Created due to existi
 
 
 # Compatibility
-This implementation works with mysql 5.7+ and mysql 8+.
+This implementation works with 
+  - mysql 5.7.x, 8.x
+  - mariadb 10.x
+  - postgresql 9.x+
 
-Only few changes are required to make it work with oracle db, POSTGRES, etc; Changes should be made on Repository used, probably remove jooq maven generation, use pure SQL with jdbc and have one repository implementation per database type supported then define the appropriate bean based on connection string or other.
+Help is requested on MsSQL and Oracle support.  This will require implementation of InformationSchemaRepository and SqlJdlTypeService.  See the MySQL and PosrgreSQL implemtaitons for a jOOQ and raw native SQL examples.
 
+# Testing
+Setting up tests for new databases types or versions is easy.  Have a look existing tests.  
+MsSQL and Oracle have tests created that are disabled because their implementations are incomplete.
+
+Tests use liquibase so that most of the setup for tests is database agnostic.  The main exception is for the all types test that is different for each database type.
+
+Each test needs the following files
+  - {{test.name}}-liquibase-changeset.yaml
+  - {{test.name}}-expected.jdl
+  
+To override the default name the files as
+  - {test.name}}-liquibase-changeset-{{db.typ}}.yaml
+  - {{test.name}}-expected-{{db.type}}.jdl
+
+If you need to change the tests run for a specific database type or version, use method hiding by implementing 
+
+private static Stream<String> provideTestNames() in the subclass of SqlToJdlTransactionPerTestTest
+
+In order to avoid starting a new database and spring boot container for every test, liquibase is used to roll back the database to an empty state.  This can be done by just rolling back the transaction with Spring, but MySQL does not support rollback of DDL changes.  This works great with PostgreSQL, but liquibase is used to roll back the changes for all database types currently.
+
+Currently the full test suite runs 11 test per database version which total nearly 80 tests.  
+ 
 # Why not use tools like UML provided on jHipster?
 - JDL from web is ok for a few entities but not for more than 100 entities and relations
 - UML software and xml exporters could have worked (other tools on jHipster) but:
@@ -30,6 +55,8 @@ Set properties file:
 - Schema name to export
 - Tables names to be ignored
 - Path of export file
+- Database object prefixes to remove from entity name
+- Include table name is JDL
 
 # After JDL file is generated
 Still have some manual steps to do:

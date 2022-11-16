@@ -1,0 +1,56 @@
+/** my table comment */
+entity AllType {
+	myId String required maxlength(25),
+	myInt Integer required,
+	myIntNull Integer,
+	myVarchar50 String required maxlength(50),
+	myVarchar50Null String maxlength(50),
+	/** super varchar 512 */
+	myVarchar512 String required maxlength(512),
+	myTinytext String required maxlength(255),
+	myMediumtext TextBlob required,
+	myLongtext TextBlob required,
+	myText String required maxlength(255),
+	myChar String required maxlength(5),
+	myDate LocalDate required,
+	myDatetime Instant required,
+	myTimestamp Instant required,
+	myTime String required minlength(8) maxlength(8) pattern(/^(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d)$/),
+	myBigint Long required,
+	myTinyint Boolean required,
+	/** small int comment */
+	mySmallint Integer required,
+	myDecimal BigDecimal required,
+	myDouble Double required,
+	myBit Boolean required,
+	myBool Boolean required,
+	myJson String required,
+	myTinyblob Blob required,
+	myMediumblob Blob required,
+	myLongblob Blob required,
+	myTinyint8 Boolean required
+}
+
+/** my table comment */
+entity MysqlType {
+	myYear String required pattern(/^-?(\d+)$/),
+	myMediumint Integer required,
+	myFloat Float required,
+	myEnumSql MyEnumSql required,
+	mySet MySet required,
+	myGeometry String required,
+	/** blob comment */
+	myBlob Blob required
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

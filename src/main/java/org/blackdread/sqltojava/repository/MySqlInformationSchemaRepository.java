@@ -15,16 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-/**
- * mysql57 profile was only added to test if a profile could be overridden without having to add another
- * repository implementation.  Currently, tests against MySQl 5.7 will fail with the following error.
- * FlywayEditionUpgradeRequiredException:
- * Flyway Teams Edition or MySQL upgrade required:
- * MySQL 5.7 is no longer supported by Flyway Community Edition, but still supported by Flyway Teams Edition.
- */
 @Repository
-@Profile({ "mysql", "mysql57" })
+@Profile({ "mysql", "mariadb" })
 public class MySqlInformationSchemaRepository implements InformationSchemaRepository {
+
     private static final Logger log = LoggerFactory.getLogger(MySqlInformationSchemaRepository.class);
 
     private final DSLContext create;
@@ -60,18 +54,15 @@ public class MySqlInformationSchemaRepository implements InformationSchemaReposi
             .resultQuery("SHOW FULL COLUMNS FROM " + dbName + "." + tableName)
             //            .bind(1, tableName)
             .fetch()
-            .map(
-                r ->
-                    new ColumnInformation(
-                        (String) r.get("Field"),
-                        (String) r.get("Type"),
-                        (String) r.get("Collation"),
-                        (String) r.get("Null"),
-                        (String) r.get("Key"),
-                        (String) r.get("Default"),
-                        (String) r.get("Extra"),
-                        (String) r.get("Comment")
-                    )
+            .map(r ->
+                new ColumnInformation(
+                    (String) r.get("Field"),
+                    (String) r.get("Type"),
+                    (String) r.get("Null"),
+                    (String) r.get("Key"),
+                    (String) r.get("Default"),
+                    (String) r.get("Comment")
+                )
             );
     }
 
@@ -82,15 +73,6 @@ public class MySqlInformationSchemaRepository implements InformationSchemaReposi
             .where(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA.eq(dbName))
             .fetch()
             .map(r -> new TableInformation(r.value1(), r.value2()));
-    }
-
-    public List<String> getAllTableName(final String dbName) {
-        return create
-            .select(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME)
-            .from(InformationSchema.INFORMATION_SCHEMA.TABLES)
-            .where(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA.eq(dbName))
-            .fetch()
-            .getValues(InformationSchema.INFORMATION_SCHEMA.TABLES.TABLE_NAME);
     }
 
     private TableRelationInformation map(final Record4<String, String, String, String> r) {

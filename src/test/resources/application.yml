@@ -6,29 +6,30 @@ logging:
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        # Below settings are ignored in most tests as is dynamically set
-        url: jdbc:tc:mysql:5.7.22://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-        # url: jdbc:tc:mysql:8.0.22://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-        username: root
-        password:
+        #url: dynamically set based on JdbcDatabaseContainer type
+        #username: dynamically set based on JdbcDatabaseContainer type
+        #password: dynamically set based on JdbcDatabaseContainer type
         hikari:
             data-source-properties:
                 cachePrepStmts: true
                 prepStmtCacheSize: 250
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
-    jooq:
-        sql-dialect: mysql
     flyway:
-        locations:
-
+        enabled: false
 
 application:
     reserved-keywords: classpath:reserved/keywords.json
-    database-to-export: test #DB name is 'test' by default with test container
+    #database-to-export: dynamically set based on JdbcDatabaseContainer type
+    database-object-prefix:
+        - t_
+        - v_
+    add_table_name_jdl: false
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock
+        - DATABASECHANGELOG
+        - DATABASECHANGELOGLOCK
         - flyway_schema_history
         - QRTZ_BLOB_TRIGGERS
         - QRTZ_CALENDARS

@@ -5,7 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.json.JsonParserFactory;
@@ -19,11 +22,15 @@ import org.springframework.util.ResourceUtils;
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+
+    private static final Logger log = LoggerFactory.getLogger(ApplicationProperties.class);
+
     /**
      * Database name to export to JDL
      */
     private final String databaseToExport;
-
+    private final List<String> databaseObjectPrefix;
+    private final Boolean addTableNameJdl;
     private final List<String> ignoredTableNames;
 
     private final Export export;
@@ -33,11 +40,16 @@ public class ApplicationProperties {
     @SuppressWarnings("unchecked")
     public ApplicationProperties(
         final String databaseToExport,
+        List<String> databaseObjectPrefix,
+        Boolean addTableNameJdl,
         final List<String> ignoredTableNames,
         final Export export,
         final String reservedKeywords
     ) {
+        log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
+        this.databaseObjectPrefix = databaseObjectPrefix;
+        this.addTableNameJdl = Optional.of(addTableNameJdl).orElse(false);
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
         this.reservedList =
@@ -67,7 +79,16 @@ public class ApplicationProperties {
         return reservedList;
     }
 
+    public Boolean getAddTableNameJdl() {
+        return addTableNameJdl;
+    }
+
+    public List<String> getDatabaseObjectPrefix() {
+        return databaseObjectPrefix;
+    }
+
     public static class Export {
+
         private final Path path;
 
         private final String type;

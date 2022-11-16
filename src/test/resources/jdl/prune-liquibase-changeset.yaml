@@ -1,0 +1,44 @@
+databaseChangeLog:
+    - changeSet:
+          id: prune-1
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              autoIncrement: true
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: BIGINT
+                    tableName: class
+    - changeSet:
+          id: prune-2
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              autoIncrement: true
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: BIGINT
+                    tableName: demo
+    - changeSet:
+          id: prune-3
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              autoIncrement: true
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: BIGINT
+                    tableName: student_detail
+

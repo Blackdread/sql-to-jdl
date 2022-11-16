@@ -21,9 +21,10 @@ import org.slf4j.LoggerFactory;
  * @author Yoann CAPLAIN
  */
 public final class SqlUtils {
+
     private static final Logger log = LoggerFactory.getLogger(SqlUtils.class);
 
-    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z\\s]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
 
     private SqlUtils() {}
 
@@ -54,5 +55,10 @@ public final class SqlUtils {
         }
         log.warn("Did not find sql size from: {}", value);
         return Optional.empty();
+    }
+
+    public static String parseSqlType(String value) {
+        String typeName = value.split("\\(")[0];
+        return typeName;
     }
 }

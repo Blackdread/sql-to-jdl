@@ -10,9 +10,12 @@ import org.apache.commons.lang3.StringUtils;
  * @author Yoann CAPLAIN
  */
 public class TableInformation {
-    private final String name;
 
-    private final String comment;
+    private String schema;
+
+    private String name;
+
+    private String comment;
 
     public TableInformation(final String name) {
         this(name, null);
@@ -29,6 +32,10 @@ public class TableInformation {
 
     public Optional<String> getComment() {
         return Optional.ofNullable(comment);
+    }
+
+    public String getSchema() {
+        return schema;
     }
 
     @Override

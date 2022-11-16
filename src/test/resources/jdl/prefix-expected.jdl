@@ -1,0 +1,28 @@
+/** many_to_one_child comment */
+entity ManyToOneChild {
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+/** many_to_one_main comment */
+entity ManyToOneMain {
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+
+
+// Relations
+// many_to_one_main comment
+relationship ManyToOne {
+	ManyToOneMain{manyToOneChild required} to ManyToOneChild{manyToOneMain}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

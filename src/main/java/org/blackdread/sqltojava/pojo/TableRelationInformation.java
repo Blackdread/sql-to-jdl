@@ -8,6 +8,7 @@ import java.util.Objects;
  * @author Yoann CAPLAIN
  */
 public class TableRelationInformation {
+
     private final String tableName;
     private final String columnName;
     private final String referencedTableName;

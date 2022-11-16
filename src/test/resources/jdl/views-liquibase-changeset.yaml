@@ -1,0 +1,49 @@
+databaseChangeLog:
+    - changeSet:
+          id: view-create-table
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: order_number
+                              type: VARCHAR(255)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: product_code
+                              type: VARCHAR(50)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: quantity_ordered
+                              type: INT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: price_each
+                              type: DECIMAL(19, 5)
+                    tableName: order_details
+    - changeSet:
+          id: view-create-view
+          author: jason.long (generated)
+          changes:
+              - createView:
+                    fullDefinition: false
+                    remarks: VIEW
+                    selectQuery: select order_details.order_number AS order_number,
+                                        sum((order_details.quantity_ordered * order_details.price_each)) AS total
+                                 from order_details
+                                 group by order_details.order_number
+                    viewName: sale_per_order
+    - changeSet:
+          id: view-add-comment-view-postgres
+          author: jason.long (generated)
+          dbms: postgresql
+          changes:
+              - sql: comment on view sale_per_order is 'VIEW';
+              - rollback:

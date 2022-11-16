@@ -1,6 +1,8 @@
 package org.blackdread.sqltojava.util;
 
+import java.util.List;
 import javax.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
@@ -88,17 +90,28 @@ public final class JdlUtils {
         } else {
             builder.append("entity ");
         }
+
         builder.append(entity.getName());
-        builder.append(" {\n");
-        for (final JdlField field : entity.getFields()) {
-            builder.append(writeField(field));
-            builder.append(",\n");
+        if (entity.getTableName() != null) {
+            builder.append("(");
+            builder.append(entity.getTableName());
+            builder.append(")");
         }
-        if (!entity.isEnum()) {
-            // remove the last ','
-            builder.deleteCharAt(builder.length() - 2);
+
+        if (!entity.getFields().isEmpty()) {
+            builder.append(" {\n");
+            for (final JdlField field : entity.getFields()) {
+                builder.append(writeField(field));
+                builder.append(",\n");
+            }
+            if (!entity.isEnum()) {
+                // remove the last ','
+                builder.deleteCharAt(builder.length() - 2);
+            }
+            builder.append("}");
+        } else if (entity.isEnum()) {
+            builder.append(" {}");
         }
-        builder.append("}");
         return builder.toString();
     }
 
@@ -114,7 +127,8 @@ public final class JdlUtils {
         builder.append("\t");
         builder.append(field.getName());
         builder.append(" ");
-        switch (field.getType()) {
+        JdlFieldEnum type = field.getType();
+        switch (type) {
             case ENUM:
                 builder.append(
                     field
@@ -123,10 +137,10 @@ public final class JdlUtils {
                 );
                 break;
             default:
-                builder.append(field.getType().toCamelUpper());
+                builder.append(("UUID".equals(type.name())) ? type.name() : type.toCamelUpper());
         }
 
-        if (field.isRequired()) {
+        if (field.isRequired() && !(field.getName().equals("id") && field.getType().equals(JdlFieldEnum.UUID))) {
             builder.append(" ");
             builder.append(validationRequired());
         }
@@ -186,27 +200,23 @@ public final class JdlUtils {
         builder.append(" {\n");
         relation
             .getOwnerComment()
-            .ifPresent(
-                ownerComment -> {
-                    builder.append("\t");
-                    builder.append("/** ");
-                    builder.append(relation.getOwnerComment().get());
-                    builder.append(" */\n");
-                }
-            );
+            .ifPresent(ownerComment -> {
+                builder.append("\t");
+                builder.append("/** ");
+                builder.append(relation.getOwnerComment().get());
+                builder.append(" */\n");
+            });
         builder.append("\t");
         builder.append(relation.getOwnerEntityName());
         builder.append("{");
         builder.append(relation.getOwnerRelationName());
         relation
             .getOwnerDisplayField()
-            .ifPresent(
-                ownerDisplayField -> {
-                    builder.append("(");
-                    builder.append(ownerDisplayField);
-                    builder.append(")");
-                }
-            );
+            .ifPresent(ownerDisplayField -> {
+                builder.append("(");
+                builder.append(ownerDisplayField);
+                builder.append(")");
+            });
         if (relation.isOwnerRequired()) {
             builder.append(" required");
         }
@@ -229,13 +239,11 @@ public final class JdlUtils {
             );
             relation
                 .getInverseSideDisplayField()
-                .ifPresent(
-                    inverseSideDisplayField -> {
-                        builder.append("(");
-                        builder.append(inverseSideDisplayField);
-                        builder.append(")");
-                    }
-                );
+                .ifPresent(inverseSideDisplayField -> {
+                    builder.append("(");
+                    builder.append(inverseSideDisplayField);
+                    builder.append(")");
+                });
             if (relation.isInverseSideRequired()) {
                 builder.append(" required");
             }
@@ -245,5 +253,21 @@ public final class JdlUtils {
         builder.append("}");
 
         return builder.toString();
+    }
+
+    public static String getEntityName(String name, List<String> prefixes) {
+        String entityName = prefixes
+            .stream()
+            .filter(prefix -> name.startsWith(prefix))
+            .findFirst()
+            .map(s -> name.substring(s.length()))
+            .orElse(name);
+        return StringUtils.capitalize(SqlUtils.changeToCamelCase(entityName));
+    }
+
+    public static String decapitalize(String string) {
+        char c[] = string.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        return new String(c);
     }
 }

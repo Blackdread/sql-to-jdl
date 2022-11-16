@@ -47,4 +47,9 @@ public interface JdlField {
      * @return - <code>true</code> if the column is marked as a unique column
      */
     boolean isUnique();
+
+    /**
+     * @return - <code>true</code> if the column is marked as a primary key column
+     */
+    boolean isPrimaryKey();
 }

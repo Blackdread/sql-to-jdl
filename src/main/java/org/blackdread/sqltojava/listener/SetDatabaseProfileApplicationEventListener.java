@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 public class SetDatabaseProfileApplicationEventListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
     private static final Logger log = LoggerFactory.getLogger(SetDatabaseProfileApplicationEventListener.class);
 
     @Override
@@ -18,10 +19,10 @@ public class SetDatabaseProfileApplicationEventListener implements ApplicationLi
         if (activeProfiles.length == 0) {
             String jdbcUrl = env.getProperty("spring.datasource.url");
             String profileName = JdbcUtil.getDatabaseTypeFromJdbcUrl(jdbcUrl);
-            log.debug(String.format("No active profiles using %s from $s", profileName, jdbcUrl));
+            log.debug(String.format("No active profiles using %s from %s", profileName, jdbcUrl));
             env.setActiveProfiles(profileName);
         } else {
-            log.debug("Active profiles found.  Automatic setting from spring.datasource.url disabled.");
+            log.debug(String.format("Active profile %s found.  Automatic setting from spring.datasource.url disabled.", activeProfiles));
         }
     }
 }

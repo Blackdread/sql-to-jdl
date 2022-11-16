@@ -1,0 +1,17 @@
+databaseChangeLog:
+    - changeSet:
+          id: table_name-1
+          author: jason.long
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: bigint
+                        - column:
+                              name: f
+                              type: int
+                    tableName: t

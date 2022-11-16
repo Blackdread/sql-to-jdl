@@ -1,0 +1,259 @@
+databaseChangeLog:
+    - changeSet:
+          id: all_types-create_table_all
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          dbms: mysql,mariadb
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: my_id
+                              type: VARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              defaultValueNumeric: 55
+                              name: my_int
+                              type: INT
+                        - column:
+                              name: my_int_null
+                              type: INT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              defaultValue: default of varchar 50
+                              name: my_varchar_50
+                              type: VARCHAR(50)
+                        - column:
+                              name: my_varchar_50_null
+                              type: VARCHAR(50)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_varchar_512
+                              remarks: super varchar 512
+                              type: VARCHAR(512)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinytext
+                              type: TINYTEXT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_mediumtext
+                              type: MEDIUMTEXT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_longtext
+                              type: LONGTEXT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_text
+                              type: TEXT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_char
+                              type: CHAR(5)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_date
+                              type: date
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_datetime
+                              type: datetime
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_timestamp
+                              type: timestamp
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_time
+                              type: time
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bigint
+                              type: BIGINT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyint
+                              type: TINYINT(3)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_smallint
+                              remarks: small int comment
+                              type: SMALLINT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_decimal
+                              type: DECIMAL(19, 5)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_double
+                              type: DOUBLE
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bit
+                              type: BIT(1)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bool
+                              type: BIT(1)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_json
+                              type: JSON
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyblob
+                              type: TINYBLOB
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_mediumblob
+                              type: MEDIUMBLOB
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_longblob
+                              type: LONGBLOB
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyint_8
+                              type: TINYINT(3)
+                    remarks: my table comment
+                    tableName: all_type
+    - changeSet:
+          id: all_types-create_table_ansi_sql
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          dbms: mysql,mariadb
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_year
+                              type: YEAR(4)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_mediumint
+                              type: MEDIUMINT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_float
+                              type: FLOAT(12)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_enum_sql
+                              type: ENUM('value_one','value_two','value_three')
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_set
+                              type: SET('set_one','set_two','set_three')
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_geometry
+                              type: GEOMETRY
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_blob
+                              remarks: blob comment
+                              type: BLOB
+                    remarks: my table comment
+                    tableName: mysql_type
+    - changeSet:
+          id: all_types-create_table_postgres
+          author: jason.long
+          dbms: postgresql
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              name: my_boolean
+                              type: boolean
+                        - column:
+                              name: my_date
+                              type: date
+                        - column:
+                              name: my_time
+                              type: time
+                        - column:
+                              name: my_time_with_time_zone
+                              type: time with time zone
+                        - column:
+                              name: my_timestamp
+                              type: timestamp
+                        - column:
+                              name: my_timestamp_with_time_zone
+                              type: timestamp with time zone
+                        - column:
+                              name: my_real
+                              type: real
+                        - column:
+                              name: my_double_precision
+                              type: double precision
+                        - column:
+                              name: my_smallint
+                              type: smallint
+                        - column:
+                              name: my_integer
+                              type: integer
+                        - column:
+                              name: my_bigint
+                              type: bigint
+                        - column:
+                              name: my_money
+                              type: money
+                        - column:
+                              name: my_numeric
+                              type: numeric
+                        - column:
+                              name: my_bpchar
+                              type: bpchar
+                        - column:
+                              name: my_char
+                              type: char
+                        - column:
+                              name: my_text
+                              type: text
+                        - column:
+                              name: my_varchar
+                              type: varchar
+                        - column:
+                              name: my_bytea
+                              type: bytea
+                        - column:
+                              name: my_json
+                              type: json
+                        - column:
+                              name: my_uuid
+                              type: uuid
+                    tableName:  postgres_type

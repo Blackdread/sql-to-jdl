@@ -1,0 +1,15 @@
+databaseChangeLog:
+    - changeSet:
+          id: uuid_id_required
+          author: jason.long
+          #dbms: mysql,mariadb
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: uuid
+                    tableName: uuid_id_required

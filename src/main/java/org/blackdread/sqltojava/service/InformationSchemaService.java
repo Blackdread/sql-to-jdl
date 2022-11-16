@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class InformationSchemaService {
+
     private static final Logger log = LoggerFactory.getLogger(InformationSchemaService.class);
 
     private final ApplicationProperties applicationProperties;
@@ -50,11 +51,5 @@ public class InformationSchemaService {
     public List<TableInformation> getAllTableInformation() {
         log.debug("getAllTableInformation called");
         return informationSchemaRepository.getAllTableInformation(applicationProperties.getDatabaseToExport());
-    }
-
-    @Cacheable("InformationSchemaService.getAllTableName")
-    public List<String> getAllTableName() {
-        log.debug("getAllTableName called");
-        return informationSchemaRepository.getAllTableName(applicationProperties.getDatabaseToExport());
     }
 }

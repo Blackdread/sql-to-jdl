@@ -1,0 +1,26 @@
+entity OneToOneChildMap {
+	name String required maxlength(45)
+}
+
+/** one_to_one_main_map comment */
+entity OneToOneMainMap {
+	id String required maxlength(25),
+	name String required maxlength(45),
+	other String required maxlength(45)
+}
+
+
+
+// Relations
+relationship ManyToOne {
+	OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+
