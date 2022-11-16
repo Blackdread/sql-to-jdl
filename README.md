@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Blackdread/sql-to-jdl.svg?branch=master)](https://travis-ci.org/Blackdread/sql-to-jdl)
+[![build](https://github.com/Blackdread/sql-to-jdl/actions/workflows/maven.yml/badge.svg)](https://github.com/Blackdread/sql-to-jdl/actions/workflows/maven.yml)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/sql-to-jdl)
 
 # sql-to-jdl
