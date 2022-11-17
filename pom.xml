@@ -30,7 +30,7 @@
 
         <guava.version>31.1-jre</guava.version>
 
-        <testcontainers.version>1.17.5</testcontainers.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
 
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
