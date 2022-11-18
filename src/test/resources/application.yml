@@ -1,8 +1,3 @@
-logging:
-    level:
-        org.jooq: DEBUG
-        org.blackdread.sqltojava: DEBUG
-
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource

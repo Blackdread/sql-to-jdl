@@ -1,8 +1,3 @@
-logging:
-    level:
-        jooq: trace
-        org.blackdread.sqltojava: DEBUG
-
 spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
@@ -15,8 +10,6 @@ spring:
                 prepStmtCacheSize: 250
                 prepStmtCacheSqlLimit: 2048
                 useServerPrepStmts: true
-    jooq:
-        sql-dialect: mysql
     flyway:
         enabled: false
 
