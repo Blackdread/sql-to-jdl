@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile({ "postgresql" })
+@Profile({ "mysql", "postgresql" })
 public class PureSqlInformationSchemaRepository implements InformationSchemaRepository {
 
     private static final Logger log = LoggerFactory.getLogger(PureSqlInformationSchemaRepository.class);
