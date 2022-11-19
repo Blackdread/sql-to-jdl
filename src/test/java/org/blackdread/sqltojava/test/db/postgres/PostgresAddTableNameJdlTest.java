@@ -18,12 +18,12 @@ class PostgresAddTableNameJdlTest extends SqlToJdlTransactionPerTestTest {
     private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:latest"));
 
     @SystemStub
-    private static EnvironmentVariables environmentVariables;
+    private static EnvironmentVariables env;
 
     @BeforeAll
     public static void setup() {
-        environmentVariables.set("expected.profile", "postgresql");
-        environmentVariables.set("application.add_table_name_jdl", "true");
+        env.set("expected.profile", "postgresql");
+        env.set("application.add_table_name_jdl", "true");
         setupContainer(POSTGRE_SQL_CONTAINER);
     }
 
