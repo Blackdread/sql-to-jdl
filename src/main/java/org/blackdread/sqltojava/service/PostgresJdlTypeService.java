@@ -3,9 +3,7 @@ package org.blackdread.sqltojava.service;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 import java.util.Map;
-import java.util.Optional;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
-import org.blackdread.sqltojava.util.SqlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -44,10 +42,8 @@ public class PostgresJdlTypeService implements SqlJdlTypeService {
         //Map.entry("xml", STRING)
     );
 
-    public JdlFieldEnum sqlTypeToJdlType(final String sqlType) {
-        String typeName = SqlUtils.parseSqlType(sqlType);
-        JdlFieldEnum jdlType = Optional.ofNullable(typeMap.get(typeName)).orElse(UNSUPPORTED);
-        //orElseThrow(() -> new IllegalStateException("Unknown type: " + typeName));
-        return jdlType;
+    @Override
+    public Map<String, JdlFieldEnum> getTypeMap() {
+        return this.typeMap;
     }
 }
