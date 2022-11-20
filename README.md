@@ -1,4 +1,4 @@
-[![build](https://github.com/octgsoftware/sql-to-jdl/actions/workflows/maven.yml/badge.svg)](https://github.com/octgsoftware/sql-to-jdl/actions/workflows/maven.yml)
+[![build](https://github.com/Blackdread/sql-to-jdl/actions/workflows/maven.yml/badge.svg)](https://github.com/Blackdread/sql-to-jdl/actions/workflows/maven.yml)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/Blackdread/sql-to-jdl)
 
 # sql-to-jdl
@@ -24,7 +24,7 @@ Each test needs the following files
   - {{test.name}}-expected.jdl
   
 To override the default name the files as
-  - {test.name}}-liquibase-changeset-{{db.typ}}.yaml
+  - {{test.name}}-liquibase-changeset-{{db.typ}}.yaml
   - {{test.name}}-expected-{{db.type}}.jdl
 
 If you need to change the tests run for a specific database type or version, use method hiding by implementing 
@@ -55,6 +55,7 @@ Set properties file:
 - Path of export file
 - Database object prefixes to remove from entity name
 - Include table name is JDL
+- Undefined JDL type handling to UNSUPPORTED, SKIP, or UNSUPPORTED
 
 # After JDL file is generated
 Still have some manual steps to do:
