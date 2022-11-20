@@ -10,7 +10,7 @@ entity AllType {
 	myTinytext String required maxlength(255),
 	myMediumtext TextBlob required,
 	myLongtext TextBlob required,
-	myText String required maxlength(255),
+	myText String required maxlength(65535),
 	myChar String required maxlength(5),
 	myDate LocalDate required,
 	myDatetime Instant required,
