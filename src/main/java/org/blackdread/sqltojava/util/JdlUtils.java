@@ -106,20 +106,21 @@ public final class JdlUtils {
         if (!entity.getFields().isEmpty()) {
             builder.append(" {\n");
             for (final JdlField field : entity.getFields()) {
-                log.info(field.getType().toString());
-                log.info(undefinedJdlTypeHandling.toString());
-                if (field.getType().equals(JdlFieldEnum.UNSUPPORTED)) {
-                    if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.UNSUPPORTED)) {
+                switch (field.getType()) {
+                    case UNSUPPORTED -> {
+                        switch (undefinedJdlTypeHandling) {
+                            case UNSUPPORTED -> {
+                                builder.append(writeField(field));
+                                builder.append(",\n");
+                            }
+                            case SKIP -> log.warn("Skipping unsupportd field {}", field);
+                            case ERROR -> throw new RuntimeException(String.format("Unsupported jdl type {}", field));
+                        }
+                    }
+                    default -> {
                         builder.append(writeField(field));
                         builder.append(",\n");
-                    } else if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.SKIP)) {
-                        log.warn("Skipping unsupportd field {}", field);
-                    } else if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.ERROR)) {
-                        throw new RuntimeException("Unsupported jdl type");
                     }
-                } else {
-                    builder.append(writeField(field));
-                    builder.append(",\n");
                 }
             }
             if (!entity.isEnum()) {
