@@ -1,6 +1,8 @@
 package org.blackdread.sqltojava.shared.tests;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.SQLException;
 import java.util.stream.Stream;
@@ -59,14 +61,38 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
      */
     @ParameterizedTest
     @MethodSource("provideTestNames")
-    public void testChangelog(String testName) throws SQLException, LiquibaseException {
+    public void testChangelog(String testName) {
+        testJdl(testName);
+    }
+
+    private void testJdl(String testName) {
         String activeProfile = env().getActiveProfiles()[0];
         String pathChangeLogFile = getExpectedLiquibaseChangeset(testName, activeProfile);
-        runChangeLogFile(pathChangeLogFile);
+        try {
+            runChangeLogFile(pathChangeLogFile);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (LiquibaseException e) {
+            throw new RuntimeException(e);
+        }
 
         String jdlExpected = getExpectedJdl(testName, activeProfile);
         String jdlActual = exportService.exportString(jdlService.buildEntities());
         assertThat(jdlActual).isEqualTo(jdlExpected).withFailMessage("JDL output did not match expected.");
+    }
+
+    protected void testJdlException(String testName, Class<RuntimeException> exceptionClass) {
+        Exception exception = assertThrows(
+            exceptionClass,
+            () -> {
+                testJdl(testName);
+            }
+        );
+
+        String expectedMessage = "Unsupported jdl type";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(actualMessage, expectedMessage);
     }
 
     /**

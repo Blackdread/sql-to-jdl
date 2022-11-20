@@ -20,6 +20,7 @@ application:
         - t_
         - v_
     add_table_name_jdl: false
+    undefined_type_handling: ERROR
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock

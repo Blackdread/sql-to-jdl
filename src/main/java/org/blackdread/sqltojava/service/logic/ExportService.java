@@ -51,7 +51,7 @@ public class ExportService {
         try (StringWriter out = new StringWriter()) {
             for (final JdlEntity entity : entities) {
                 if (!entity.isPureManyToMany()) {
-                    out.write(JdlUtils.writeEntity(entity));
+                    out.write(JdlUtils.writeEntity(entity, applicationProperties.getUndefinedTypeHandling()));
                     out.write(nl);
                     out.write(nl);
                 }

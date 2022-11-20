@@ -2,7 +2,6 @@ package org.blackdread.sqltojava.test.db.mysql;
 
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Container;

@@ -31,6 +31,7 @@ public class ApplicationProperties {
     private final String databaseToExport;
     private final List<String> databaseObjectPrefix;
     private final Boolean addTableNameJdl;
+    private final UndefinedJdlTypeHandlingEnum undefinedTypeHandling;
     private final List<String> ignoredTableNames;
 
     private final Export export;
@@ -42,6 +43,7 @@ public class ApplicationProperties {
         final String databaseToExport,
         List<String> databaseObjectPrefix,
         Boolean addTableNameJdl,
+        String undefinedTypeHandling,
         final List<String> ignoredTableNames,
         final Export export,
         final String reservedKeywords
@@ -49,6 +51,7 @@ public class ApplicationProperties {
         log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
         this.databaseObjectPrefix = databaseObjectPrefix;
+        this.undefinedTypeHandling = UndefinedJdlTypeHandlingEnum.valueOf(undefinedTypeHandling);
         this.addTableNameJdl = Optional.of(addTableNameJdl).orElse(false);
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
@@ -81,6 +84,10 @@ public class ApplicationProperties {
 
     public Boolean getAddTableNameJdl() {
         return addTableNameJdl;
+    }
+
+    public UndefinedJdlTypeHandlingEnum getUndefinedTypeHandling() {
+        return undefinedTypeHandling;
     }
 
     public List<String> getDatabaseObjectPrefix() {

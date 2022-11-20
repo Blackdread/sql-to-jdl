@@ -3,10 +3,13 @@ package org.blackdread.sqltojava.util;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
+import org.blackdread.sqltojava.config.UndefinedJdlTypeHandlingEnum;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
 import org.blackdread.sqltojava.entity.JdlRelation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>Created on 2018/2/8.</p>
@@ -14,6 +17,8 @@ import org.blackdread.sqltojava.entity.JdlRelation;
  * @author Yoann CAPLAIN
  */
 public final class JdlUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(JdlUtils.class);
 
     private JdlUtils() {}
 
@@ -77,7 +82,7 @@ public final class JdlUtils {
     }
 
     @NotNull
-    public static String writeEntity(final JdlEntity entity) {
+    public static String writeEntity(final JdlEntity entity, UndefinedJdlTypeHandlingEnum undefinedJdlTypeHandling) {
         final StringBuilder builder = new StringBuilder(500);
 
         if (entity.getComment().isPresent()) {
@@ -101,8 +106,21 @@ public final class JdlUtils {
         if (!entity.getFields().isEmpty()) {
             builder.append(" {\n");
             for (final JdlField field : entity.getFields()) {
-                builder.append(writeField(field));
-                builder.append(",\n");
+                log.info(field.getType().toString());
+                log.info(undefinedJdlTypeHandling.toString());
+                if (field.getType().equals(JdlFieldEnum.UNSUPPORTED)) {
+                    if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.UNSUPPORTED)) {
+                        builder.append(writeField(field));
+                        builder.append(",\n");
+                    } else if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.SKIP)) {
+                        log.warn("Skipping unsupportd field {}", field);
+                    } else if (undefinedJdlTypeHandling.equals(UndefinedJdlTypeHandlingEnum.ERROR)) {
+                        throw new RuntimeException("Unsupported jdl type");
+                    }
+                } else {
+                    builder.append(writeField(field));
+                    builder.append(",\n");
+                }
             }
             if (!entity.isEnum()) {
                 // remove the last ','
