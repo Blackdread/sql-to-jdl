@@ -1,0 +1,28 @@
+/** view */
+@readOnly
+entity Nonupdatable {
+	id Long required,
+	num Integer required
+}
+
+entity TestTable {
+	num Integer required
+}
+
+/** view */
+entity Updatable {
+	id Long required,
+	num Integer required
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+

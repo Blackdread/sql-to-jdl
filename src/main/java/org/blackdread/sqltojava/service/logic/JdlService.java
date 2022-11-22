@@ -104,6 +104,7 @@ public class JdlService {
             fields,
             entry.getKey().getComment().orElse(null),
             sqlService.isEnumTable(entry.getKey().getName()),
+            !entry.getKey().isUpdatable(),
             sqlService.isPureManyToManyTable(entry.getKey().getName()),
             relations
         );

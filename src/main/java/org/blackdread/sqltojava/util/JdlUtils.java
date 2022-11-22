@@ -93,6 +93,9 @@ public final class JdlUtils {
         if (entity.isEnum()) {
             builder.append("enum ");
         } else {
+            if (entity.isReadOnly()) {
+                builder.append("@readOnly\n");
+            }
             builder.append("entity ");
         }
 

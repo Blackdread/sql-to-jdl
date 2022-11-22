@@ -1,0 +1,35 @@
+databaseChangeLog:
+    - changeSet:
+          id: view-create-table
+          author: jason.long
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: bigint
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: num
+                              type: int
+                    tableName: test_table
+    - changeSet:
+          id: view-create-view-updateable
+          author: jason.long
+          changes:
+              - createView:
+                    fullDefinition: false
+                    selectQuery: select t.* from test_table t
+                    viewName: updatable
+    - changeSet:
+          id: view-create-view-nonupdateable
+          author: jason.long
+          changes:
+              - createView:
+                    fullDefinition: false
+                    selectQuery: select distinct t.* from test_table t
+                    viewName: nonupdatable

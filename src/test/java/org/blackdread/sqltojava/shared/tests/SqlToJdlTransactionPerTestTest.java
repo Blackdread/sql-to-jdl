@@ -39,6 +39,7 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
             "unique",
             "enum",
             "views",
+            "readonly",
             "reflexive_relationship",
             "prune"
         );

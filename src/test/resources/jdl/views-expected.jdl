@@ -5,7 +5,8 @@ entity OrderDetails {
 	priceEach BigDecimal required
 }
 
-/** VIEW */
+/** view */
+@readOnly
 entity SalePerOrder {
 	orderNumber String required maxlength(255),
 	total BigDecimal

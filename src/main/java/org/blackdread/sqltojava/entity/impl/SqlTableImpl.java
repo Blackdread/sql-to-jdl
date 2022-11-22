@@ -17,9 +17,12 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
 
     private final String comment;
 
-    public SqlTableImpl(final String name, @Nullable final String comment) {
+    private final boolean isUpdateable;
+
+    public SqlTableImpl(final String name, @Nullable final String comment, final boolean isUpdateable) {
         this.name = Objects.requireNonNull(name);
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.isUpdateable = isUpdateable;
     }
 
     @Override
@@ -30,6 +33,11 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
     @Override
     public Optional<String> getComment() {
         return Optional.ofNullable(comment);
+    }
+
+    @Override
+    public boolean isUpdatable() {
+        return isUpdateable;
     }
 
     @Override
