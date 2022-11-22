@@ -6,7 +6,7 @@ with w_tables as (
          t.table_type
   from information_schema.tables t
   join pg_catalog.pg_class c on c.oid = cast(concat(t.table_schema, '.', t.table_name) as regclass)
-  where t.table_schema = 'public'--:schemaName
+  where t.table_schema=:schemaName
 --  and t.table_type='BASE TABLE'
   order by t.table_schema,
            t.table_type,
