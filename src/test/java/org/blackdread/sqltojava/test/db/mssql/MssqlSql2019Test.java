@@ -3,11 +3,16 @@ package org.blackdread.sqltojava.test.db.mssql;
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
+import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
+import uk.org.webcompere.systemstubs.jupiter.SystemStub;
+import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
 @Disabled("Implementation incomplete")
+@ExtendWith(SystemStubsExtension.class)
 class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
 
     @Container
@@ -16,9 +21,16 @@ class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
     )
         .acceptLicense();
 
+    @SystemStub
+    private static EnvironmentVariables env;
+
+    protected static void setEnv(String name, String value) {
+        env.set(name, value);
+    }
+
     @BeforeAll
     public static void setup() {
-        System.setProperty("expected.profile", "sqlserver");
+        setEnv("expected.profile", "sqlserver");
         setupContainer(MSSQL_CONTAINER);
     }
 }

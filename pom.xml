@@ -23,7 +23,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
 
-        <skip.jooq.generation>true</skip.jooq.generation>
         <database.url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</database.url>
         <database.user>root</database.user>
         <database.password></database.password>
@@ -113,10 +112,11 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jooq</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
-        <dependency>
+
+         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
@@ -229,48 +229,6 @@
                 <configuration>
                   <forkCount>2.5C</forkCount>
                   <reuseForks>false</reuseForks>
-                </configuration>
-            </plugin>            
-            <plugin>
-                <!-- We cannot use org.jooq.util.jpa.JPADatabase to generate from entities because we would need to move entities in another module -->
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <version>${jooq.version}</version>
-
-
-                <executions>
-                    <execution>
-                        <id>jooq-codegen</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skip.jooq.generation}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jdbc>
-                        <driver>com.mysql.cj.jdbc.Driver</driver>
-                        <url>${database.url}</url>
-                        <user>${database.user}</user>
-                        <password>${database.password}</password>
-                    </jdbc>
-                    <generator>
-                        <name>org.jooq.codegen.JavaGenerator</name>
-                        <database>
-                            <name>org.jooq.meta.mysql.MySQLDatabase</name>
-                            <includes>.*</includes>
-                            <excludes></excludes>
-                            <!--<inputSchema></inputSchema>--> <!-- This will generate all schema of db, better to only generate the one interested in -->
-                            <inputSchema>information_schema</inputSchema>
-                        </database>
-                        <target>
-                            <packageName>org.blackdread.sqltojava.jooq</packageName>
-                            <directory>target/generated-sources/jooq</directory>
-                        </target>
-                    </generator>
                 </configuration>
             </plugin>
             <plugin>

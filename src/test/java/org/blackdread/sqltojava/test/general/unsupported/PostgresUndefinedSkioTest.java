@@ -1,5 +1,7 @@
-package org.blackdread.sqltojava.test.db.postgres;
+package org.blackdread.sqltojava.test.general.unsupported;
 
+import java.util.stream.Stream;
+import org.blackdread.sqltojava.config.UndefinedJdlTypeHandlingEnum;
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +13,10 @@ import uk.org.webcompere.systemstubs.jupiter.SystemStub;
 import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
 @ExtendWith(SystemStubsExtension.class)
-class Postgres15Test extends SqlToJdlTransactionPerTestTest {
+class PostgresUndefinedSkioTest extends SqlToJdlTransactionPerTestTest {
 
     @Container
-    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-        DockerImageName.parse("postgres:15beta4-alpine")
-    );
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:latest"));
 
     @SystemStub
     private static EnvironmentVariables env;
@@ -24,6 +24,11 @@ class Postgres15Test extends SqlToJdlTransactionPerTestTest {
     @BeforeAll
     public static void setup() {
         env.set("expected.profile", "postgresql");
+        env.set("application.undefined_type_handling", UndefinedJdlTypeHandlingEnum.SKIP);
         setupContainer(POSTGRE_SQL_CONTAINER);
+    }
+
+    private static Stream<String> provideTestNames() {
+        return Stream.of("undefined_skip");
     }
 }

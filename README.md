@@ -11,7 +11,7 @@ This implementation works with
   - mariadb 10.x
   - postgresql 9.x+
 
-Help is requested on MsSQL and Oracle support.  This will require implementation of InformationSchemaRepository and SqlJdlTypeService.  See the MySQL and PosrgreSQL implemtaitons for a jOOQ and raw native SQL examples.
+Help is requested on MsSQL and Oracle support.  This will require implementation of SqlJdlTypeService and creating the raw SQL files.  See the MySQL, MariaDB, and PosrgreSQL implemtaitons for examples.
 
 # Testing
 Setting up tests for new databases types or versions is easy.  Have a look existing tests.  
@@ -24,7 +24,7 @@ Each test needs the following files
   - {{test.name}}-expected.jdl
   
 To override the default name the files as
-  - {test.name}}-liquibase-changeset-{{db.typ}}.yaml
+  - {{test.name}}-liquibase-changeset-{{db.typ}}.yaml
   - {{test.name}}-expected-{{db.type}}.jdl
 
 If you need to change the tests run for a specific database type or version, use method hiding by implementing 
@@ -47,8 +47,6 @@ Different criterias, support for JPA and jOOQ dynamic filtering and sorting
 https://github.com/Blackdread/rest-filter
 
 # How to use
-<s>Run "mvn compile" at least once to let jOOQ generate some required tables (see [Issue solved](https://github.com/Blackdread/sql-to-jdl/issues/2)).</s> I have removed generated code, it is directly part of the codebase.
-
 Just execute the code from IDE or use "mvn" to run the code, it will connect to your DB (see application config yml) and it will generate the JDL.
 
 Set properties file:
@@ -57,6 +55,7 @@ Set properties file:
 - Path of export file
 - Database object prefixes to remove from entity name
 - Include table name is JDL
+- Undefined JDL type handling to UNSUPPORTED, SKIP, or UNSUPPORTED
 
 # After JDL file is generated
 Still have some manual steps to do:
@@ -69,7 +68,6 @@ Still have some manual steps to do:
 - review validations of entities
 
 # Use of
-- jOOQ
 - Spring boot
 
 # Default specific rules
