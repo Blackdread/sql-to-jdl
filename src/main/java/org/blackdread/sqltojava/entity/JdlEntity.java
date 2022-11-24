@@ -3,15 +3,18 @@ package org.blackdread.sqltojava.entity;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by Yoann CAPLAIN on 2017/10/6.
- */
 public interface JdlEntity {
     String getName();
 
     String getTableName();
 
     List<JdlField> getFields();
+
+    /**
+     * Add @readOnly to read only entity.
+     * https://www.jhipster.tech/jdl/options
+     */
+    boolean isReadOnly();
 
     Optional<String> getComment();
 

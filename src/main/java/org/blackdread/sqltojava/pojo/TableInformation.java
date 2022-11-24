@@ -17,12 +17,15 @@ public class TableInformation {
 
     private String comment;
 
+    private boolean isUpdateable;
+
     public TableInformation(final String name) {
-        this(name, null);
+        this(name, false, null);
     }
 
-    public TableInformation(final String name, final String comment) {
+    public TableInformation(final String name, final boolean isUpdateable, final String comment) {
         this.name = name;
+        this.isUpdateable = isUpdateable;
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
     }
 
@@ -36,6 +39,10 @@ public class TableInformation {
 
     public String getSchema() {
         return schema;
+    }
+
+    public Boolean isUpdateable() {
+        return isUpdateable;
     }
 
     @Override

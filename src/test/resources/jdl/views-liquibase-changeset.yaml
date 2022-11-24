@@ -40,10 +40,3 @@ databaseChangeLog:
                                  from order_details
                                  group by order_details.order_number
                     viewName: sale_per_order
-    - changeSet:
-          id: view-add-comment-view-postgres
-          author: jason.long (generated)
-          dbms: postgresql
-          changes:
-              - sql: comment on view sale_per_order is 'VIEW';
-              - rollback:

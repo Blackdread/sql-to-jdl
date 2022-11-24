@@ -11,11 +11,6 @@ import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlRelation;
 
-/**
- * <p>Created on 2018/2/9.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Immutable
 @ThreadSafe
 public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
@@ -27,6 +22,8 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
     private final List<JdlField> fields;
 
     private final String comment;
+
+    private final boolean isReadOnly;
 
     private final boolean isEnum;
 
@@ -40,6 +37,7 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
         final List<JdlField> fields,
         @Nullable final String comment,
         final boolean isEnum,
+        final boolean isReadOnly,
         final boolean isPureManyToMany,
         final List<JdlRelation> relations
     ) {
@@ -48,6 +46,7 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
         this.fields = ImmutableList.copyOf(fields);
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
         this.isEnum = isEnum;
+        this.isReadOnly = isReadOnly;
         this.isPureManyToMany = isPureManyToMany;
         this.relations = ImmutableList.copyOf(relations);
     }
@@ -78,6 +77,11 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
     }
 
     @Override
+    public boolean isReadOnly() {
+        return isReadOnly;
+    }
+
+    @Override
     public boolean isPureManyToMany() {
         return isPureManyToMany;
     }
@@ -102,6 +106,8 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
             ", comment='" +
             comment +
             '\'' +
+            ", isReadOnly=" +
+            isReadOnly +
             ", isEnum=" +
             isEnum +
             ", relations=" +

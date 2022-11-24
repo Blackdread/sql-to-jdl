@@ -53,7 +53,7 @@ public class SqlService {
             .stream()
             .filter(table -> !doesTableEndWithDetailKeyword(table))
             .filter(table -> !isTableIgnored(ignoredTableNames, table))
-            .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null)))
+            .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null), table.isUpdateable()))
             .collect(Collectors.toList());
     }
 
