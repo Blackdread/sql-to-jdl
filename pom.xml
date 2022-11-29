@@ -29,14 +29,15 @@
 
         <guava.version>31.1-jre</guava.version>
 
-        <testcontainers.version>1.17.5</testcontainers.version>
+        <testcontainers.version>1.17.6</testcontainers.version>
 
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <maven.checkstyle.plugin.version>3.2.0</maven.checkstyle.plugin.version>
-        <checkstyle.version>10.4</checkstyle.version>
+        <liquibase-maven-plugin.version>4.17.2</liquibase-maven-plugin.version>
+        <checkstyle.version>10.5.0</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
 
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
@@ -267,7 +268,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.16.0</version>
+                <version>${liquibase-maven-plugin.version}</version>
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                     <propertyFile>src/test/resources/liquibase.properties</propertyFile>
