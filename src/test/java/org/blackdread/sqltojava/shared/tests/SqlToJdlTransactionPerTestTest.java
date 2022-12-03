@@ -33,6 +33,7 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
             "uuid_id_required",
             "all_types",
             "one_to_one",
+            "display_field_many_to_one",
             "many_to_one",
             "one_to_one_main_map",
             "parent_child",

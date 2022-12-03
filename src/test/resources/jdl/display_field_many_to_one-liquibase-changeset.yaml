@@ -1,0 +1,65 @@
+databaseChangeLog:
+    - changeSet:
+          id: create_table_team-1
+          author: jason.long
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: bigint
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: abrev
+                              type: varchar(4)
+                              remarks: Used as display field because it is the first unique not foreign key column
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: name
+                              type: varchar(255)
+                    tableName: team
+    - changeSet:
+          id: create_table_player-2
+          author: jason.long
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: bigint
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: name
+                              type: varchar(255)
+                              remarks: Used as display field because it is the first unique not foreign key column
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: team_id
+                              type: bigint
+                    tableName: player
+    - changeSet:
+          id: add_foreign_key_player_team-3
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: team_id
+                    baseTableName: player
+                    constraintName: fk_player_team
+                    deferrable: false
+                    initiallyDeferred: false
+                    referencedColumnNames: id
+                    referencedTableName: team
+                    validate: true
