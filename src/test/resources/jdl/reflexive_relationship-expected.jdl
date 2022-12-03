@@ -1,14 +1,13 @@
-entity Invoices {
-	id Integer required,
-	name String required maxlength(100),
-	address String required maxlength(100)
+entity Invoice {
+	num String required unique maxlength(10),
+	amount BigDecimal required
 }
 
 
 
 // Relations
 relationship OneToOne {
-	Invoices{parent} to Invoices{invoices}
+	Invoice{parent(num)} to Invoice{invoice(num)}
 }
 
 

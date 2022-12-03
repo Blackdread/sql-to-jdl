@@ -15,6 +15,7 @@ public class ColumnInformationRowMapper implements RowMapper<ColumnInformation> 
             rs.getString("is_nullable"),
             rs.getString("key"),
             rs.getString("column_default"),
+            rs.getInt("ordinal_position"),
             rs.getString("comment")
         );
     }

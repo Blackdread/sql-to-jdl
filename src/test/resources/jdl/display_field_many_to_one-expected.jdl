@@ -1,0 +1,26 @@
+entity Player {
+	/** Used as display field because it is the first unique not foreign key column */
+	name String required unique maxlength(255)
+}
+
+entity Team {
+	/** Used as display field because it is the first unique not foreign key column */
+	abrev String required unique maxlength(4),
+	name String required unique maxlength(255)
+}
+
+
+
+// Relations
+relationship ManyToOne {
+	Player{team(abrev) required} to Team{player(name)}
+}
+
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+
