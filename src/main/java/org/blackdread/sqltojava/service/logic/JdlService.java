@@ -4,6 +4,7 @@ import static org.blackdread.sqltojava.entity.JdlFieldEnum.ENUM;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.STRING;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -217,7 +218,8 @@ public class JdlService {
     protected Optional<JdlRelation> buildRelation(final SqlColumn column, final SqlTable inverseSideTable) {
         if (!column.isForeignKey()) throw new IllegalArgumentException("Cannot create a relation from a non foreign key");
 
-        final String tableName = column.getTable().getName();
+        final SqlTable ownerSideTable = column.getTable();
+        final String tableName = ownerSideTable.getName();
         final String columnName = column.getName();
 
         final boolean isNullable = column.isNullable();
@@ -280,7 +282,7 @@ public class JdlService {
                 column.getComment().orElse(null),
                 null,
                 inverseSideRelationName,
-                null,
+                sqlService.getDisplayFieldOfTable(ownerSideTable),
                 extraRelationComment
             )
         );

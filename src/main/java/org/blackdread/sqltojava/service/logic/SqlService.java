@@ -125,12 +125,14 @@ public class SqlService {
      */
     @Cacheable("SqlService.getDisplayFieldOfTable")
     public String getDisplayFieldOfTable(final SqlTable table) {
-        log.debug("getDisplayFieldOfTable called: ({})", table.getName());
+        String tableName = table.getName();
+        log.debug("getDisplayFieldOfTable called: ({})", tableName);
         return informationSchemaService
             .getFullColumnInformationOfTable(table.getName())
             .stream()
             .sorted(Comparator.comparingInt(ColumnInformation::getOrdinalPosition))
             .filter(c -> c.isUnique())
+            .filter(c -> !isForeignKey(tableName, c.getName()))
             .findFirst()
             .map(ColumnInformation::getName)
             .orElse(null);
