@@ -3,11 +3,6 @@ package org.blackdread.sqltojava.pojo;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 public class ColumnInformation {
 
     private final String name;
@@ -16,6 +11,7 @@ public class ColumnInformation {
     private final boolean isPrimary;
     private final boolean isUnique;
     private final String defaultValue;
+    private final int ordinalPosition;
     private final String comment;
 
     public ColumnInformation(
@@ -25,6 +21,7 @@ public class ColumnInformation {
         final boolean isPrimary,
         final boolean isUnique,
         final String defaultValue,
+        final int ordinalPosition,
         final String comment
     ) {
         this.name = name;
@@ -37,6 +34,7 @@ public class ColumnInformation {
         } else {
             this.defaultValue = defaultValue;
         }
+        this.ordinalPosition = ordinalPosition;
         this.comment = comment;
     }
 
@@ -46,6 +44,7 @@ public class ColumnInformation {
         final String nullValue,
         final String keyValue,
         final String defaultValue,
+        int ordinalPosition,
         final String comment
     ) {
         this(
@@ -55,6 +54,7 @@ public class ColumnInformation {
             "pri".equalsIgnoreCase(keyValue),
             "uni".equalsIgnoreCase(keyValue),
             defaultValue,
+            ordinalPosition,
             comment
         );
     }
@@ -83,6 +83,10 @@ public class ColumnInformation {
         return Optional.ofNullable(defaultValue);
     }
 
+    public int getOrdinalPosition() {
+        return ordinalPosition;
+    }
+
     public String getComment() {
         return comment;
     }
@@ -91,25 +95,25 @@ public class ColumnInformation {
     public String toString() {
         return (
             "ColumnInformation{" +
-            "name='" +
-            name +
-            '\'' +
-            ", type='" +
-            type +
-            '\'' +
-            ", isNullable=" +
-            isNullable +
-            ", isPrimary=" +
-            isPrimary +
-            ", isUnique=" +
-            isUnique +
-            ", defaultValue='" +
-            defaultValue +
-            '\'' +
-            ", comment='" +
-            comment +
-            '\'' +
-            '}'
+                "name='" +
+                name +
+                '\'' +
+                ", type='" +
+                type +
+                '\'' +
+                ", isNullable=" +
+                isNullable +
+                ", isPrimary=" +
+                isPrimary +
+                ", isUnique=" +
+                isUnique +
+                ", defaultValue='" +
+                defaultValue +
+                '\'' +
+                ", comment='" +
+                comment +
+                '\'' +
+                '}'
         );
     }
 }
