@@ -2,6 +2,7 @@ package org.blackdread.sqltojava.service.logic;
 
 import com.google.common.collect.Maps;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.blackdread.sqltojava.config.ApplicationProperties;
@@ -21,11 +22,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * <p>Created on 2018/2/7.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Service
 @Transactional(readOnly = true)
 public class SqlService {
@@ -63,7 +59,7 @@ public class SqlService {
         if (result) {
             String msg = String.format(
                 "Skipped processing table [%s] which ends with the JDL keyword [Detail]. " +
-                "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
+                    "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
                 tablename
             );
             log.error(msg);
@@ -121,6 +117,25 @@ public class SqlService {
             .orElseThrow(() -> new IllegalArgumentException("Column is not a foreign key"));
     }
 
+    /**
+     * Get the display field for a table.
+     * The display field to chosen as a column with a unique constraint the with a unique constraint that has the lowest original position.
+     * @param table
+     * @return
+     */
+    @Cacheable("SqlService.getDisplayFieldOfTable")
+    public String getDisplayFieldOfTable(final SqlTable table) {
+        log.debug("getDisplayFieldOfTable called: ({})", table.getName());
+        return informationSchemaService
+            .getFullColumnInformationOfTable(table.getName())
+            .stream()
+            .sorted(Comparator.comparingInt(ColumnInformation::getOrdinalPosition))
+            .filter(c -> c.isUnique())
+            .findFirst()
+            .map(ColumnInformation::getName)
+            .orElse(null);
+    }
+
     @Cacheable("SqlService.isEnumTable")
     public boolean isEnumTable(final String tableName) {
         final List<ColumnInformation> table = informationSchemaService.getFullColumnInformationOfTable(tableName);
@@ -131,7 +146,7 @@ public class SqlService {
             // Our design contract define that id and code/name is an enum table so logic is put here
             if (
                 !column.getName().equalsIgnoreCase("id") &&
-                (!column.getName().equalsIgnoreCase("code") && !column.getName().equalsIgnoreCase("name"))
+                    (!column.getName().equalsIgnoreCase("code") && !column.getName().equalsIgnoreCase("name"))
             ) return false;
         }
 

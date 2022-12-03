@@ -21,11 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>Created on 2018/2/9.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Service
 public class JdlService {
 
@@ -88,12 +83,12 @@ public class JdlService {
         if (reserved.contains(entityName.toUpperCase())) {
             String msg =
                 "Skipping processing table [" +
-                entry.getKey().getName() +
-                "] because " +
-                " the transformed entity name [" +
-                entityName +
-                "] matches with one of the keywords " +
-                reserved;
+                    entry.getKey().getName() +
+                    "] because " +
+                    " the transformed entity name [" +
+                    entityName +
+                    "] matches with one of the keywords " +
+                    reserved;
             log.error(msg);
             return Optional.empty();
         }
@@ -261,11 +256,11 @@ public class JdlService {
             if (ownerEntityName.equals(inverseSideEntityName)) {
                 String msg =
                     "Detected a Self Reference in the table " +
-                    tableName +
-                    ". JHipster JDL currently does not support Reflexive relationships. " +
-                    "Set [nullable] as [true] for column [" +
-                    columnName +
-                    "] to fix errors when using the JDL with JHipster";
+                        tableName +
+                        ". JHipster JDL currently does not support Reflexive relationships. " +
+                        "Set [nullable] as [true] for column [" +
+                        columnName +
+                        "] to fix errors when using the JDL with JHipster";
                 log.warn(msg);
                 required = false;
             }
@@ -281,8 +276,7 @@ public class JdlService {
                 ownerEntityName,
                 inverseSideEntityName,
                 SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)),
-                // Cannot know so has to be set manually after generation, default is ID by jHipster
-                null,
+                sqlService.getDisplayFieldOfTable(inverseSideTable),
                 column.getComment().orElse(null),
                 null,
                 inverseSideRelationName,
