@@ -7,11 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.entity.SqlTable;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 public class SqlColumnImpl implements SqlColumn {
 
     private final SqlTable table;

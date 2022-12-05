@@ -14,11 +14,6 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.ResourceUtils;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {

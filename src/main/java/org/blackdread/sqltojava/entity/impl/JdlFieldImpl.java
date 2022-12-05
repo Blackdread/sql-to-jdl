@@ -8,11 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.JdlField;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
 
-/**
- * <p>Created on 2018/2/9.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Immutable
 @ThreadSafe
 public class JdlFieldImpl implements JdlField {

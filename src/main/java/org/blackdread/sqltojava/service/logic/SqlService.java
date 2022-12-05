@@ -59,7 +59,7 @@ public class SqlService {
         if (result) {
             String msg = String.format(
                 "Skipped processing table [%s] which ends with the JDL keyword [Detail]. " +
-                    "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
+                "Please alter the table name to something else (for e.g., adding [details] as the suffix)",
                 tablename
             );
             log.error(msg);
@@ -148,7 +148,7 @@ public class SqlService {
             // Our design contract define that id and code/name is an enum table so logic is put here
             if (
                 !column.getName().equalsIgnoreCase("id") &&
-                    (!column.getName().equalsIgnoreCase("code") && !column.getName().equalsIgnoreCase("name"))
+                (!column.getName().equalsIgnoreCase("code") && !column.getName().equalsIgnoreCase("name"))
             ) return false;
         }
 

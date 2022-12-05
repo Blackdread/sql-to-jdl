@@ -7,11 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-/**
- * <p>Created on 2020/12/29.</p>
- *
- * @author Yoann CAPLAIN
- */
 public final class FileUtil {
 
     public static List<String> readAllLinesClasspath(final String name) throws URISyntaxException, IOException {

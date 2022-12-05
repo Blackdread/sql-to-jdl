@@ -12,11 +12,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Service
 @Transactional(readOnly = true)
 public class InformationSchemaService {

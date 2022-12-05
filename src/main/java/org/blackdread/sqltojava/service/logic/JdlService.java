@@ -4,7 +4,6 @@ import static org.blackdread.sqltojava.entity.JdlFieldEnum.ENUM;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.STRING;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
 
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -84,12 +83,12 @@ public class JdlService {
         if (reserved.contains(entityName.toUpperCase())) {
             String msg =
                 "Skipping processing table [" +
-                    entry.getKey().getName() +
-                    "] because " +
-                    " the transformed entity name [" +
-                    entityName +
-                    "] matches with one of the keywords " +
-                    reserved;
+                entry.getKey().getName() +
+                "] because " +
+                " the transformed entity name [" +
+                entityName +
+                "] matches with one of the keywords " +
+                reserved;
             log.error(msg);
             return Optional.empty();
         }
@@ -258,11 +257,11 @@ public class JdlService {
             if (ownerEntityName.equals(inverseSideEntityName)) {
                 String msg =
                     "Detected a Self Reference in the table " +
-                        tableName +
-                        ". JHipster JDL currently does not support Reflexive relationships. " +
-                        "Set [nullable] as [true] for column [" +
-                        columnName +
-                        "] to fix errors when using the JDL with JHipster";
+                    tableName +
+                    ". JHipster JDL currently does not support Reflexive relationships. " +
+                    "Set [nullable] as [true] for column [" +
+                    columnName +
+                    "] to fix errors when using the JDL with JHipster";
                 log.warn(msg);
                 required = false;
             }

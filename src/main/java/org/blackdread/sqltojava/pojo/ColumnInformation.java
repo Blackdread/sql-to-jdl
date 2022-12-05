@@ -95,25 +95,25 @@ public class ColumnInformation {
     public String toString() {
         return (
             "ColumnInformation{" +
-                "name='" +
-                name +
-                '\'' +
-                ", type='" +
-                type +
-                '\'' +
-                ", isNullable=" +
-                isNullable +
-                ", isPrimary=" +
-                isPrimary +
-                ", isUnique=" +
-                isUnique +
-                ", defaultValue='" +
-                defaultValue +
-                '\'' +
-                ", comment='" +
-                comment +
-                '\'' +
-                '}'
+            "name='" +
+            name +
+            '\'' +
+            ", type='" +
+            type +
+            '\'' +
+            ", isNullable=" +
+            isNullable +
+            ", isPrimary=" +
+            isPrimary +
+            ", isUnique=" +
+            isUnique +
+            ", defaultValue='" +
+            defaultValue +
+            '\'' +
+            ", comment='" +
+            comment +
+            '\'' +
+            '}'
         );
     }
 }
