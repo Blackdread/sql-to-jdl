@@ -2,11 +2,6 @@ package org.blackdread.sqltojava.entity;
 
 import com.google.common.base.CaseFormat;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 public enum JdlFieldEnum {
     STRING,
     INTEGER,

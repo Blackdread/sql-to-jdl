@@ -2,11 +2,6 @@ package org.blackdread.sqltojava.pojo;
 
 import java.util.Objects;
 
-/**
- * <p>Created on 2018/2/8.</p>
- *
- * @author Yoann CAPLAIN
- */
 public class TableRelationInformation {
 
     private final String tableName;

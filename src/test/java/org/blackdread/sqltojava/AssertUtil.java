@@ -4,11 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import org.junit.jupiter.api.Assertions;
 
-/**
- * <p>Created on 2020/12/30.</p>
- *
- * @author Yoann CAPLAIN
- */
 public final class AssertUtil {
 
     public static void assertFileSame(final Collection<String> expected, final Collection<String> actual) {

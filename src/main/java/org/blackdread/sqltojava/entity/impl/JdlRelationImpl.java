@@ -8,11 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.entity.JdlRelation;
 import org.blackdread.sqltojava.entity.RelationType;
 
-/**
- * <p>Created on 2018/2/12.</p>
- *
- * @author Yoann CAPLAIN
- */
 @Immutable
 @ThreadSafe
 public class JdlRelationImpl implements JdlRelation, Comparable<JdlRelation> {
