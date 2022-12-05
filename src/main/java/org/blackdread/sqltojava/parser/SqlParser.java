@@ -3,9 +3,6 @@ package org.blackdread.sqltojava.parser;
 import com.google.common.io.Files;
 import java.io.File;
 
-/**
- * Created by Yoann CAPLAIN on 2017/10/6.
- */
 public class SqlParser {
 
     /**
