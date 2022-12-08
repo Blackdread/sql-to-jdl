@@ -1,19 +1,19 @@
 entity OneToOneChildMap {
-	name String required maxlength(45)
+    name String required maxlength(45)
 }
 
 /** one_to_one_main_map comment */
 entity OneToOneMainMap {
-	id String required maxlength(25),
-	name String required maxlength(45),
-	other String required maxlength(45)
+    id String required maxlength(25),
+    name String required maxlength(45),
+    other String required maxlength(45)
 }
 
 
 
 // Relations
 relationship ManyToOne {
-	OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
+    OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
 }
 
 

@@ -1,18 +1,18 @@
 /** view */
 @readOnly
 entity Nonupdatable {
-	id Long required,
-	num Integer required
+    id Long required,
+    num Integer required
 }
 
 entity TestTable {
-	num Integer required
+    num Integer required
 }
 
 /** view */
 entity Updatable {
-	id Long required,
-	num Integer required
+    id Long required,
+    num Integer required
 }
 
 
