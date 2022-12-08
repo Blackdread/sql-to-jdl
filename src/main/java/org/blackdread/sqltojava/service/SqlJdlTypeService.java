@@ -2,6 +2,8 @@ package org.blackdread.sqltojava.service;
 
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
 
+import com.google.common.collect.ImmutableMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
@@ -15,5 +17,14 @@ public interface SqlJdlTypeService {
         JdlFieldEnum jdlType = Optional.ofNullable(getTypeMap().get(typeName)).orElse(UNSUPPORTED);
         //orElseThrow(() -> new IllegalStateException("Unknown type: " + typeName));
         return jdlType;
+    }
+
+    default Map<String, JdlFieldEnum> mergeOverrides(
+        final Map<String, JdlFieldEnum> defaultTypeMap,
+        final Map<String, JdlFieldEnum> overrides
+    ) {
+        Map<String, JdlFieldEnum> typeMap = new HashMap<>(defaultTypeMap);
+        overrides.forEach((k, v) -> typeMap.merge(k, v, (v1, v2) -> v2));
+        return ImmutableMap.copyOf(typeMap);
     }
 }
