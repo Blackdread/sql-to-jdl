@@ -34,7 +34,6 @@ databaseChangeLog:
           changes:
               - createView:
                     fullDefinition: false
-                    remarks: VIEW
                     selectQuery: select order_details.order_number AS order_number,
                                         sum((order_details.quantity_ordered * order_details.price_each)) AS total
                                  from order_details
