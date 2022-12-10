@@ -1,13 +1,13 @@
 entity Invoice {
-	num String required unique maxlength(10),
-	amount BigDecimal required
+    num String required unique maxlength(10),
+    amount BigDecimal required
 }
 
 
 
 // Relations
 relationship OneToOne {
-	Invoice{parent(num)} to Invoice{invoice(num)}
+    Invoice{parent(num)} to Invoice{invoice(num)}
 }
 
 

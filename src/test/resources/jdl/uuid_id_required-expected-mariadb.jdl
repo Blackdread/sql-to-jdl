@@ -1,5 +1,5 @@
 entity UuidIdRequired {
-	id String required maxlength(36)
+    id String required maxlength(36)
 }
 
 
