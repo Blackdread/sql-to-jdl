@@ -40,7 +40,7 @@
         <liquibase-maven-plugin.version>4.18.0</liquibase-maven-plugin.version>
         <checkstyle.version>10.5.0</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
-
+        <guava.version>31.1-jre</guava.version>
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
     </properties>
@@ -69,6 +69,11 @@
     </developers>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

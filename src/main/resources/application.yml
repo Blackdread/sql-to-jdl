@@ -20,6 +20,8 @@ application:
         - t_,
         - v_
     add_table_name_jdl: true
+    jdl-type-overrides:
+        my_type: FLOAT # Example JDL type override
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock

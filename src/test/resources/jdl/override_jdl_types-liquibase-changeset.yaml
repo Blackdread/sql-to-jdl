@@ -1,0 +1,20 @@
+databaseChangeLog:
+    - changeSet:
+          id: override_jdl_types-create_table
+          author: jason.long
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: bigint
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: f
+                              type: numeric
+                              remarks: This column should be overridden to JDL type Float from the default of BigDecimal.
+                    tableName: override

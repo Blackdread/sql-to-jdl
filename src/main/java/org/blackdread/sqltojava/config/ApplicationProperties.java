@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.blackdread.sqltojava.entity.JdlFieldEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -28,10 +31,9 @@ public class ApplicationProperties {
     private final Boolean addTableNameJdl;
     private final UndefinedJdlTypeHandlingEnum undefinedTypeHandling;
     private final List<String> ignoredTableNames;
-
     private final Export export;
-
     private final List<String> reservedList;
+    private final Map<String, JdlFieldEnum> jdlTypeOverrides;
 
     @SuppressWarnings("unchecked")
     public ApplicationProperties(
@@ -41,7 +43,8 @@ public class ApplicationProperties {
         String undefinedTypeHandling,
         final List<String> ignoredTableNames,
         final Export export,
-        final String reservedKeywords
+        final String reservedKeywords,
+        final Map<String, JdlFieldEnum> jdlTypeOverrides
     ) {
         log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
@@ -59,6 +62,7 @@ public class ApplicationProperties {
                 .map(obj -> (List<String>) obj)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+        this.jdlTypeOverrides = Optional.ofNullable(jdlTypeOverrides).orElse(Collections.emptyMap());
     }
 
     public String getDatabaseToExport() {
@@ -87,6 +91,10 @@ public class ApplicationProperties {
 
     public List<String> getDatabaseObjectPrefix() {
         return databaseObjectPrefix;
+    }
+
+    public Map<String, JdlFieldEnum> getJdlTypeOverrides() {
+        return jdlTypeOverrides;
     }
 
     public static class Export {

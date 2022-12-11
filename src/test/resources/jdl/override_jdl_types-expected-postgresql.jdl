@@ -1,0 +1,16 @@
+entity Override {
+	/** This column should be overridden to JDL type Float from the default of BigDecimal. */
+	f Float required
+}
+
+
+
+// Relations
+
+
+// Options
+service * with serviceClass
+paginate * with pagination
+dto * with mapstruct
+filter *
+
