@@ -1,7 +1,7 @@
 entity UndefinedUnsupported {
-	supported Integer,
-	/**  ARRAY */
-	unsupported Unsupported
+    supported Integer,
+    /**  ARRAY */
+    unsupported Unsupported
 }
 
 

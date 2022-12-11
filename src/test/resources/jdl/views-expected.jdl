@@ -1,15 +1,15 @@
 entity OrderDetails {
-	orderNumber String required maxlength(255),
-	productCode String required maxlength(50),
-	quantityOrdered Integer required,
-	priceEach BigDecimal required
+    orderNumber String required maxlength(255),
+    productCode String required maxlength(50),
+    quantityOrdered Integer required,
+    priceEach BigDecimal required
 }
 
 /** view */
 @readOnly
 entity SalePerOrder {
-	orderNumber String required maxlength(255),
-	total BigDecimal
+    orderNumber String required maxlength(255),
+    total BigDecimal
 }
 
 

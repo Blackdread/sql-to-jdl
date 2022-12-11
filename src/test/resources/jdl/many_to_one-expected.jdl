@@ -1,15 +1,15 @@
 /** many_to_one_child comment */
 entity ManyToOneChild {
-	id String required maxlength(25),
-	name String required maxlength(45),
-	other String required maxlength(45)
+    id String required maxlength(25),
+    name String required maxlength(45),
+    other String required maxlength(45)
 }
 
 /** many_to_one_main comment */
 entity ManyToOneMain {
-	id String required maxlength(25),
-	name String required maxlength(45),
-	other String required maxlength(45)
+    id String required maxlength(25),
+    name String required maxlength(45),
+    other String required maxlength(45)
 }
 
 
@@ -17,7 +17,7 @@ entity ManyToOneMain {
 // Relations
 // many_to_one_main comment
 relationship ManyToOne {
-	ManyToOneMain{manyToOneChild required} to ManyToOneChild{manyToOneMain}
+    ManyToOneMain{manyToOneChild required} to ManyToOneChild{manyToOneMain}
 }
 
 

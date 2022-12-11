@@ -1,5 +1,5 @@
 entity T(t) {
-	f Integer
+    f Integer
 }
 
 

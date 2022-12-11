@@ -15,6 +15,8 @@ public final class JdlUtils {
 
     private static final Logger log = LoggerFactory.getLogger(JdlUtils.class);
 
+    public static final String indent = " ".repeat(4);
+
     private JdlUtils() {}
 
     @NotNull
@@ -136,12 +138,12 @@ public final class JdlUtils {
     public static String writeField(final JdlField field) {
         final StringBuilder builder = new StringBuilder(200);
         if (field.getComment().isPresent()) {
-            builder.append("\t");
+            builder.append(indent);
             builder.append("/** ");
             builder.append(field.getComment().get());
             builder.append(" */\n");
         }
-        builder.append("\t");
+        builder.append(indent);
         builder.append(field.getName());
         builder.append(" ");
         JdlFieldEnum type = field.getType();
@@ -218,12 +220,12 @@ public final class JdlUtils {
         relation
             .getOwnerComment()
             .ifPresent(ownerComment -> {
-                builder.append("\t");
+                builder.append(indent);
                 builder.append("/** ");
                 builder.append(relation.getOwnerComment().get());
                 builder.append(" */\n");
             });
-        builder.append("\t");
+        builder.append(indent);
         builder.append(relation.getOwnerEntityName());
         builder.append("{");
         builder.append(relation.getOwnerRelationName());
@@ -240,10 +242,10 @@ public final class JdlUtils {
         builder.append("} to");
 
         if (relation.getInverseSideComment().isPresent()) {
-            builder.append("\n\t/** ");
+            builder.append("\n").append(indent).append("/** ");
             builder.append(relation.getInverseSideComment().get());
             builder.append(" */\n");
-            builder.append("\t");
+            builder.append(indent);
         } else builder.append(" ");
 
         builder.append(relation.getInverseSideEntityName());

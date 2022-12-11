@@ -1,14 +1,14 @@
 entity OneToOneChild {
-	id String required maxlength(25),
-	name String required maxlength(45),
-	other String required maxlength(45)
+    id String required maxlength(25),
+    name String required maxlength(45),
+    other String required maxlength(45)
 }
 
 /** one_to_one_main comment */
 entity OneToOneMain {
-	id String required maxlength(25),
-	name String required maxlength(45),
-	other String required maxlength(45)
+    id String required maxlength(25),
+    name String required maxlength(45),
+    other String required maxlength(45)
 }
 
 
@@ -16,7 +16,7 @@ entity OneToOneMain {
 // Relations
 // one_to_one_main comment
 relationship OneToOne {
-	OneToOneMain{oneToOneChild required} to OneToOneChild{oneToOneMain}
+    OneToOneMain{oneToOneChild required} to OneToOneChild{oneToOneMain}
 }
 
 
