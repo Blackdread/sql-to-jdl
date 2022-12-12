@@ -1,6 +1,6 @@
 entity Override {
-	/** This column should be overridden to JDL type Float from the default of BigDecimal. */
-	f Float required
+    /** This column should be overridden to JDL type Float from the default of BigDecimal. */
+    f Float required
 }
 
 
