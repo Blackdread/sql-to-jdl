@@ -2,7 +2,7 @@ package org.blackdread.sqltojava.shared.tests;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 import java.util.stream.Stream;
@@ -92,9 +92,9 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
         );
 
         String expectedMessagePrefix = "Unsupported jdl type";
-        String actualMessage = exception.getMessage();
+        String actualMessage = exception.getCause().getMessage();
 
-        assumeTrue(actualMessage.startsWith(expectedMessagePrefix), actualMessage);
+        assertTrue(actualMessage.startsWith(expectedMessagePrefix), actualMessage);
     }
 
     /**
