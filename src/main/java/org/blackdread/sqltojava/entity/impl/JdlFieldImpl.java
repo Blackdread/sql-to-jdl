@@ -15,39 +15,39 @@ public class JdlFieldImpl implements JdlField {
     private final JdlFieldEnum type;
     private final String name;
     private final String enumEntityName;
-    private final boolean isRequired;
+    private final boolean required;
     private final String comment;
     private final Integer min;
     private final Integer max;
     private final String pattern;
-    private final boolean isNativeEnum;
-    private final boolean isUnique;
-    private final boolean isPrimaryKey;
+    private final Boolean nativeEnum;
+    private final Boolean unique;
+    private final Boolean primaryKey;
 
     public JdlFieldImpl(
         final JdlFieldEnum type,
         final String name,
-        final boolean isRequired,
+        final boolean required,
         @Nullable final String comment,
         @Nullable final Integer min,
         @Nullable final Integer max,
         @Nullable final String pattern,
         @Nullable final String enumEntityName,
-        final boolean isNativeEnum,
-        final boolean isUnique,
-        final boolean isPrimaryKey
+        final boolean nativeEnum,
+        final boolean unique,
+        final boolean primaryKey
     ) {
         this.type = type;
         this.name = name;
-        this.isRequired = isRequired;
+        this.required = required;
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
         this.min = min;
         this.max = max;
         this.pattern = pattern;
         this.enumEntityName = enumEntityName;
-        this.isNativeEnum = isNativeEnum;
-        this.isUnique = isUnique;
-        this.isPrimaryKey = isPrimaryKey;
+        this.nativeEnum = nativeEnum;
+        this.unique = unique;
+        this.primaryKey = primaryKey;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class JdlFieldImpl implements JdlField {
 
     @Override
     public boolean isRequired() {
-        return isRequired;
+        return required;
     }
 
     @Override
@@ -92,17 +92,17 @@ public class JdlFieldImpl implements JdlField {
 
     @Override
     public boolean isUnique() {
-        return isUnique;
+        return unique;
     }
 
     @Override
     public boolean isPrimaryKey() {
-        return isPrimaryKey;
+        return primaryKey;
     }
 
     @Override
     public boolean isNativeEnum() {
-        return isNativeEnum;
+        return nativeEnum;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class JdlFieldImpl implements JdlField {
             enumEntityName +
             '\'' +
             ", isRequired=" +
-            isRequired +
+            required +
             ", comment='" +
             comment +
             '\'' +
@@ -130,7 +130,7 @@ public class JdlFieldImpl implements JdlField {
             pattern +
             '\'' +
             ", isNativeEnum=" +
-            isNativeEnum +
+            nativeEnum +
             '}'
         );
     }

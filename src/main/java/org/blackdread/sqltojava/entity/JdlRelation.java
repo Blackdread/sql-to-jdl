@@ -22,7 +22,7 @@ public interface JdlRelation {
      *
      * @return an extra comment
      */
-    Optional<String> getExtraRelationComment();
+    Optional<String> getComment();
 
     /**
      * OwnerSideEntityName{ownerRelationName(ownerDisplayField) required} to InverseSideEntityName{inverseSideRelationName(inverseSideDisplayField)}

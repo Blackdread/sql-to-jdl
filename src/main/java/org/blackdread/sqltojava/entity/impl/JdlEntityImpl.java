@@ -23,11 +23,11 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
 
     private final String comment;
 
-    private final boolean isReadOnly;
+    private final boolean readOnly;
 
-    private final boolean isEnum;
+    private final boolean enumEntity;
 
-    private final boolean isPureManyToMany;
+    private final boolean pureManyToMany;
 
     private final List<JdlRelation> relations;
 
@@ -36,18 +36,18 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
         final String tableName,
         final List<JdlField> fields,
         @Nullable final String comment,
-        final boolean isEnum,
-        final boolean isReadOnly,
-        final boolean isPureManyToMany,
+        final boolean enumEntity,
+        final boolean readOnly,
+        final boolean pureManyToMany,
         final List<JdlRelation> relations
     ) {
         this.name = name;
         this.tableName = tableName;
         this.fields = ImmutableList.copyOf(fields);
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
-        this.isEnum = isEnum;
-        this.isReadOnly = isReadOnly;
-        this.isPureManyToMany = isPureManyToMany;
+        this.enumEntity = enumEntity;
+        this.readOnly = readOnly;
+        this.pureManyToMany = pureManyToMany;
         this.relations = ImmutableList.copyOf(relations);
     }
 
@@ -72,18 +72,18 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
     }
 
     @Override
-    public boolean isEnum() {
-        return isEnum;
+    public boolean isEnumEntity() {
+        return enumEntity;
     }
 
     @Override
     public boolean isReadOnly() {
-        return isReadOnly;
+        return readOnly;
     }
 
     @Override
     public boolean isPureManyToMany() {
-        return isPureManyToMany;
+        return pureManyToMany;
     }
 
     @Override
@@ -106,10 +106,10 @@ public class JdlEntityImpl implements JdlEntity, Comparable<JdlEntity> {
             ", comment='" +
             comment +
             '\'' +
-            ", isReadOnly=" +
-            isReadOnly +
+            ", readOnly=" +
+            readOnly +
             ", isEnum=" +
-            isEnum +
+            enumEntity +
             ", relations=" +
             relations +
             '}'

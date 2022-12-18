@@ -87,7 +87,7 @@ public final class JdlUtils {
             builder.append(entity.getComment().get());
             builder.append(" */\n");
         }
-        if (entity.isEnum()) {
+        if (entity.isEnumEntity()) {
             builder.append("enum ");
         } else {
             if (entity.isReadOnly()) {
@@ -123,12 +123,12 @@ public final class JdlUtils {
                     }
                 }
             }
-            if (!entity.isEnum()) {
+            if (!entity.isEnumEntity()) {
                 // remove the last ','
                 builder.deleteCharAt(builder.length() - 2);
             }
             builder.append("}");
-        } else if (entity.isEnum()) {
+        } else if (entity.isEnumEntity()) {
             builder.append(" {}");
         }
         return builder.toString();
@@ -213,7 +213,7 @@ public final class JdlUtils {
         //              User{teamMember(field)}
         //         }
         final StringBuilder builder = new StringBuilder(200);
-        relation.getExtraRelationComment().ifPresent(s -> builder.append("// ").append(s).append("\n"));
+        relation.getComment().ifPresent(s -> builder.append("// ").append(s).append("\n"));
         builder.append("relationship ");
         builder.append(relation.getRelationType().toJdl());
         builder.append(" {\n");
