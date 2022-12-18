@@ -1,16 +1,17 @@
 package org.blackdread.sqltojava.service.logic;
 
+import static java.util.Map.entry;
+import static java.util.Map.ofEntries;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Map;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.JdlEntity;
-import org.blackdread.sqltojava.entity.JdlRelation;
-import org.blackdread.sqltojava.entity.RelationType;
 import org.blackdread.sqltojava.util.JdlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,73 +24,28 @@ public class ExportService {
 
     private final ApplicationProperties applicationProperties;
 
-    public ExportService(final ApplicationProperties applicationProperties) {
+    private final JdlService jdlService;
+
+    private final MustacheService mustacheService;
+
+    public ExportService(final ApplicationProperties applicationProperties, JdlService jdlService, MustacheService mustacheService) {
         this.applicationProperties = applicationProperties;
+        this.jdlService = jdlService;
+        this.mustacheService = mustacheService;
     }
 
     /**
-     * Exports jdl to string
+     * Exports jdl to string using mustache.java
      * @param entities
      * @return
      */
     public String exportString(final List<JdlEntity> entities) {
-        String nl = System.lineSeparator();
-        if (entities.isEmpty()) {
-            log.error("No entities were found for which JDL is to be generated. Please review console logs");
-            return "";
-        }
-
-        // 1. Entities
-        // 2. Relations
-        // 3. Options
-
-        try (StringWriter out = new StringWriter()) {
-            for (final JdlEntity entity : entities) {
-                if (!entity.isPureManyToMany()) {
-                    out.write(JdlUtils.writeEntity(entity, applicationProperties.getUndefinedTypeHandling()));
-                    out.write(nl);
-                    out.write(nl);
-                }
-            }
-
-            out.write(nl);
-            out.write(nl);
-            out.write("// Relations");
-            out.write(nl);
-
-            for (final JdlEntity entity : entities) {
-                for (final JdlRelation relation : entity.getRelations()) {
-                    if (relation.getRelationType() == RelationType.ManyToMany) {
-                        out.write(JdlUtils.writeRelationPureManyToMany(relation));
-                    } else {
-                        out.write(JdlUtils.writeRelation(relation));
-                    }
-                    out.write(nl);
-                    out.write(nl);
-                }
-            }
-
-            out.write(nl);
-            out.write(nl);
-            out.write("// Options");
-            out.write(nl);
-
-            out.write(JdlUtils.serviceClassAll());
-            out.write(nl);
-            out.write(JdlUtils.paginationAll());
-            out.write(nl);
-            out.write(JdlUtils.mapStructAll());
-            out.write(nl);
-            out.write(JdlUtils.filterAll());
-            out.write(nl);
-            out.write(nl);
-
-            out.flush();
-            return out.toString();
-        } catch (IOException e) {
-            log.error("Error", e);
-            throw new IllegalStateException(e);
-        }
+        Map<String, Object> context = ofEntries(
+            entry("entities", entities),
+            entry("relations", jdlService.getRelations(entities)),
+            entry("options", JdlUtils.getOptions())
+        );
+        return mustacheService.executeTemplate("application", context);
     }
 
     /**

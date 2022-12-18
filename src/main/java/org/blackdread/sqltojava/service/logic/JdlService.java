@@ -1,8 +1,6 @@
 package org.blackdread.sqltojava.service.logic;
 
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.ENUM;
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.STRING;
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +48,10 @@ public class JdlService {
             .map(Optional::get)
             .sorted()
             .collect(Collectors.toList());
+    }
+
+    public List<JdlRelation> getRelations(List<JdlEntity> entities) {
+        return entities.stream().flatMap(e -> e.getRelations().stream()).collect(Collectors.toList());
     }
 
     private boolean isDefaultPrimaryKey(JdlField f) {
