@@ -9,18 +9,7 @@ entity Team {
     name String required unique maxlength(255)
 }
 
-
-
 // Relations
 relationship ManyToOne {
     Player{team(abrev) required} to Team{player(name)}
 }
-
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

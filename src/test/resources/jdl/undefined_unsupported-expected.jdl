@@ -3,15 +3,3 @@ entity UndefinedUnsupported {
     /**  ARRAY */
     unsupported Unsupported
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

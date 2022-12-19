@@ -11,19 +11,8 @@ entity OneToOneMain {
     other String required maxlength(45)
 }
 
-
-
 // Relations
 // one_to_one_main comment
 relationship OneToOne {
     OneToOneMain{oneToOneChild required} to OneToOneChild{oneToOneMain}
 }
-
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

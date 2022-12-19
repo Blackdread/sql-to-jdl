@@ -11,15 +11,3 @@ entity SalePerOrder {
     orderNumber String required maxlength(255),
     total BigDecimal
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

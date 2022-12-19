@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.blackdread.sqltojava.config.ApplicationProperties;
@@ -22,14 +23,14 @@ public class ExportService {
 
     private static final Logger log = LoggerFactory.getLogger(ExportService.class);
 
-    private final ApplicationProperties applicationProperties;
+    private final ApplicationProperties properties;
 
     private final JdlService jdlService;
 
     private final MustacheService mustacheService;
 
-    public ExportService(final ApplicationProperties applicationProperties, JdlService jdlService, MustacheService mustacheService) {
-        this.applicationProperties = applicationProperties;
+    public ExportService(final ApplicationProperties properties, JdlService jdlService, MustacheService mustacheService) {
+        this.properties = properties;
         this.jdlService = jdlService;
         this.mustacheService = mustacheService;
     }
@@ -43,7 +44,7 @@ public class ExportService {
         Map<String, Object> context = ofEntries(
             entry("entities", entities),
             entry("relations", jdlService.getRelations(entities)),
-            entry("options", JdlUtils.getOptions())
+            entry("options", !properties.isRenderEntitiesOnly() ? JdlUtils.getOptions() : Collections.emptyList())
         );
         return mustacheService.executeTemplate("application", context);
     }
@@ -55,7 +56,7 @@ public class ExportService {
      */
     public void export(final List<JdlEntity> entities) {
         final String jdl = exportString(entities);
-        final Path path = applicationProperties.getExport().getPath();
+        final Path path = properties.getExport().getPath();
 
         log.info("Exporting into: {}", path.toAbsolutePath());
 

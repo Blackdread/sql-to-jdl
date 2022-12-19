@@ -42,15 +42,3 @@ entity MysqlType {
     /** blob comment */
     myBlob Blob required
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

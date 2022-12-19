@@ -43,10 +43,14 @@ public class MustacheService {
         try {
             StringWriter writer = new StringWriter();
             m.execute(writer, context).flush();
-            return writer.toString();
+            return replaceMultpleBlankLinesWithOne(writer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String replaceMultpleBlankLinesWithOne(String s) {
+        return s.replaceAll("([ \\t]*\\n){3,}", "\\\n\\\n").replaceAll("\\n\\n$", "\\\n");
     }
 
     /**
