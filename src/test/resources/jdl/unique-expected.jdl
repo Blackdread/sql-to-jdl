@@ -2,15 +2,3 @@ entity Student {
     id Integer required,
     ssnnumber String required unique maxlength(100)
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

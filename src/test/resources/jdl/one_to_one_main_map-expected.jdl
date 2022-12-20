@@ -9,18 +9,7 @@ entity OneToOneMainMap {
     other String required maxlength(45)
 }
 
-
-
 // Relations
 relationship ManyToOne {
     OneToOneChildMap{oneToOneMainMap required} to OneToOneMainMap{oneToOneChildMap}
 }
-
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

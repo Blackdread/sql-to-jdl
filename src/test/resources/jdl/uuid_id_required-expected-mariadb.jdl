@@ -1,15 +1,3 @@
 entity UuidIdRequired {
     id String required maxlength(36)
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

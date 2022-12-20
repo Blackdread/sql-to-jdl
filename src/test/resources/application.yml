@@ -21,6 +21,7 @@ application:
         - v_
     add_table_name_jdl: false
     undefined_type_handling: ERROR
+    render_entities_only: true
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock

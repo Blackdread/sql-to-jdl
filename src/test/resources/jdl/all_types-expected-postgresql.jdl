@@ -20,15 +20,3 @@ entity PostgresType {
     myJson String,
     myUuid UUID
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

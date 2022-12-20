@@ -98,7 +98,6 @@ public class MustacheTest {
                 id UUID,
                 abrev String required unique minlength(2) maxlength(6)
             }
-
             """;
         Map<String, Object> context = new HashMap<>();
         context.put("entities", List.of(a));
@@ -110,6 +109,7 @@ public class MustacheTest {
     public void testRelation() {
         String expected =
             """
+            // Relations
             // Relation comment
             relationship ManyToOne {
                 /** Owner comment */
@@ -117,7 +117,6 @@ public class MustacheTest {
                 /** Inverse comment */
                 B{b}
             }
-
             """;
         String result = mustacheService.executeTemplate("relations", Map.of("relations", List.of(relationWithComments)));
         assertThat(result).isEqualTo(expected);
@@ -125,11 +124,12 @@ public class MustacheTest {
 
     @Test
     public void testRelationWithoutComments() {
-        String expected = """
+        String expected =
+            """
+            // Relations
             relationship ManyToOne {
                 A{a required} to B{b}
             }
-
             """;
         String result = mustacheService.executeTemplate("relations", Map.of("relations", List.of(relationWithoutComments)));
         assertThat(result).isEqualTo(expected);
@@ -150,7 +150,6 @@ public class MustacheTest {
                 id UUID,
                 abrev String required unique minlength(2) maxlength(6)
             }
-
             """;
         List<JdlEntityImpl> entities = Arrays.asList(a, b);
         Map<String, Object> context = new HashMap<>();
@@ -190,21 +189,10 @@ public class MustacheTest {
                     abrev String required unique minlength(2) maxlength(6)
                 }
 
-
-
                 // Relations
                 relationship ManyToOne {
                     A{a required} to B{b}
                 }
-
-
-
-                // Options
-                service * with serviceClass
-                paginate * with pagination
-                dto * with mapstruct
-                filter *
-
                 """;
         List<JdlEntityImpl> entities = Arrays.asList(a, b);
         List<JdlRelation> relations = entities.stream().flatMap(e -> e.getRelations().stream()).collect(Collectors.toList());
@@ -214,7 +202,6 @@ public class MustacheTest {
         Map<String, Object> context = new HashMap<>();
         context.put("entities", entities);
         context.put("relations", relations);
-        context.put("options", options);
 
         String result = mustacheService.executeTemplate("application", context);
         assertThat(result).isEqualTo(expected);

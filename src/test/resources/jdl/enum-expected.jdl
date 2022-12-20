@@ -10,15 +10,3 @@ entity City {
 /** city_status comment */
 enum CityStatus {
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

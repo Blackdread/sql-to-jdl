@@ -3,18 +3,7 @@ entity Invoice {
     amount BigDecimal required
 }
 
-
-
 // Relations
 relationship OneToOne {
     Invoice{parent(num)} to Invoice{invoice(num)}
 }
-
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-

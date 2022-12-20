@@ -1,15 +1,3 @@
 entity T(t) {
     f Integer
 }
-
-
-
-// Relations
-
-
-// Options
-service * with serviceClass
-paginate * with pagination
-dto * with mapstruct
-filter *
-
