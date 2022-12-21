@@ -9,6 +9,11 @@ public class TableInformationRowMapper implements RowMapper<TableInformation> {
 
     @Override
     public TableInformation mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new TableInformation(rs.getString("table_name"), rs.getBoolean("is_updatable"), rs.getString("comment"));
+        return new TableInformation(
+            rs.getString("table_name"),
+            rs.getBoolean("is_updatable"),
+            rs.getString("table_type"),
+            rs.getString("comment")
+        );
     }
 }

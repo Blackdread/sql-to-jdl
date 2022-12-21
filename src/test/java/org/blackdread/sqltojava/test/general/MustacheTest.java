@@ -78,6 +78,22 @@ public class MustacheTest {
         null
     );
 
+    JdlRelationImpl relationWithoutBirectional = new JdlRelationViewImpl(
+        RelationType.ManyToOne,
+        false,
+        true,
+        false,
+        "A",
+        "B",
+        "a",
+        null,
+        null,
+        null,
+        "b",
+        null,
+        null
+    );
+
     JdlEntityImpl a = new JdlEntityImpl(
         "A",
         null,
@@ -132,6 +148,19 @@ public class MustacheTest {
             }
             """;
         String result = mustacheService.executeTemplate("relations", Map.of("relations", List.of(relationWithoutComments)));
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void testRelationWithoutBidirectional() {
+        String expected =
+            """
+            // Relations
+            relationship ManyToOne {
+                A{a required} to B
+            }
+            """;
+        String result = mustacheService.executeTemplate("relations", Map.of("relations", List.of(relationWithoutBirectional)));
         assertThat(result).isEqualTo(expected);
     }
 

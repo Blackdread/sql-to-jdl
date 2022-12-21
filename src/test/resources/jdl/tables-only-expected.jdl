@@ -1,0 +1,3 @@
+entity TestTable {
+    num Integer required
+}

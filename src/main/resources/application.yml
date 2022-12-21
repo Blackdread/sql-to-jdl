@@ -16,11 +16,14 @@ spring:
 application:
     reserved-keywords: classpath:reserved/keywords.json
     database-to-export: my_database_name
-    database-object-prefix:
-        - t_,
-        - v_
-    add_table_name_jdl: true,
+    database_object_types_config: TABLES # TABLES, ViEWS, ALL
     render_entities_only: false
+    assume_bidirectional: true
+    database-object-prefix:
+        - t_
+        - v_
+    add_table_name_jdl: true
+    undefined_type_handling: ERROR
     jdl-type-overrides:
         my_type: FLOAT # Example JDL type override
     ignored-table-names:

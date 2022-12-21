@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.blackdread.sqltojava.config.ApplicationProperties;
+import org.blackdread.sqltojava.config.DatabaseObjectTypesConfigEnum;
 import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.entity.SqlTable;
 import org.blackdread.sqltojava.entity.impl.SqlColumnImpl;
@@ -47,10 +48,19 @@ public class SqlService {
         return informationSchemaService
             .getAllTableInformation()
             .stream()
+            .filter(table -> includeType(table, applicationProperties.getDatabaseObjectTypesConfig()))
             .filter(table -> !doesTableEndWithDetailKeyword(table))
             .filter(table -> !isTableIgnored(ignoredTableNames, table))
-            .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null), table.isUpdateable()))
+            .map(table -> new SqlTableImpl(table.getName(), table.getComment().orElse(null), table.getType(), table.isUpdateable()))
             .collect(Collectors.toList());
+    }
+
+    private boolean includeType(TableInformation table, DatabaseObjectTypesConfigEnum databaseObjectTypesConfig) {
+        return switch (databaseObjectTypesConfig) {
+            case ALL -> true;
+            case TABLES -> table.getType().equals("BASE TABLE");
+            case VIEWS -> table.getType().equals("VIEW");
+        };
     }
 
     private boolean doesTableEndWithDetailKeyword(TableInformation table) {

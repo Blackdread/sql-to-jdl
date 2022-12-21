@@ -21,7 +21,9 @@ application:
         - v_
     add_table_name_jdl: false
     undefined_type_handling: ERROR
+    database_object_types_config: ALL # TABLES, ViEWS, ALL
     render_entities_only: true
+    assume_bidirectional: true
     ignored-table-names:
         - databasechangelog
         - databasechangeloglock

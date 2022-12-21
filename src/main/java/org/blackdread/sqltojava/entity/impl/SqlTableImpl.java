@@ -9,14 +9,14 @@ import org.blackdread.sqltojava.entity.SqlTable;
 public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
 
     private final String name;
-
     private final String comment;
-
     private final boolean isUpdateable;
+    private final String type;
 
-    public SqlTableImpl(final String name, @Nullable final String comment, final boolean isUpdateable) {
+    public SqlTableImpl(final String name, @Nullable final String comment, final String type, final boolean isUpdateable) {
         this.name = Objects.requireNonNull(name);
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.type = type;
         this.isUpdateable = isUpdateable;
     }
 
@@ -28,6 +28,11 @@ public class SqlTableImpl implements SqlTable, Comparable<SqlTable> {
     @Override
     public Optional<String> getComment() {
         return Optional.ofNullable(comment);
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
