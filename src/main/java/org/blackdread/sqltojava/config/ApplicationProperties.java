@@ -31,6 +31,7 @@ public class ApplicationProperties {
     private final boolean addTableNameJdl;
     private final UndefinedJdlTypeHandlingEnum undefinedTypeHandling;
     private final Boolean renderEntitiesOnly;
+    private final Boolean assumeBidirectional;
     private final List<String> ignoredTableNames;
     private final Export export;
     private final List<String> reservedList;
@@ -43,6 +44,7 @@ public class ApplicationProperties {
         Boolean addTableNameJdl,
         String undefinedTypeHandling,
         final Boolean renderEntitiesOnly,
+        final Boolean assumeBidirectional,
         final List<String> ignoredTableNames,
         final Export export,
         final String reservedKeywords,
@@ -53,6 +55,7 @@ public class ApplicationProperties {
         this.databaseObjectPrefix = databaseObjectPrefix;
         this.undefinedTypeHandling = UndefinedJdlTypeHandlingEnum.valueOf(undefinedTypeHandling);
         this.renderEntitiesOnly = renderEntitiesOnly;
+        this.assumeBidirectional = assumeBidirectional;
         this.addTableNameJdl = Optional.of(addTableNameJdl).orElse(false);
         this.ignoredTableNames = ignoredTableNames;
         this.export = export;
@@ -94,6 +97,10 @@ public class ApplicationProperties {
 
     public Boolean isRenderEntitiesOnly() {
         return renderEntitiesOnly;
+    }
+
+    public Boolean isAssumeBidirectional() {
+        return assumeBidirectional;
     }
 
     public List<String> getDatabaseObjectPrefix() {

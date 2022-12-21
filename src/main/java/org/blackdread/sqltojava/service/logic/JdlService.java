@@ -164,32 +164,31 @@ public class JdlService {
         final Integer max;
         switch (jdlType) {
             // We always define max for string
-            case STRING:
+            case STRING -> {
                 min = null;
                 max = SqlUtils.parseSqlSize(column.getType()).orElse(255);
-                break;
-            case TIME_AS_TEXT:
+            }
+            case TIME_AS_TEXT -> {
                 pattern = "^(([0-1]\\d)|(2[0-3])):([0-5]\\d):([0-5]\\d)$";
                 jdlType = STRING;
                 max = 8;
                 min = 8;
-                break;
-            case YEAR_AS_TEXT:
+            }
+            case YEAR_AS_TEXT -> {
                 pattern = "^-?(\\d+)$";
                 jdlType = STRING;
                 max = null;
                 min = null;
-                break;
-            case GEOMETRY_AS_TEXT:
-            case JSON_AS_TEXT:
-            case STRING_UNBOUNDED:
+            }
+            case GEOMETRY_AS_TEXT, JSON_AS_TEXT, STRING_UNBOUNDED -> {
                 jdlType = STRING;
                 max = null;
                 min = null;
-                break;
-            default:
+            }
+            default -> {
                 min = null;
                 max = null;
+            }
         }
 
         // Min and pattern are not set as we cannot guess it (unless we define it in comments -> parse)
@@ -272,8 +271,7 @@ public class JdlService {
         return Optional.of(
             new JdlRelationImpl(
                 relationType,
-                // We always make it bidirectional for auto-generated jdl (manually edit result after)
-                true,
+                properties.isAssumeBidirectional(),
                 required,
                 false,
                 ownerEntityName,
