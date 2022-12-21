@@ -16,6 +16,7 @@ spring:
 application:
     reserved-keywords: classpath:reserved/keywords.json
     database-to-export: my_database_name
+    database_object_types_config: TABLES # TABLES, ViEWS, ALL
     render_entities_only: false
     assume_bidirectional: true
     database-object-prefix:

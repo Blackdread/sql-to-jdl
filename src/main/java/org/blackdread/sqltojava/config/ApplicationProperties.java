@@ -30,6 +30,7 @@ public class ApplicationProperties {
     private final List<String> databaseObjectPrefix;
     private final boolean addTableNameJdl;
     private final UndefinedJdlTypeHandlingEnum undefinedTypeHandling;
+    private final DatabaseObjectTypesConfigEnum databaseObjectTypesConfig;
     private final Boolean renderEntitiesOnly;
     private final Boolean assumeBidirectional;
     private final List<String> ignoredTableNames;
@@ -40,9 +41,10 @@ public class ApplicationProperties {
     @SuppressWarnings("unchecked")
     public ApplicationProperties(
         final String databaseToExport,
-        List<String> databaseObjectPrefix,
-        Boolean addTableNameJdl,
-        String undefinedTypeHandling,
+        final List<String> databaseObjectPrefix,
+        final Boolean addTableNameJdl,
+        final UndefinedJdlTypeHandlingEnum undefinedTypeHandling,
+        final DatabaseObjectTypesConfigEnum databaseObjectTypesConfig,
         final Boolean renderEntitiesOnly,
         final Boolean assumeBidirectional,
         final List<String> ignoredTableNames,
@@ -53,7 +55,8 @@ public class ApplicationProperties {
         log.info("Loading ApplicationProperties...");
         this.databaseToExport = databaseToExport;
         this.databaseObjectPrefix = databaseObjectPrefix;
-        this.undefinedTypeHandling = UndefinedJdlTypeHandlingEnum.valueOf(undefinedTypeHandling);
+        this.undefinedTypeHandling = undefinedTypeHandling;
+        this.databaseObjectTypesConfig = databaseObjectTypesConfig;
         this.renderEntitiesOnly = renderEntitiesOnly;
         this.assumeBidirectional = assumeBidirectional;
         this.addTableNameJdl = Optional.of(addTableNameJdl).orElse(false);
@@ -93,6 +96,10 @@ public class ApplicationProperties {
 
     public UndefinedJdlTypeHandlingEnum getUndefinedTypeHandling() {
         return undefinedTypeHandling;
+    }
+
+    public DatabaseObjectTypesConfigEnum getDatabaseObjectTypesConfig() {
+        return databaseObjectTypesConfig;
     }
 
     public Boolean isRenderEntitiesOnly() {

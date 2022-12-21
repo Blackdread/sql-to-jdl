@@ -7,21 +7,16 @@ import org.apache.commons.lang3.StringUtils;
 public class TableInformation {
 
     private String schema;
+    private final String name;
+    private final String comment;
+    private final boolean isUpdateable;
+    private final String type;
 
-    private String name;
-
-    private String comment;
-
-    private boolean isUpdateable;
-
-    public TableInformation(final String name) {
-        this(name, false, null);
-    }
-
-    public TableInformation(final String name, final boolean isUpdateable, final String comment) {
+    public TableInformation(final String name, final boolean isUpdateable, String type, final String comment) {
         this.name = name;
         this.isUpdateable = isUpdateable;
         this.comment = (StringUtils.isBlank(comment) || "null".equalsIgnoreCase(comment)) ? null : comment;
+        this.type = type;
     }
 
     public String getName() {
@@ -38,6 +33,10 @@ public class TableInformation {
 
     public Boolean isUpdateable() {
         return isUpdateable;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override
