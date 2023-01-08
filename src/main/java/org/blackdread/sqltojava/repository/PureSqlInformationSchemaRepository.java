@@ -61,8 +61,8 @@ public class PureSqlInformationSchemaRepository implements InformationSchemaRepo
     /**
      * Loads a sql query file based on the active profile.
      * For multiple profiles to use the same sql files they should be named as follows:
-     * sql/{profile1}|{profile1}-{queryName}.sql
-     * See mysql|mariadb-queryName.sql for an example.
+     * sql/{profile1}_{profile1}-{queryName}.sql
+     * See mysql_mariadb-queryName.sql for an example.
      * @param activeProfile
      * @param queryName
      * @return
