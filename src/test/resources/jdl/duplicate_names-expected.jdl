@@ -1,0 +1,21 @@
+entity Task {
+    name String required maxlength(255),
+    summary String maxlength(255),
+    description String maxlength(255),
+    priority String maxlength(255),
+    status String maxlength(255)
+}
+
+entity Worker {
+    name String required maxlength(255),
+    details String maxlength(255)
+}
+
+// Relations
+relationship ManyToOne {
+    Task{assignee} to Worker{task}
+}
+
+relationship ManyToOne {
+    Task{author} to Worker{taskOfAuthor}
+}

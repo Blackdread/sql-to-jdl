@@ -42,7 +42,8 @@ public abstract class SqlToJdlTransactionPerTestTest extends TransactionPerTestT
             "views",
             "readonly",
             "reflexive_relationship",
-            "prune"
+            "prune",
+            "duplicate_names"
         );
     }
 

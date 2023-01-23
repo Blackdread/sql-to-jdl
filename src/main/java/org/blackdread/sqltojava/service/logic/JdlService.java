@@ -2,9 +2,7 @@ package org.blackdread.sqltojava.service.logic;
 
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.config.ApplicationProperties;
@@ -68,11 +66,13 @@ public class JdlService {
             .filter(this::isDefaultPrimaryKey)
             .collect(Collectors.toList());
 
+        Set<JdlRelation> existedRelations = new HashSet<>();
+
         final List<JdlRelation> relations = entry
             .getValue()
             .stream()
             .filter(SqlColumn::isForeignKey)
-            .map((SqlColumn column) -> buildRelation(column, sqlService.getTableOfForeignKey(column)))
+            .map((SqlColumn column) -> buildRelation(column, sqlService.getTableOfForeignKey(column), existedRelations))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .sorted()
@@ -213,9 +213,14 @@ public class JdlService {
     /**
      * @param column           Column from which to create relation, owner side of the relation
      * @param inverseSideTable The table referenced by the column of the owner side
+     * @param existedRelations Cache for checking already registered relations, needed to avoid name duplication
      * @return The relation or empty if relation is to be ignored
      */
-    protected Optional<JdlRelation> buildRelation(final SqlColumn column, final SqlTable inverseSideTable) {
+    protected Optional<JdlRelation> buildRelation(
+        final SqlColumn column,
+        final SqlTable inverseSideTable,
+        final Set<JdlRelation> existedRelations
+    ) {
         if (!column.isForeignKey()) throw new IllegalArgumentException("Cannot create a relation from a non foreign key");
 
         final SqlTable ownerSideTable = column.getTable();
@@ -252,7 +257,12 @@ public class JdlService {
 
         // We put always bidirectional but we have no way to generate good inverse name so we put the owner side name
         final String ownerEntityName = getEntityNameFormatted(tableName);
-        final String inverseSideRelationName = JdlUtils.decapitalize(ownerEntityName);
+        final String inverseSideRelationName = buildInverseSideRelationName(
+            inverseSideEntityName,
+            ownerEntityName,
+            columnName,
+            existedRelations
+        );
         boolean required = !isNullable;
         if (required) {
             if (ownerEntityName.equals(inverseSideEntityName)) {
@@ -268,22 +278,56 @@ public class JdlService {
             }
         }
 
-        return Optional.of(
-            new JdlRelationImpl(
-                relationType,
-                properties.isAssumeBidirectional(),
-                required,
-                false,
-                ownerEntityName,
-                inverseSideEntityName,
-                SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)),
-                sqlService.getDisplayFieldOfTable(inverseSideTable),
-                column.getComment().orElse(null),
-                null,
-                inverseSideRelationName,
-                sqlService.getDisplayFieldOfTable(ownerSideTable),
-                extraRelationComment
-            )
+        JdlRelationImpl relation = new JdlRelationImpl(
+            relationType,
+            properties.isAssumeBidirectional(),
+            required,
+            false,
+            ownerEntityName,
+            inverseSideEntityName,
+            SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)),
+            sqlService.getDisplayFieldOfTable(inverseSideTable),
+            column.getComment().orElse(null),
+            null,
+            inverseSideRelationName,
+            sqlService.getDisplayFieldOfTable(ownerSideTable),
+            extraRelationComment
         );
+
+        existedRelations.add(relation);
+
+        return Optional.of(relation);
+    }
+
+    /**
+     * @param inverseSideEntityName The table name referenced by the column of the owner side
+     * @param ownerEntityName       Table name of column from which to create relation, owner side of the relation
+     * @param columnName            Column name from which to create relation, owner side of the relation
+     * @param existedRelations      asdasd
+     * @return Modified name of ownerEntity or full name consisting of ownerEntity and columnName
+     */
+    private String buildInverseSideRelationName(
+        String inverseSideEntityName,
+        String ownerEntityName,
+        String columnName,
+        Set<JdlRelation> existedRelations
+    ) {
+        String possibleRelationName = JdlUtils.decapitalize(ownerEntityName);
+        // Looking for a full match of names within 1 entity
+        boolean relationAlreadyExist = existedRelations
+            .stream()
+            .anyMatch(jdlRelation ->
+                ownerEntityName.equals(jdlRelation.getOwnerEntityName()) &&
+                possibleRelationName.equals(jdlRelation.getInverseSideRelationName().orElse(null)) &&
+                inverseSideEntityName.equals(jdlRelation.getInverseSideEntityName())
+            );
+
+        if (relationAlreadyExist) {
+            //As stated earlier, we have no way to generate a good reverse name, so we put the owner's side name.
+            //So we simply combine the relationship name and the column name
+            return possibleRelationName + "Of" + StringUtils.capitalize(SqlUtils.removeIdFromEnd(columnName));
+        } else {
+            return possibleRelationName;
+        }
     }
 }
