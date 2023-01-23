@@ -1,0 +1,93 @@
+databaseChangeLog:
+- changeSet:
+    id: 1674449168689-1
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: task_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: summary
+            type: VARCHAR(255)
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: priority
+            type: VARCHAR(255)
+        - column:
+            name: assignee_id
+            type: BIGINT
+        - column:
+            name: author_id
+            type: BIGINT
+        - column:
+            name: status
+            type: VARCHAR(255)
+        tableName: task
+- changeSet:
+    id: 1674449168689-2
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: worker_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: details
+            type: VARCHAR(255)
+        tableName: worker
+- changeSet:
+    id: 1674449168689-3
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: assignee_id
+        baseTableName: task
+        constraintName: task_assignee_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: worker
+        validate: true
+- changeSet:
+    id: 1674449168689-4
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: task
+        constraintName: task_author_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: worker
+        validate: true
+
