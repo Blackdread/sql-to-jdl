@@ -10,12 +10,16 @@ Tool to translate SQL databases to JDL format of jHipster (Created due to existi
 #Download
 git clone https://github.com/Blackdread/sql-to-jdl.git
 
+# Modify configuration file application.yml at https://github.com/Blackdread/sql-to-jdl/blob/master/src/main/resources/application.yml
+
 #Build, skip the tests for lack of time
 mvn clean package -DskipTests
 
 #Run
 java -jar target/sql-to-java-*-SNAPSHOT.jar
 ```
+
+Direct link to [application.yml](https://github.com/Blackdread/sql-to-jdl/blob/master/src/main/resources/application.yml)
 
 _Don't forget to install git, maven 3 and java 17 before launching_
 
@@ -89,42 +93,6 @@ Still have some manual steps to do:
 Table is treated as enum if only 2 columns and both are: "id" AND ("code" OR "name")
 
 Table is treated as ManyToMany if only 2 columns and both are foreign keys
-
-# Local run
-
-To run on your database, set the following environment variables
-
-Template
-```bash
-SPRING_DATASOURCE_URL=<jdbc url>
-SPRING_DATASOURCE_USERNAME=<db username>
-SPRING_DATASOURCE_PASSWORD=<db password>
-APPLICATION_DATABASE_TO_EXPORT=<db or schema name>
-```
-
-Mysql example
-```bash
-SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
-SPRING_DATASOURCE_USERNAME=root
-SPRING_DATASOURCE_PASSWORD=
-APPLICATION_DATABASE_TO_EXPORT=my_database_name
-```
-
-Postgres example
-```bash
-SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5437/jhipster
-SPRING_DATASOURCE_USERNAME=jhipster
-SPRING_DATASOURCE_PASSWORD=jhipster
-APPLICATION_DATABASE_TO_EXPORT=public
-```
-
-Oracle example
-```bash
-SPRING_DATASOURCE_URL=jdbc:oracle:thin:@127.0.0.1:1521:MYDB
-SPRING_DATASOURCE_USERNAME=scott
-SPRING_DATASOURCE_PASSWORD=tiger
-APPLICATION_DATABASE_TO_EXPORT=MYDB
-```
 
 # Links
 [jHipster JDL](http://www.jhipster.tech/jdl/)
