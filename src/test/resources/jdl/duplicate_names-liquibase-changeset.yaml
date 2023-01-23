@@ -34,6 +34,12 @@ databaseChangeLog:
             name: author_id
             type: BIGINT
         - column:
+            name: some_other_author_id
+            type: BIGINT
+        - column:
+            name: even_more_author_id
+            type: BIGINT
+        - column:
             name: status
             type: VARCHAR(255)
         tableName: task
@@ -83,6 +89,36 @@ databaseChangeLog:
         baseColumnNames: author_id
         baseTableName: task
         constraintName: task_author_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: worker
+        validate: true
+- changeSet:
+    id: 1674449168689-5
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: some_other_author_id
+        baseTableName: task
+        constraintName: task_some_other_author_id_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: worker
+        validate: true
+- changeSet:
+    id: 1674449168689-6
+    author: Generated with liquibase:generate-changelog from maven
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: even_more_author_id
+        baseTableName: task
+        constraintName: task_even_more_author_id_fkey
         deferrable: false
         initiallyDeferred: false
         onDelete: NO ACTION

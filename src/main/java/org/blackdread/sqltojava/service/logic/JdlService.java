@@ -1,9 +1,5 @@
 package org.blackdread.sqltojava.service.logic;
 
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
-
-import java.util.*;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.*;
@@ -16,6 +12,14 @@ import org.blackdread.sqltojava.util.SqlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 @Service
 public class JdlService {
@@ -66,13 +70,13 @@ public class JdlService {
             .filter(this::isDefaultPrimaryKey)
             .collect(Collectors.toList());
 
-        Set<JdlRelation> existedRelations = new HashSet<>();
+        final List<JdlRelation> existingRelations = new ArrayList<>();
 
         final List<JdlRelation> relations = entry
             .getValue()
             .stream()
             .filter(SqlColumn::isForeignKey)
-            .map((SqlColumn column) -> buildRelation(column, sqlService.getTableOfForeignKey(column), existedRelations))
+            .map((SqlColumn column) -> buildRelation(column, sqlService.getTableOfForeignKey(column), existingRelations))
             .filter(Optional::isPresent)
             .map(Optional::get)
             .sorted()
@@ -85,12 +89,12 @@ public class JdlService {
         if (reserved.contains(entityName.toUpperCase())) {
             String msg =
                 "Skipping processing table [" +
-                entry.getKey().getName() +
-                "] because " +
-                " the transformed entity name [" +
-                entityName +
-                "] matches with one of the keywords " +
-                reserved;
+                    entry.getKey().getName() +
+                    "] because " +
+                    " the transformed entity name [" +
+                    entityName +
+                    "] matches with one of the keywords " +
+                    reserved;
             log.error(msg);
             return Optional.empty();
         }
@@ -211,15 +215,15 @@ public class JdlService {
     }
 
     /**
-     * @param column           Column from which to create relation, owner side of the relation
-     * @param inverseSideTable The table referenced by the column of the owner side
-     * @param existedRelations Cache for checking already registered relations, needed to avoid name duplication
+     * @param column            Column from which to create relation, owner side of the relation
+     * @param inverseSideTable  The table referenced by the column of the owner side
+     * @param existingRelations Cache for checking already registered relations, needed to avoid name duplication
      * @return The relation or empty if relation is to be ignored
      */
     protected Optional<JdlRelation> buildRelation(
         final SqlColumn column,
         final SqlTable inverseSideTable,
-        final Set<JdlRelation> existedRelations
+        final List<JdlRelation> existingRelations
     ) {
         if (!column.isForeignKey()) throw new IllegalArgumentException("Cannot create a relation from a non foreign key");
 
@@ -261,24 +265,24 @@ public class JdlService {
             inverseSideEntityName,
             ownerEntityName,
             columnName,
-            existedRelations
+            existingRelations
         );
         boolean required = !isNullable;
         if (required) {
             if (ownerEntityName.equals(inverseSideEntityName)) {
                 String msg =
                     "Detected a Self Reference in the table " +
-                    tableName +
-                    ". JHipster JDL currently does not support Reflexive relationships. " +
-                    "Set [nullable] as [true] for column [" +
-                    columnName +
-                    "] to fix errors when using the JDL with JHipster";
+                        tableName +
+                        ". JHipster JDL currently does not support Reflexive relationships. " +
+                        "Set [nullable] as [true] for column [" +
+                        columnName +
+                        "] to fix errors when using the JDL with JHipster";
                 log.warn(msg);
                 required = false;
             }
         }
 
-        JdlRelationImpl relation = new JdlRelationImpl(
+        final JdlRelationImpl relation = new JdlRelationImpl(
             relationType,
             properties.isAssumeBidirectional(),
             required,
@@ -294,7 +298,7 @@ public class JdlService {
             extraRelationComment
         );
 
-        existedRelations.add(relation);
+        existingRelations.add(relation);
 
         return Optional.of(relation);
     }
@@ -303,29 +307,29 @@ public class JdlService {
      * @param inverseSideEntityName The table name referenced by the column of the owner side
      * @param ownerEntityName       Table name of column from which to create relation, owner side of the relation
      * @param columnName            Column name from which to create relation, owner side of the relation
-     * @param existedRelations      asdasd
+     * @param existingRelations     Cache for checking already registered relations, needed to avoid name duplication
      * @return Modified name of ownerEntity or full name consisting of ownerEntity and columnName
      */
     private String buildInverseSideRelationName(
         String inverseSideEntityName,
         String ownerEntityName,
         String columnName,
-        Set<JdlRelation> existedRelations
+        List<JdlRelation> existingRelations
     ) {
         String possibleRelationName = JdlUtils.decapitalize(ownerEntityName);
         // Looking for a full match of names within 1 entity
-        boolean relationAlreadyExist = existedRelations
+        final boolean relationAlreadyExist = existingRelations
             .stream()
             .anyMatch(jdlRelation ->
                 ownerEntityName.equals(jdlRelation.getOwnerEntityName()) &&
-                possibleRelationName.equals(jdlRelation.getInverseSideRelationName().orElse(null)) &&
-                inverseSideEntityName.equals(jdlRelation.getInverseSideEntityName())
+                    possibleRelationName.equals(jdlRelation.getInverseSideRelationName().orElse(null)) &&
+                    inverseSideEntityName.equals(jdlRelation.getInverseSideEntityName())
             );
 
         if (relationAlreadyExist) {
             //As stated earlier, we have no way to generate a good reverse name, so we put the owner's side name.
             //So we simply combine the relationship name and the column name
-            return possibleRelationName + "Of" + StringUtils.capitalize(SqlUtils.removeIdFromEnd(columnName));
+            return possibleRelationName + "Of" + StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(columnName)));
         } else {
             return possibleRelationName;
         }

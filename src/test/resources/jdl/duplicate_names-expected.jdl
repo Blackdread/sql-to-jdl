@@ -19,3 +19,11 @@ relationship ManyToOne {
 relationship ManyToOne {
     Task{author} to Worker{taskOfAuthor}
 }
+
+relationship ManyToOne {
+    Task{someOtherAuthor} to Worker{taskOfSomeOtherAuthor}
+}
+
+relationship ManyToOne {
+    Task{evenMoreAuthor} to Worker{taskOfEvenMoreAuthor}
+}
