@@ -34,7 +34,7 @@
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
-        <maven.surefire.plugin.version>3.0.0-M8</maven.surefire.plugin.version>
+        <maven.surefire.plugin.version>3.0.0-M9</maven.surefire.plugin.version>
         <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
         <liquibase-core.version>4.19.0</liquibase-core.version>
         <liquibase-maven-plugin.version>4.19.0</liquibase-maven-plugin.version>
