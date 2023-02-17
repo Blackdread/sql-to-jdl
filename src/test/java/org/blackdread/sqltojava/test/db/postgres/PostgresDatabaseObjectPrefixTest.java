@@ -1,6 +1,7 @@
 package org.blackdread.sqltojava.test.db.postgres;
 
 import java.util.stream.Stream;
+
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +16,9 @@ import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 class PostgresDatabaseObjectPrefixTest extends SqlToJdlTransactionPerTestTest {
 
     @Container
-    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:latest"));
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
+        DockerImageName.parse("postgres:latest")
+    );
 
     @SystemStub
     private static EnvironmentVariables env;

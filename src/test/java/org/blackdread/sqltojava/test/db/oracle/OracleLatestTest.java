@@ -11,7 +11,9 @@ import org.testcontainers.utility.DockerImageName;
 class OracleLatestTest extends SqlToJdlTransactionPerTestTest {
 
     @Container
-    private static final OracleContainer ORACLE_CONTAINER = new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:latest"));
+    private static final OracleContainer ORACLE_CONTAINER = new OracleContainer(
+        DockerImageName.parse("gvenzl/oracle-xe:latest")
+    );
 
     @BeforeAll
     public static void setup() {

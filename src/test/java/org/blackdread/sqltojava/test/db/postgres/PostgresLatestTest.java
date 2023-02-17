@@ -1,6 +1,7 @@
 package org.blackdread.sqltojava.test.db.postgres;
 
 import java.util.stream.Stream;
+
 import org.blackdread.sqltojava.shared.tests.SqlToJdlTransactionPerTestTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
