@@ -22,7 +22,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile({ "mysql", "mariadb", "postgresql" })
+@Profile({ "mysql", "mariadb", "postgresql", "oracle" })
 public class PureSqlInformationSchemaRepository implements InformationSchemaRepository {
 
     private static final Logger log = LoggerFactory.getLogger(PureSqlInformationSchemaRepository.class);
