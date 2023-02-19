@@ -1,0 +1,27 @@
+/** my table comment */
+entity OracleType(ORACLE_TYPE) {
+    myId String required maxlength(255),
+    myBoolean Integer,
+    myTinyint Integer,
+    myInt Integer,
+    myBigint Integer,
+    myFloat Float,
+    myDouble Float,
+    myDecimal Integer,
+    myNumber Integer,
+    /** blob comment */
+    myBlob Blob,
+    myDatetime Instant,
+    myTime LocalDate,
+    myTimestamp Instant,
+    myDate LocalDate,
+    myChar String maxlength(1),
+    myVarchar50 String required maxlength(255),
+    myVarchar50Null String maxlength(255),
+    myNchar String maxlength(1),
+    myNvarchar50 String required maxlength(255),
+    myNvarchar50Null String maxlength(255),
+    myClob Blob,
+    myCurrency Integer,
+    myUuid UUID
+}
