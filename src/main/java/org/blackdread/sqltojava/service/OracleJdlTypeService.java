@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 import static java.util.Map.entry;
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.LOCAL_DATE;
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 @Service
 @Profile("oracle")
@@ -25,7 +25,17 @@ public class OracleJdlTypeService implements SqlJdlTypeService {
     }
 
     private final Map<String, JdlFieldEnum> typeMap = Map.ofEntries(
-        entry("date", LOCAL_DATE)
+        entry("VARCHAR2", STRING),
+        entry("NUMBER", INTEGER),
+        entry("FLOAT", FLOAT),
+        entry("BLOB", BLOB),
+        entry("TIMESTAMP", INSTANT),
+        entry("DATE", LOCAL_DATE),
+        entry("CHAR", STRING),
+        entry("CLOB", BLOB),
+        entry("NCHAR", STRING),
+        entry("NVARCHAR2", STRING),
+        entry("RAW", UUID)
     );
 
     @Override
