@@ -3,8 +3,7 @@ SELECT a.constraint_name,
        a.table_name,
        a.column_name,
        -- referenced pk
-       c.R_OWNER       foreign_table_schema,
-       c_pk.table_name foreign_table_name,
+       c_pk.OWNER      foreign_table_schema,
        c_pk.table_name foreign_table_name,
        b.COLUMN_NAME   foreign_column_name
 FROM all_cons_columns a

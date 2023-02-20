@@ -1,4 +1,4 @@
-select a.OWNER        as                                                  table_schema,
+select a.OWNER        as                                                            table_schema,
        a.TABLE_NAME,
        a.COLUMN_NAME,
        a.CHAR_LENGTH,
@@ -21,20 +21,20 @@ select a.OWNER        as                                                  table_
                then a.data_type || '(' || a.DATA_PRECISION || ')'
 
            else a.DATA_TYPE
-           end                                                            data_type,
+           end                                                                      data_type,
 
-       a.DATA_DEFAULT as                                                  column_default,
-       DECODE(a.NULLABLE, 'Y', 'YES', 'N', 'NO')                          is_nullable,
-       c.COMMENTS     as                                                  "COMMENT",
-       DECODE((select count(1)
+       a.DATA_DEFAULT as                                                            column_default,
+       DECODE(a.NULLABLE, 'Y', 'YES', 'N', 'NO')                                    is_nullable,
+       c.COMMENTS     as                                                            "COMMENT",
+       DECODE((select pc.CONSTRAINT_TYPE
                from all_constraints pc,
                     all_cons_columns pcc
                where pcc.column_name = a.column_name
                  and pcc.constraint_name = pc.constraint_name
-                 and pc.constraint_type = 'P'
+                 and pc.constraint_type in ('P', 'U')
                  and pcc.owner = upper(a.OWNER)
-                 and pcc.table_name = upper(a.TABLE_NAME)), 0, '', 'PRI') KEY,
-       a.COLUMN_ID    as                                                  ordinal_position
+                 and pcc.table_name = upper(a.TABLE_NAME)), 'P', 'PRI', 'U', 'UNI') KEY,
+       a.COLUMN_ID    as                                                            ordinal_position
 
 from all_tab_columns a,
      ALL_TAB_COMMENTS b,
