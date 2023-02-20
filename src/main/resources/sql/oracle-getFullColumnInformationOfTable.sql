@@ -9,8 +9,6 @@ select a.OWNER        as                                                        
                then 'NUMBER' || '(' || a.DATA_PRECISION || ',' || a.DATA_SCALE || ')'
            when a.data_type = 'NUMBER' and a.DATA_PRECISION > 0
                then 'NUMBER' || '(' || a.DATA_PRECISION || ')'
-           when a.data_type = 'NUMBER2' and a.DATA_PRECISION > 0
-               then 'NUMBER' || '(' || a.DATA_PRECISION || ')'
 
            -- CHAR, VARCHAR2, NCHAR, NVARCHAR2
            when (a.data_type in ('CHAR', 'VARCHAR2', 'NCHAR', 'NVARCHAR2')) and a.CHAR_LENGTH > 0
