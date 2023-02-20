@@ -1,5 +1,5 @@
 /** my table comment */
-entity OracleType(ORACLE_TYPE) {
+entity OracleType {
     myId String required maxlength(255),
     myBoolean Integer,
     myTinyint Integer,
