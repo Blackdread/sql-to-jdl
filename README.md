@@ -68,7 +68,7 @@ Set properties file:
 - Path of export file
 - Database object prefixes to remove from entity name
 - Include table name is JDL
-- Undefined JDL type handling to UNSUPPORTED, SKIP, or UNSUPPORTED
+- Undefined JDL type handling to ERROR, SKIP, or UNSUPPORTED
 - Add JDL type overrides if necessary.
 
 # After JDL file is generated
