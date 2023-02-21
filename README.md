@@ -59,11 +59,6 @@ Currently the full test suite runs 11 test per database version which total near
   - already many databases in production to be exported in JDL (faster to generate the JDL from it)
   - already working UML design with MySQL Workbench
 
-# An alternative for REST filter and sort
-Different criterias, support for JPA and jOOQ dynamic filtering and sorting
-
-https://github.com/Blackdread/rest-filter
-
 # How to use
 Just execute the code from IDE or use "mvn" to run the code, it will connect to your DB (see application config yml) and it will generate the JDL.
 
@@ -86,9 +81,6 @@ Still have some manual steps to do:
 - add values to enums
 - review validations of entities
 
-# Use of
-- Spring boot
-
 # Default specific rules
 Table is treated as enum if only 2 columns and both are: "id" AND ("code" OR "name")
 
@@ -96,3 +88,8 @@ Table is treated as ManyToMany if only 2 columns and both are foreign keys
 
 # Links
 [jHipster JDL](http://www.jhipster.tech/jdl/)
+
+# An alternative for REST filter and sort
+Different criterias, support for JPA and jOOQ dynamic filtering and sorting.
+
+https://github.com/Blackdread/rest-filter
