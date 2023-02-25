@@ -31,5 +31,5 @@ databaseChangeLog:
           changes:
               - createView:
                     fullDefinition: false
-                    selectQuery: select distinct t.* from test_table t
+                    selectQuery: select distinct t.* from test_table t with read only
                     viewName: nonupdatable

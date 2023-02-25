@@ -27,6 +27,8 @@ public class OracleJdlTypeService implements SqlJdlTypeService {
     private final Map<String, JdlFieldEnum> typeMap = Map.ofEntries(
         entry("VARCHAR2", STRING),
         entry("NUMBER", INTEGER),
+        entry("NUMBER(38)", LONG),
+        entry("NUMBER(19,5)", BIG_DECIMAL),
         entry("FLOAT", FLOAT),
         entry("BLOB", BLOB),
         entry("TIMESTAMP", INSTANT),

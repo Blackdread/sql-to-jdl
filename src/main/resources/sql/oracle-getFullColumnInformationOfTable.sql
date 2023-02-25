@@ -4,6 +4,17 @@ select a.OWNER              as                                                  
        a.CHAR_LENGTH,
 
        case
+           -- enum
+           when (select pcc.COLUMN_NAME
+                 from all_constraints pc,
+                      all_cons_columns pcc
+                 where pcc.column_name = a.column_name
+                   and pcc.constraint_name = pc.constraint_name
+                   and pc.constraint_type in ('C')
+                   and lower(pc.SEARCH_CONDITION_VC) like '%in%'
+                   and pcc.owner = upper(a.OWNER)
+                   and pcc.table_name = upper(a.TABLE_NAME)) is not null then 'enum'
+
            -- NUMBER
            when a.data_type = 'NUMBER' and a.DATA_PRECISION > 0 and a.DATA_SCALE > 0
                then 'NUMBER' || '(' || a.DATA_PRECISION || ',' || a.DATA_SCALE || ')'

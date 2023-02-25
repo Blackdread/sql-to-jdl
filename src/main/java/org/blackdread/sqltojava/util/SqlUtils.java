@@ -28,7 +28,7 @@ public final class SqlUtils {
      * @return Value without any ID suffix
      */
     public static String removeIdFromEnd(final String value) {
-        return value.endsWith("_id")
+        return value.toLowerCase().endsWith("_id")
             ? value.substring(0, value.length() - 3)
             : value.endsWith("Id") ? value.substring(0, value.length() - 2) : value;
     }
@@ -53,7 +53,10 @@ public final class SqlUtils {
     }
 
     public static String parseSqlType(String value) {
-        String typeName = value.split("\\(")[0];
-        return typeName;
+        // todo: Oracle Bigint, BigDecimal
+        if(value.equals("NUMBER(38)") || value.equals("NUMBER(19,5)")) {
+            return value;
+        }
+        return value.split("\\(")[0];
     }
 }
