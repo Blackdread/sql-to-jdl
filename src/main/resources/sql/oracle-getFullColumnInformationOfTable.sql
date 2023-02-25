@@ -32,7 +32,7 @@ select a.OWNER              as                                                  
            else a.DATA_TYPE
            end                                                                      data_type,
 
-       a.DATA_DEFAULT as                                                            column_default,
+       null                 as                                                      column_default,
        DECODE(a.NULLABLE, 'Y', 'YES', 'N', 'NO')                                    is_nullable,
        c.COMMENTS           as                                                      "COMMENT",
        DECODE((select pc.CONSTRAINT_TYPE
