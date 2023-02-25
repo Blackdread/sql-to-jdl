@@ -1,6 +1,6 @@
-select a.OWNER        as                                                            table_schema,
+select a.OWNER              as                                                      table_schema,
        a.TABLE_NAME,
-       a.COLUMN_NAME,
+       LOWER(a.COLUMN_NAME) as                                                      column_name,
        a.CHAR_LENGTH,
 
        case
@@ -23,7 +23,7 @@ select a.OWNER        as                                                        
 
        a.DATA_DEFAULT as                                                            column_default,
        DECODE(a.NULLABLE, 'Y', 'YES', 'N', 'NO')                                    is_nullable,
-       c.COMMENTS     as                                                            "COMMENT",
+       c.COMMENTS           as                                                      "COMMENT",
        DECODE((select pc.CONSTRAINT_TYPE
                from all_constraints pc,
                     all_cons_columns pcc
@@ -32,7 +32,7 @@ select a.OWNER        as                                                        
                  and pc.constraint_type in ('P', 'U')
                  and pcc.owner = upper(a.OWNER)
                  and pcc.table_name = upper(a.TABLE_NAME)), 'P', 'PRI', 'U', 'UNI') KEY,
-       a.COLUMN_ID    as                                                            ordinal_position
+       a.COLUMN_ID          as                                                      ordinal_position
 
 from all_tab_columns a,
      ALL_TAB_COMMENTS b,

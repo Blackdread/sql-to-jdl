@@ -141,7 +141,7 @@ public class SqlService {
             .getFullColumnInformationOfTable(table.getName())
             .stream()
             .sorted(Comparator.comparingInt(ColumnInformation::getOrdinalPosition))
-            .filter(c -> c.isUnique())
+            .filter(ColumnInformation::isUnique)
             .filter(c -> !isForeignKey(tableName, c.getName()))
             .findFirst()
             .map(ColumnInformation::getName)
