@@ -28,8 +28,18 @@ databaseChangeLog:
     - changeSet:
           id: view-create-view-nonupdateable
           author: jason.long
+          dbms: '!oracle'
           changes:
               - createView:
                     fullDefinition: false
-                    selectQuery: select distinct t.* from test_table t with read only
+                    selectQuery: select distinct t.* from test_table t
                     viewName: nonupdatable
+    -   changeSet:
+            id: view-create-view-nonupdateable-oracle
+            author: jason.long
+            dbms: oracle
+            changes:
+                -   createView:
+                        fullDefinition: false
+                        selectQuery: select distinct t.* from test_table t with read only
+                        viewName: nonupdatable

@@ -1,19 +1,20 @@
 package org.blackdread.sqltojava.util;
 
-import static com.google.common.base.CaseFormat.LOWER_CAMEL;
-
 import com.google.common.base.CaseFormat;
+import org.apache.commons.lang3.StringUtils;
+import org.blackdread.sqltojava.entity.SqlColumn;
+import org.blackdread.sqltojava.entity.SqlTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.blackdread.sqltojava.entity.SqlColumn;
-import org.blackdread.sqltojava.entity.SqlTable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.CaseFormat.LOWER_CAMEL;
 
 public final class SqlUtils {
 
@@ -21,7 +22,8 @@ public final class SqlUtils {
 
     private static final Pattern COLUMN_TYPE_SIZE_REGEX = Pattern.compile("(^[a-z0-9\\s]+)\\(([0-9]+)\\)$", Pattern.CASE_INSENSITIVE);
 
-    private SqlUtils() {}
+    private SqlUtils() {
+    }
 
     /**
      * @param value A string that might ends with "_id" or "Id"
@@ -54,7 +56,7 @@ public final class SqlUtils {
 
     public static String parseSqlType(String value) {
         // todo: Oracle Bigint, BigDecimal
-        if(value.equals("NUMBER(38)") || value.equals("NUMBER(19,5)")) {
+        if (value.equals("NUMBER(38)") || value.equals("NUMBER(19,5)")) {
             return value;
         }
         return value.split("\\(")[0];
