@@ -28,6 +28,7 @@ This implementation works with
   - mysql 5.7.x, 8.x
   - mariadb 10.x
   - postgresql 9.x+
+  - oracle 21
 
 Help is requested on MsSQL and Oracle support.  This will require implementation of SqlJdlTypeService and creating the raw SQL files.  See the MySQL, MariaDB, and PosrgreSQL implemtaitons for examples.
 

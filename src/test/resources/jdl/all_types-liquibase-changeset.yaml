@@ -257,3 +257,89 @@ databaseChangeLog:
                               name: my_uuid
                               type: uuid
                     tableName:  postgres_type
+    - changeSet:
+          id: all_types-create_table_oracle
+          author: mhmmdd
+          dbms: oracle
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: my_id
+                              type: VARCHAR(25)
+                        - column:
+                              name: my_boolean
+                              type: boolean
+                        - column:
+                              name: my_tinyint
+                              type: tinyint
+                        - column:
+                              name: my_int
+                              type: int
+                        - column:
+                              name: my_bigint
+                              type: bigint
+                        - column:
+                              name: my_float
+                              type: float
+                        - column:
+                              name: my_double
+                              type: double
+                        - column:
+                              name: my_decimal
+                              type: decimal
+                        - column:
+                              name: my_number
+                              type: number
+                        - column:
+                              name: my_blob
+                              remarks: blob comment
+                              type: blob
+                        - column:
+                              name: my_datetime
+                              type: datetime
+                        - column:
+                              name: my_time
+                              type: time
+                        - column:
+                              name: my_timestamp
+                              type: timestamp
+                        - column:
+                              name: my_date
+                              type: date
+                        - column:
+                              name: my_char
+                              type: char
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_varchar_50
+                              type: VARCHAR(50)
+                        - column:
+                              name: my_varchar_50_null
+                              type: VARCHAR(50)
+                        - column:
+                              name: my_nchar
+                              type: nchar
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_nvarchar_50
+                              type: NVARCHAR(50)
+                        - column:
+                              name: my_nvarchar_50_null
+                              type: NVARCHAR(50)
+                        - column:
+                              name: my_clob
+                              type: clob
+                        - column:
+                              name: my_currency
+                              type: currency
+                        - column:
+                              name: my_uuid
+                              type: uuid
+                    tableName: oracle_type
+                    remarks: my table comment

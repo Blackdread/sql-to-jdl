@@ -21,7 +21,7 @@ databaseChangeLog:
                               constraints:
                                   nullable: false
                               name: amount
-                              type: decimal
+                              type: DECIMAL(19, 5)
                         - column:
                               constraints:
                                   nullable: false

@@ -40,6 +40,18 @@ databaseChangeLog:
               - sql: create type city_type as enum ('small', 'big', 'mega');
               - rollback: drop type city_type;
     - changeSet:
+          id: enum-add-field-oracle
+          author: mhmmdd
+          dbms: oracle
+          changes:
+              # create enum constraint
+              # https://dba.stackexchange.com/a/81762
+              - sql: ALTER TABLE CITY
+                     ADD (CITY_TYPE VARCHAR2(6)
+                     CONSTRAINT city_type_value CHECK (CITY_TYPE in ('small', 'big', 'mega')));
+                     COMMENT ON COLUMN CITY.CITY_TYPE is 'native enum comment'
+              - rollback: ALTER TABLE CITY DROP COLUMN CITY_TYPE
+    - changeSet:
           id: enum-add-field-postgres
           author: jason.long
           dbms: postgresql
