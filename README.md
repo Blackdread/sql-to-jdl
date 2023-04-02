@@ -88,7 +88,7 @@ Table is treated as enum if only 2 columns and both are: "id" AND ("code" OR "na
 Table is treated as ManyToMany if only 2 columns and both are foreign keys
 
 # Links
-[jHipster JDL](http://www.jhipster.tech/jdl/)
+[jHipster JDL](https://www.jhipster.tech/jdl/intro)
 
 # An alternative for REST filter and sort
 Different criterias, support for JPA and jOOQ dynamic filtering and sorting.
