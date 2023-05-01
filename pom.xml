@@ -42,7 +42,7 @@
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
         <guava.version>31.1-jre</guava.version>
         <mustache.compiler.api.version>0.9.10</mustache.compiler.api.version>
-        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
     </properties>
