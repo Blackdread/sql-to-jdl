@@ -38,7 +38,7 @@
         <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
         <liquibase-core.version>4.19.0</liquibase-core.version>
         <liquibase-maven-plugin.version>4.19.0</liquibase-maven-plugin.version>
-        <checkstyle.version>10.8.0</checkstyle.version>
+        <checkstyle.version>10.10.0</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
         <guava.version>31.1-jre</guava.version>
         <mustache.compiler.api.version>0.9.10</mustache.compiler.api.version>
