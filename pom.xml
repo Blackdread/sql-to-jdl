@@ -36,7 +36,7 @@
 
         <maven.surefire.plugin.version>3.0.0-M9</maven.surefire.plugin.version>
         <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
-        <liquibase-core.version>4.19.0</liquibase-core.version>
+        <liquibase-core.version>4.21.1</liquibase-core.version>
         <liquibase-maven-plugin.version>4.19.0</liquibase-maven-plugin.version>
         <checkstyle.version>10.8.0</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
