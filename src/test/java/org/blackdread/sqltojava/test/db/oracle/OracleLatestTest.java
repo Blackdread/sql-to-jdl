@@ -14,9 +14,7 @@ import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 class OracleLatestTest extends SqlToJdlTransactionPerTestTest {
 
     @Container
-    private static final OracleContainer ORACLE_CONTAINER = new OracleContainer(
-        DockerImageName.parse("gvenzl/oracle-xe:latest")
-    );
+    private static final OracleContainer ORACLE_CONTAINER = new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:latest"));
 
     @SystemStub
     private static EnvironmentVariables env;

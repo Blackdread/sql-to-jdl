@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
+import org.blackdread.sqltojava.entity.SqlColumn;
 import org.blackdread.sqltojava.util.SqlUtils;
 
 public interface SqlJdlTypeService {
@@ -26,5 +27,9 @@ public interface SqlJdlTypeService {
         Map<String, JdlFieldEnum> typeMap = new HashMap<>(defaultTypeMap);
         overrides.forEach((k, v) -> typeMap.merge(k, v, (v1, v2) -> v2));
         return ImmutableMap.copyOf(typeMap);
+    }
+
+    default Integer calculateStringMaxLength(SqlColumn column) {
+        return SqlUtils.parseSqlSize(column.getType()).orElse(255);
     }
 }

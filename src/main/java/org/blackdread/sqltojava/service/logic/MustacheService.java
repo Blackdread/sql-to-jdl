@@ -12,6 +12,7 @@ import java.util.Map;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.impl.JdlEntityImpl;
 import org.blackdread.sqltojava.entity.impl.JdlFieldImpl;
+import org.blackdread.sqltojava.entity.impl.JdlRelationGroupImpl;
 import org.blackdread.sqltojava.entity.impl.JdlRelationImpl;
 import org.blackdread.sqltojava.view.mapper.JdlViewMapperImpl;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class MustacheService {
     }
 
     private String replaceMultpleBlankLinesWithOne(String s) {
-        return s.replaceAll("([ \\t]*\\n){3,}", "\\\n\\\n").replaceAll("\\n\\n$", "\\\n");
+        return s.replaceAll("([ \\tw]*\\n){3,}", "\\\n\\\n").replaceAll("\\n\\n$", "\\\n");
     }
 
     /**
@@ -72,6 +73,7 @@ public class MustacheService {
 
         @Override
         public Object coerce(Object o) {
+            if (o instanceof JdlRelationGroupImpl) return mapper.relationToView((JdlRelationGroupImpl) o);
             if (o instanceof JdlEntityImpl) return mapper.entityToView((JdlEntityImpl) o, properties.getUndefinedTypeHandling());
             if (o instanceof JdlFieldImpl) return mapper.fieldToView((JdlFieldImpl) o);
             if (o instanceof JdlRelationImpl) return mapper.relationToView((JdlRelationImpl) o);

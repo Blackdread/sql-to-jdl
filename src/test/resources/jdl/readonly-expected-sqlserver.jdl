@@ -1,0 +1,17 @@
+/** view */
+@readOnly
+entity Nonupdatable {
+    id Long required,
+    num Integer required
+}
+
+entity TestTable {
+    num Integer required
+}
+
+/** view */
+@readOnly
+entity Updatable {
+    id Long required,
+    num Integer required
+}

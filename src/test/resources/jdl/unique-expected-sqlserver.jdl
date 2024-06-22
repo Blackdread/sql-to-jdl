@@ -1,0 +1,4 @@
+entity Student {
+    id Integer required,
+    ssnNumber String required unique maxlength(100)
+}

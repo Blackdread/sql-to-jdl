@@ -16,9 +16,7 @@ class Postgres09Test extends SqlToJdlTransactionPerTestTest {
     static String dockerImageName;
 
     @Container
-    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-        DockerImageName.parse("postgres:9")
-    );
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:9"));
 
     @SystemStub
     private static EnvironmentVariables env;

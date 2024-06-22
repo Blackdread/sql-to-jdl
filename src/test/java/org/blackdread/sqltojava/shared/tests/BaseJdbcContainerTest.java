@@ -49,14 +49,14 @@ public abstract class BaseJdbcContainerTest implements LoggingTest, EnvironmentT
      */
     private static String getDefaultSchema(JdbcDatabaseContainer c) throws IllegalArgumentException {
         //TODO use Pattern matching for switch when out of preview
-        if (c instanceof MySQLContainer || c instanceof MariaDBContainer ) {
+        if (c instanceof MySQLContainer || c instanceof MariaDBContainer) {
             return "test";
         } else if (c instanceof OracleContainer) {
             return "TEST";
         } else if (c instanceof PostgreSQLContainer) {
             return "public";
         } else if (c instanceof MSSQLServerContainer) {
-            return "test";
+            return "dbo";
         } else {
             throw new IllegalArgumentException("Unrecognized JdbcDatabaseContainer " + container.getClass());
         }

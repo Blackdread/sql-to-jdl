@@ -1,0 +1,83 @@
+databaseChangeLog:
+    - changeSet:
+          id: enum-create-table-city
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: NVARCHAR(25)
+                        - column:
+                              name: name
+                              type: NVARCHAR(45)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: city_status_id
+                              type: NVARCHAR(25)
+                              remarks: city_status comment
+                    tableName: city
+    - changeSet:
+          id: enum-add-field-sqlserver
+          author: jason.long (generated)
+#          dbms: sqlserver
+          changes:
+              - addColumn:
+                    tableName: city
+                    columns:
+                    - column:
+                          name: city_type
+                          remarks: native enum comment
+                          type: NVARCHAR(6)
+                          constraints:
+                              check: CITY_TYPE in ('small', 'big', 'mega')
+    - changeSet:
+          id: enum-create-table-city_status
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: id
+                              type: NVARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  unique: true
+                              name: name
+                              type: NVARCHAR(255)
+                    remarks: city_status comment
+                    tableName: city_status
+    - changeSet:
+          id: enum-add-idx_city_city_status
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - createIndex:
+                    columns:
+                        - column:
+                              name: city_status_id
+                    indexName: fk_city_city_status1_idx
+                    tableName: city
+    - changeSet:
+          id: enum-add-fk_city_city_status
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+          changes:
+              - addForeignKeyConstraint:
+                    baseColumnNames: city_status_id
+                    baseTableName: city
+                    constraintName: fk_city_city_status1
+                    deferrable: false
+                    initiallyDeferred: false
+                    onDelete: RESTRICT
+                    onUpdate: RESTRICT
+                    referencedColumnNames: id
+                    referencedTableName: city_status
+                    validate: true
+

@@ -1,10 +1,16 @@
 package org.blackdread.sqltojava.service.logic;
 
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
+import static org.blackdread.sqltojava.util.NamingConventionUtil.*;
+
+import java.util.*;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.*;
 import org.blackdread.sqltojava.entity.impl.JdlEntityImpl;
 import org.blackdread.sqltojava.entity.impl.JdlFieldImpl;
+import org.blackdread.sqltojava.entity.impl.JdlRelationGroupImpl;
 import org.blackdread.sqltojava.entity.impl.JdlRelationImpl;
 import org.blackdread.sqltojava.service.SqlJdlTypeService;
 import org.blackdread.sqltojava.util.JdlUtils;
@@ -12,14 +18,6 @@ import org.blackdread.sqltojava.util.SqlUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 @Service
 public class JdlService {
@@ -56,8 +54,56 @@ public class JdlService {
         return entities.stream().flatMap(e -> e.getRelations().stream()).collect(Collectors.toList());
     }
 
+    public List<JdlRelation> getOneToOneRelations(List<JdlEntity> entities) {
+        return entities
+            .stream()
+            .flatMap(e -> e.getRelations().stream())
+            .filter(f -> RelationType.OneToOne.equals(f.getRelationType()))
+            .collect(Collectors.toList());
+    }
+
+    public List<JdlRelation> getManyToOneRelations(List<JdlEntity> entities) {
+        return entities
+            .stream()
+            .flatMap(e -> e.getRelations().stream())
+            .filter(f -> RelationType.ManyToOne.equals(f.getRelationType()))
+            .collect(Collectors.toList());
+    }
+
+    public JdlRelationGroupImpl getGroupManyToOneRelations(List<JdlEntity> entities) {
+        List<JdlRelation> idRelations = entities
+            .stream()
+            .flatMap(e -> e.getRelations().stream())
+            .filter(f -> RelationType.ManyToOne.equals(f.getRelationType()))
+            .collect(Collectors.toList());
+
+        return new JdlRelationGroupImpl(RelationType.ManyToOne, idRelations);
+    }
+
+    public JdlRelationGroupImpl getGroupOneToOneRelations(List<JdlEntity> entities) {
+        List<JdlRelation> idRelations = entities
+            .stream()
+            .flatMap(e -> e.getRelations().stream())
+            .filter(f -> RelationType.OneToOne.equals(f.getRelationType()))
+            .collect(Collectors.toList());
+
+        return new JdlRelationGroupImpl(RelationType.OneToOne, idRelations);
+    }
+
+    public List<JdlRelation> getManyToManyRelations(List<JdlEntity> entities) {
+        return entities
+            .stream()
+            .flatMap(e -> e.getRelations().stream())
+            .filter(e -> RelationType.ManyToMany.equals(e.getRelationType()))
+            .collect(Collectors.toList());
+    }
+
+    private boolean nonDefaultPrimaryKeyFields(final JdlField f) {
+        return !isDefaultPrimaryKey(f);
+    }
+
     private boolean isDefaultPrimaryKey(JdlField f) {
-        return !(f.isPrimaryKey() && f.getType().equals(JdlFieldEnum.LONG) && f.getName().equals("id"));
+        return f.isPrimaryKey() && f.getType().equals(LONG) && f.getName().equals("id");
     }
 
     protected Optional<JdlEntity> buildEntity(final Map.Entry<SqlTable, List<SqlColumn>> entry) {
@@ -67,7 +113,7 @@ public class JdlService {
             .map(this::buildField)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(this::isDefaultPrimaryKey)
+            .filter(this::nonDefaultPrimaryKeyFields)
             .collect(Collectors.toList());
 
         final List<JdlRelation> existingRelations = new ArrayList<>();
@@ -89,12 +135,12 @@ public class JdlService {
         if (reserved.contains(entityName.toUpperCase())) {
             String msg =
                 "Skipping processing table [" +
-                    entry.getKey().getName() +
-                    "] because " +
-                    " the transformed entity name [" +
-                    entityName +
-                    "] matches with one of the keywords " +
-                    reserved;
+                entry.getKey().getName() +
+                "] because " +
+                " the transformed entity name [" +
+                entityName +
+                "] matches with one of the keywords " +
+                reserved;
             log.error(msg);
             return Optional.empty();
         }
@@ -148,12 +194,13 @@ public class JdlService {
         } else {
             if (isNativeEnum) {
                 jdlType = ENUM;
-                name = SqlUtils.changeToCamelCase(column.getName());
+                name = SqlUtils.changeToCamelCase(toTitleCase(column.getName()).replace(" ", ""));
                 // todo name of enumEntityName is not great but never mind
                 enumEntityName = StringUtils.capitalize(SqlUtils.changeToCamelCase(SqlUtils.removeIdFromEnd(column.getName())));
             } else {
                 jdlType = sqlJdlTypeService.sqlTypeToJdlType(column.getType());
-                name = SqlUtils.changeToCamelCase(column.getName());
+                name = SqlUtils.changeToCamelCase(replaceSlavenChars(toTitleCase(column.getName())));
+                log.info("column name change sql to jdl format: {}, {}", column.getName(), name);
                 enumEntityName = null;
             }
             if (jdlType == UNSUPPORTED) {
@@ -170,7 +217,7 @@ public class JdlService {
             // We always define max for string
             case STRING -> {
                 min = null;
-                max = SqlUtils.parseSqlSize(column.getType()).orElse(255);
+                max = sqlJdlTypeService.calculateStringMaxLength(column);
             }
             case TIME_AS_TEXT -> {
                 pattern = "^(([0-1]\\d)|(2[0-3])):([0-5]\\d):([0-5]\\d)$";
@@ -272,11 +319,11 @@ public class JdlService {
             if (ownerEntityName.equals(inverseSideEntityName)) {
                 String msg =
                     "Detected a Self Reference in the table " +
-                        tableName +
-                        ". JHipster JDL currently does not support Reflexive relationships. " +
-                        "Set [nullable] as [true] for column [" +
-                        columnName +
-                        "] to fix errors when using the JDL with JHipster";
+                    tableName +
+                    ". JHipster JDL currently does not support Reflexive relationships. " +
+                    "Set [nullable] as [true] for column [" +
+                    columnName +
+                    "] to fix errors when using the JDL with JHipster";
                 log.warn(msg);
                 required = false;
             }
@@ -322,8 +369,8 @@ public class JdlService {
             .stream()
             .anyMatch(jdlRelation ->
                 ownerEntityName.equals(jdlRelation.getOwnerEntityName()) &&
-                    possibleRelationName.equals(jdlRelation.getInverseSideRelationName().orElse(null)) &&
-                    inverseSideEntityName.equals(jdlRelation.getInverseSideEntityName())
+                possibleRelationName.equals(jdlRelation.getInverseSideRelationName().orElse(null)) &&
+                inverseSideEntityName.equals(jdlRelation.getInverseSideEntityName())
             );
 
         if (relationAlreadyExist) {

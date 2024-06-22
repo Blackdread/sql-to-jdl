@@ -1,0 +1,146 @@
+databaseChangeLog:
+    - changeSet:
+          id: all_types-create_table_all
+          author: Generated with liquibase:generate-changelog from flyway sql from existing tests
+#          dbms: sqlserver
+          changes:
+              - createTable:
+                    columns:
+                        - column:
+                              constraints:
+                                  nullable: false
+                                  primaryKey: true
+                              name: my_id
+                              type: NVARCHAR(25)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              defaultValueNumeric: 55
+                              name: my_int
+                              type: INT
+                        - column:
+                              name: my_int_null
+                              type: INT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              defaultValue: default of varchar 50
+                              name: my_varchar_50
+                              type: NVARCHAR(50)
+                        - column:
+                              name: my_varchar_50_null
+                              type: NVARCHAR(50)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_varchar_512
+                              remarks: super varchar 512
+                              type: NVARCHAR(512)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinytext
+                              type: NVARCHAR(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_mediumtext
+                              type: NVARCHAR(max)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_longtext
+                              type: NVARCHAR(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_text
+                              type: NVARCHAR(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_char
+                              type: CHAR(5)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_date
+                              type: DATE
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_datetime
+                              type: DATETIME
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_timestamp
+                              type: DATETIME
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_time
+                              type: TIME
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bigint
+                              type: BIGINT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyint
+                              type: TINYINT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_smallint
+                              type: SMALLINT
+                              remarks: small int comment
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_decimal
+                              type: DECIMAL(19, 5)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_double
+                              type: FLOAT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bit
+                              type: BIT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_bool
+                              type: BIT
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_json
+                              type: NVARCHAR(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyblob
+                              type: VARBINARY(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_mediumblob
+                              type: VARBINARY(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_longblob
+                              type: VARBINARY(MAX)
+                        - column:
+                              constraints:
+                                  nullable: false
+                              name: my_tinyint_8
+                              type: TINYINT
+                    remarks: my table comment
+                    tableName: all_type

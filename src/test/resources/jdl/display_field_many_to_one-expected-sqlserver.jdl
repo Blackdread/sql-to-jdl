@@ -1,0 +1,13 @@
+entity Player {
+    name String required unique maxlength(255)
+}
+
+entity Team {
+    abrev String required unique maxlength(4),
+    name String required unique maxlength(255)
+}
+
+// Relations
+relationship ManyToOne {
+    Player{team(abrev) required} to Team{player(name)}
+}

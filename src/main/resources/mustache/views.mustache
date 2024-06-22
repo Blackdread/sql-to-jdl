@@ -1,0 +1,22 @@
+{{#views}}
+{{^value.isPureManyToMany}}
+{{#value.comment}}
+{{value.docComment}}
+{{/value.comment}}
+{{#value.isReadOnly}}
+@readOnly
+{{/value.isReadOnly}}
+{{value.type}} {{value.name}}{{value.tableName}} {
+{{#value.filteredFields}}
+{{#value.comment}}
+    {{value.docComment}}
+{{/value.comment}}
+    {{value.name}} {{value.typeName}}{{value.constraints}}{{^last}},{{/last}}
+{{/value.filteredFields}}
+}
+{{^last}}{{/last}}
+{{/value.isPureManyToMany}}
+{{/views}}
+{{^views}}
+// No views were found for which JDL is to be generated. Please review console logs
+{{/views}}
