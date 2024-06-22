@@ -42,7 +42,11 @@ public interface JdlEntityView extends JdlEntity, JdlCommentView {
                         log().warn("Skipping unsupportd field {}", field);
                         return false;
                     }
-                    case ERROR -> throw new RuntimeException(String.format("Unsupported jdl type %s", field));
+                    //                    case ERROR -> throw new RuntimeException(String.format("Unsupported jdl type %s", field));
+                    case ERROR -> {
+                        log().error("Unsupported jdl type {}", field);
+                        return false;
+                    }
                     default -> throw new RuntimeException(
                         String.format("Unhandled UndefinedJdlTypeHandlingEnum.{}", undefinedJdlTypeHandling)
                     );

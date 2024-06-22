@@ -40,7 +40,7 @@
         <liquibase-maven-plugin.version>4.19.0</liquibase-maven-plugin.version>
         <checkstyle.version>10.8.0</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
-        <guava.version>31.1-jre</guava.version>
+<!--        <guava.version>31.1-jre</guava.version>-->
         <mustache.compiler.api.version>0.9.10</mustache.compiler.api.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
@@ -86,11 +86,11 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.google.guava</groupId>-->
+<!--            <artifactId>guava</artifactId>-->
+<!--            <version>${guava.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -103,6 +103,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
+            <version>12.4.2.jre11</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
