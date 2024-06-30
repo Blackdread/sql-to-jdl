@@ -1,4 +1,4 @@
 entity Student {
     id Integer required,
-    ssnnumber String required unique maxlength(100)
+    ssnNumber String required unique maxlength(100)
 }

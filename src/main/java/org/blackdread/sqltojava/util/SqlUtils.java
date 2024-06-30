@@ -1,6 +1,7 @@
 package org.blackdread.sqltojava.util;
 
 import static com.google.common.base.CaseFormat.LOWER_CAMEL;
+import static java.util.Optional.empty;
 
 import com.google.common.base.CaseFormat;
 import java.util.List;
@@ -68,11 +69,16 @@ public final class SqlUtils {
         value = StringUtils.trim(value);
         final Matcher matcher = COLUMN_TYPE_SIZE_REGEX.matcher(value);
 
+        if ("character varying".equalsIgnoreCase(value)) {
+            // quick fix due to new regex used -> "matcher.matches()" returns true
+            return empty();
+        }
+
         if (matcher.matches()) {
             return Optional.of(Integer.valueOf(matcher.group(3)));
         }
         log.warn("Did not find sql size from: {}", value);
-        return Optional.empty();
+        return empty();
     }
 
     public static String parseSqlType(String value) {
