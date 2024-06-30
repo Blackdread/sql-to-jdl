@@ -15,10 +15,10 @@ spring:
 
 application:
     reserved-keywords: classpath:reserved/keywords.json
-    database-to-export: my_database_name
-    database_object_types_config: TABLES # TABLES, ViEWS, ALL
+    database-to-export: dbo
+    database_object_types_config: ALL # TABLES, ViEWS, ALL
     render_entities_only: false
-    assume_bidirectional: true
+    assume_bidirectional: false
     database-object-prefix:
         - t_
         - v_
@@ -40,6 +40,14 @@ application:
         - QRTZ_SIMPLE_TRIGGERS
         - QRTZ_SIMPROP_TRIGGERS
         - QRTZ_TRIGGERS
+        - MSreplication_options
+        - spt_fallback_db
+        - spt_fallback_dev
+        - spt_fallback_usg
+        - spt_monitor
+        - spt_values
     export:
         path: ./my-project-jdl.jh
         type: jdl
+        export-file-structure-type: GROUPED_RELATIONS_SEPARATE_VIEWS
+        export-mustache-template-filename-optional:

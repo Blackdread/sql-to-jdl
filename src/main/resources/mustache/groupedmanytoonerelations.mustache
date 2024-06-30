@@ -1,0 +1,15 @@
+{{#groupedmanytoonerelations}}
+
+{{#first}}// Grouped Relations{{/first}}
+{{#isPureManyToMany}}
+    // TODO This is a pure ManyToMany relation (delete me and decide owner side)
+{{/isPureManyToMany}}
+{{#comment}}
+    {{implComment}}
+{{/comment}}
+relationship {{relationType}} {
+{{#relations}}
+    {{value.ownerEntityName}}{{value.ownerConfig}} to {{value.inverseSideEntityName}}{{value.inverseConfig}}
+{{/relations}}
+}
+{{/groupedmanytoonerelations}}

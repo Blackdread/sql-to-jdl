@@ -11,7 +11,6 @@ import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
 import uk.org.webcompere.systemstubs.jupiter.SystemStub;
 import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
-@Disabled("Implementation incomplete")
 @ExtendWith(SystemStubsExtension.class)
 class MssqlSql2019Test extends SqlToJdlTransactionPerTestTest {
 

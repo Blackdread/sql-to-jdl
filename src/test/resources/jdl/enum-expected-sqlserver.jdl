@@ -1,0 +1,11 @@
+entity City {
+    id String required maxlength(25),
+    name String maxlength(45),
+    /** city_status comment */
+    cityStatus CityStatus required,
+    cityType String maxlength(6)
+}
+
+/** city_status comment */
+enum CityStatus {
+}

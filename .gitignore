@@ -4,6 +4,7 @@
 classes/artifacts
 /my-project-jdl.jh
 /*.jdl
+/*.jh
 
 ######################
 # Eclipse

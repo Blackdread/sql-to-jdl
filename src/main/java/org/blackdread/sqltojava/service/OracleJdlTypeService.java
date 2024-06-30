@@ -1,16 +1,15 @@
 package org.blackdread.sqltojava.service;
 
+import static java.util.Map.entry;
+import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
+
+import java.util.Map;
 import org.blackdread.sqltojava.config.ApplicationProperties;
 import org.blackdread.sqltojava.entity.JdlFieldEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
-
-import static java.util.Map.entry;
-import static org.blackdread.sqltojava.entity.JdlFieldEnum.*;
 
 @Service
 @Profile("oracle")

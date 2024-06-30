@@ -41,6 +41,14 @@ application:
         - QRTZ_SIMPLE_TRIGGERS
         - QRTZ_SIMPROP_TRIGGERS
         - QRTZ_TRIGGERS
+        - MSreplication_options
+        - spt_fallback_db
+        - spt_fallback_dev
+        - spt_fallback_usg
+        - spt_monitor
+        - spt_values
     export:
         path: ./my-project-jdl.jh
         type: jdl
+        export-file-structure-type: SEPARATED
+        export-mustache-template-filename-optional:
