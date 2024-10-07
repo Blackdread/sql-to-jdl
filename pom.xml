@@ -29,20 +29,20 @@
 
         <guava.version>33.3.1-jre</guava.version>
 
-        <testcontainers.version>1.17.6</testcontainers.version>
+        <testcontainers.version>1.20.2</testcontainers.version>
 
         <!-- By default just re-write code with prettier -->
         <plugin.prettier.goal>write</plugin.prettier.goal>
 
-        <maven.surefire.plugin.version>3.0.0-M9</maven.surefire.plugin.version>
-        <maven.checkstyle.plugin.version>3.2.1</maven.checkstyle.plugin.version>
-        <liquibase-core.version>4.19.0</liquibase-core.version>
-        <liquibase-maven-plugin.version>4.19.0</liquibase-maven-plugin.version>
-        <checkstyle.version>10.8.0</checkstyle.version>
+        <maven.surefire.plugin.version>3.5.1</maven.surefire.plugin.version>
+        <maven.checkstyle.plugin.version>3.5.0</maven.checkstyle.plugin.version>
+        <liquibase-core.version>4.29.2</liquibase-core.version>
+        <liquibase-maven-plugin.version>4.29.2</liquibase-maven-plugin.version>
+        <checkstyle.version>10.18.2</checkstyle.version>
         <plugin.checkstyle.goal>check</plugin.checkstyle.goal>
 <!--        <guava.version>31.1-jre</guava.version>-->
-        <mustache.compiler.api.version>0.9.10</mustache.compiler.api.version>
-        <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+        <mustache.compiler.api.version>0.9.14</mustache.compiler.api.version>
+        <org.mapstruct.version>1.6.2</org.mapstruct.version>
         <!--<jacoco-plugin.version>0.7.9</jacoco-plugin.version>-->
         <!--<coveralls-plugin.version>4.3.0</coveralls-plugin.version>-->
     </properties>
@@ -103,7 +103,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>12.4.2.jre11</version>
+            <version>12.8.1.jre11</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -166,7 +166,7 @@
         <dependency>
             <groupId>uk.org.webcompere</groupId>
             <artifactId>system-stubs-jupiter</artifactId>
-            <version>2.0.2</version>
+            <version>2.1.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -253,7 +253,7 @@
             <plugin>
                 <groupId>com.hubspot.maven.plugins</groupId>
                 <artifactId>prettier-maven-plugin</artifactId>
-                <version>0.19</version>
+                <version>0.22</version>
                 <configuration>
                   <prettierJavaVersion>1.5.0</prettierJavaVersion>
                 </configuration>
