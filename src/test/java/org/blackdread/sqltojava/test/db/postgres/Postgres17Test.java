@@ -14,9 +14,7 @@ import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 class Postgres17Test extends SqlToJdlTransactionPerTestTest {
 
     @Container
-    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-        DockerImageName.parse("postgres:17-alpine")
-    );
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(DockerImageName.parse("postgres:17-alpine"));
 
     @SystemStub
     private static EnvironmentVariables env;
