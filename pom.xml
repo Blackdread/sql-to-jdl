@@ -27,7 +27,7 @@
         <database.user>root</database.user>
         <database.password></database.password>
 
-        <guava.version>31.1-jre</guava.version>
+        <guava.version>33.3.1-jre</guava.version>
 
         <testcontainers.version>1.17.6</testcontainers.version>
 
