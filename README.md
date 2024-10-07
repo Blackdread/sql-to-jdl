@@ -25,7 +25,7 @@ _Don't forget to install git, maven 3 and java 17 before launching_
 
 # Compatibility
 This implementation works with 
-  - mysql 5.7.x, 8.x
+  - mysql 5.7.x, 8.x, 9.x
   - mariadb 10.x
   - postgresql 9.x+
   - oracle 21

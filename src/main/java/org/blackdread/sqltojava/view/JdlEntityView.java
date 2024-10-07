@@ -4,7 +4,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.blackdread.sqltojava.config.UndefinedJdlTypeHandlingEnum;
 import org.blackdread.sqltojava.entity.JdlEntity;
 import org.blackdread.sqltojava.entity.JdlField;
@@ -45,10 +44,10 @@ public interface JdlEntityView extends JdlEntity, JdlCommentView {
                         return false;
                     }
                     case ERROR -> throw new RuntimeException(String.format("Unsupported jdl type %s", field));
-//                    case ERROR -> {
-//                        log().error("Unsupported jdl type {}", field);
-//                        return false;
-//                    }
+                    //                    case ERROR -> {
+                    //                        log().error("Unsupported jdl type {}", field);
+                    //                        return false;
+                    //                    }
                     default -> throw new RuntimeException(
                         String.format("Unhandled UndefinedJdlTypeHandlingEnum: %s", undefinedJdlTypeHandling)
                     );

@@ -15,7 +15,7 @@ class Postgres15Test extends SqlToJdlTransactionPerTestTest {
 
     @Container
     private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-        DockerImageName.parse("postgres:15beta4-alpine")
+        DockerImageName.parse("postgres:15-alpine")
     );
 
     @SystemStub
