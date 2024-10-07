@@ -75,7 +75,7 @@ public class ExportService {
                 entry("groupedmanytoonerelations", jdlService.getGroupManyToOneRelations(tables)),
                 entry("manytomanyrelations", jdlService.getManyToManyRelations(tables)),
                 entry("views", views),
-                entry("viewrelations", jdlService.getRelations(views)),
+                entry("viewsrelations", jdlService.getRelations(views)),
                 entry("options", !properties.isRenderEntitiesOnly() ? JdlUtils.getOptions() : Collections.emptyList())
             );
         } else if (
@@ -90,7 +90,7 @@ public class ExportService {
                 entry("manytoonerelations", jdlService.getManyToOneRelations(tables)),
                 entry("manytomanyrelations", jdlService.getManyToManyRelations(tables)),
                 entry("views", views),
-                entry("viewrelations", jdlService.getRelations(views)),
+                entry("viewsrelations", jdlService.getRelations(views)),
                 entry("options", !properties.isRenderEntitiesOnly() ? JdlUtils.getOptions() : Collections.emptyList())
             );
         }
